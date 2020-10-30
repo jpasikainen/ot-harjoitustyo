@@ -1,0 +1,74 @@
+commit bf9b1168b58b9261abaaf621f4b1466cc067ac66
+Author: jpasikainen <jpasikainen@pm.me>
+Date:   Fri Oct 30 12:41:24 2020 +0200
+
+    Muutettu tiedostot sisältöä
+
+ tiedostot/file22 | 0
+ tiedostot/file3  | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 3db71467e4e7e9810bb6cb82b6c6171652622b4b
+Author: jpasikainen <jpasikainen@pm.me>
+Date:   Fri Oct 30 12:30:08 2020 +0200
+
+    Muutettu eka ja kolmas.txt
+
+ eka.txt    | 2 +-
+ kolmas.txt | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+commit c83e21abeeecf4c04e3753ff826470badc58aeb3
+Author: jpasikainen <jpasikainen@pm.me>
+Date:   Fri Oct 30 12:28:33 2020 +0200
+
+    tiedosto.txt nimetty eka.txt
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit a3d91fa54e1d665b04e917362daadcac3a7f5cb8
+Author: jpasikainen <jpasikainen@pm.me>
+Date:   Fri Oct 30 12:27:44 2020 +0200
+
+    Poistettu toinen.txt
+
+ toinen.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 6b96df4f006116880f14e635ffcd1382c6e76b45
+Author: jpasikainen <jpasikainen@pm.me>
+Date:   Fri Oct 30 12:26:13 2020 +0200
+
+    Luotu uusi hakemisto ja lisätty sinne hello.txt
+
+ stuff/hello.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 14597ad947c8b5402658b4b3595424aab3d8b334
+Author: jpasikainen <jpasikainen@pm.me>
+Date:   Fri Oct 30 12:25:21 2020 +0200
+
+    kolmas.txt luotu
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 5d137e331bd1d630b7116de8a97e0b2c02566d9d
+Author: jpasikainen <jpasikainen@pm.me>
+Date:   Fri Oct 30 12:23:54 2020 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit b2773600372571086b90d3b802ecdcef7b9e1e65
+Author: jpasikainen <jpasikainen@pm.me>
+Date:   Fri Oct 30 12:22:22 2020 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
