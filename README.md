@@ -4,3 +4,4 @@
 [gitlog.txt](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)\
 </br>
 [komentorivi.txt](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+### Viikko 2
