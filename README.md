@@ -2,4 +2,5 @@
 ## Tehtävät
 ### Viikko 1
 [gitlog.txt](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)\
+</br>
 [komentorivi.txt](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
