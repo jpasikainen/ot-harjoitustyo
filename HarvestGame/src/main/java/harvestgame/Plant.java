@@ -23,7 +23,7 @@ public class Plant {
     @Override
     public String toString() {
         return String.format(
-                "%s: costs %d, dries soil every %d day, and takes %d days to grow",
+                "%s: costs %d, dries soil every %d days, and takes %d days to grow",
                 name, price, soilDryness, growingTime
         );
     }
