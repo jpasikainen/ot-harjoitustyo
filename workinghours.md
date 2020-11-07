@@ -2,4 +2,4 @@
 
 | Date  | Time (h)  | Summary |
 | ----  | --------  | ------- |
-| 11/7  | 2         | Setup the IDE and made a test program that compiled successfully with JavaFX  |
+| 11/7  | 4         | Setup the IDE, wrote pom, created a testing database and a class for it.  |
