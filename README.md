@@ -20,10 +20,9 @@ Pelissä on tarkoitus kasvattaa kasveja ja myydä niitä saadaksesi rahaa. Rahal
 
 ## Laskarit
 ### Viikko 1
-[gitlog.txt](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
-
-
+[gitlog.txt](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)\
 [komentorivi.txt](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 
 ### Viikko 2
-[testikattavuus.png](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/laskarit/viikko2/testikattavuus.png)
+[testikattavuus.png](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/laskarit/viikko2/testikattavuus.png)\
+[työaikakirjanpito](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/workinghours.md)
