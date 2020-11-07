@@ -13,9 +13,9 @@ Pelissä on tarkoitus kasvattaa kasveja ja myydä niitä saadaksesi rahaa. Rahal
 
 
 #### Jatkokehitysideoita:
-- Graafinen käyttöliittymä
+- Graafinen käyttöliittymä JavaFX:llä
 - Pelin tallentaminen
-- Lanneoitteet -> nopeuttavat kasvien kasvamista, uusi tietokantataulu
+- Lannoitteet -> nopeuttavat kasvien kasvamista, uusi tietokantataulu
 - Vuodenajat -> tietyt kasvit 
 
 ## Laskarit
