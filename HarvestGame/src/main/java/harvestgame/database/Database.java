@@ -5,7 +5,7 @@
  */
 package harvestgame.database;
 
-import harvestgame.Plant;
+import harvestgame.core.Plant;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.ResultSet;

@@ -10,37 +10,40 @@ import harvestgame.database.Store;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.ArrayList;
 
 /**
  *
  * @author jpasikainen
  */
-public class TextUI {
-    private Store store;
-    
+public class TextUI { 
     private final Scanner scanner;
-    private final Map<String, String> commands;
+    private final Map<String, String> baseCommands;
+    private final Map<String, String> storeCommands;
+    private final Store store;
     
     // Create new scanner for input
     public TextUI(Store store) {
         this.store = store;
-        
         scanner = new Scanner(System.in);
-        commands = new TreeMap<>();
         
-        commands.put("q", "q quit");
-        commands.put("1", "1 Store");
+        baseCommands = new TreeMap<>(); 
+        baseCommands.put("q", "q Quit");
+        baseCommands.put("1", "1 Store");
+        
+        storeCommands = new TreeMap<>();
+        storeCommands.put("q", "q Return");
+        storeCommands.put("b", "b Buy");
+        storeCommands.put("s", "s Sell");
     }
     
     public void start() {
         while (true) {
-            printInstructions();
+            printInstructions(baseCommands);
             System.out.println("Input command:");
             String command = scanner.nextLine();
             System.out.println();
             
-            switch (command) {
+            switch (command.toLowerCase()) {
                 case "q":
                     System.out.println("Quit");
                     System.exit(0);
@@ -52,22 +55,38 @@ public class TextUI {
                 //default breaks Netbeans' autocomplete
                 //default:
             }
-            
-            System.out.println("Press any key to continue....");
-            scanner.nextLine();
         }
     }
     
-    private void printInstructions() {
+    private void printInstructions(Map commandsMap) {
         System.out.println("----------------");
-        commands.values().forEach(command -> {
+        commandsMap.values().forEach(command -> {
             System.out.println(command);
         });
     }
     
     private void activateStore() {
-        store.listPlants().forEach(plant -> {
-            System.out.println(plant);
-        });
+        while (true) {
+            printInstructions(storeCommands);
+            System.out.println("Input command:");
+            String command = scanner.nextLine();
+            System.out.println();
+
+            switch (command.toLowerCase()) {
+                case "q":
+                    return;
+                case "b":
+                    storeListPlants();
+                    break;
+            }
+        }
+    }
+    
+    private void storeListPlants() {
+        int i = 0;
+        for (String plant : store.listPlants()) {
+            System.out.println(i + " " + plant);
+            i++;
+        }
     }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package harvestgame;
+package harvestgame.core;
 
 import harvestgame.database.Database;
 import harvestgame.database.Store;

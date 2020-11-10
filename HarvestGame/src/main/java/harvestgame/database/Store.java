@@ -5,7 +5,7 @@
  */
 package harvestgame.database;
 
-import harvestgame.Plant;
+import harvestgame.core.Plant;
 
 import java.util.ArrayList;
 
