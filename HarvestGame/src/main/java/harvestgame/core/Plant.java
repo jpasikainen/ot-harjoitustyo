@@ -10,10 +10,11 @@ package harvestgame.core;
  * @author jpasikainen
  */
 public class Plant {
-    private int price, soilDryness, growingTime;
+    private int id, price, soilDryness, growingTime;
     private String name;
     
-    public Plant(String name, int price, int soilDryness, int growingTime) {
+    public Plant(int id, String name, int price, int soilDryness, int growingTime) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.soilDryness = soilDryness;
@@ -27,8 +28,8 @@ public class Plant {
     @Override
     public String toString() {
         return String.format(
-                "%s: costs %d, dries soil every %d days, and takes %d days to grow",
-                name, price, soilDryness, growingTime
+                "%d %s: costs %d, dries soil every %d days, and takes %d days to grow",
+                id, name, price, soilDryness, growingTime
         );
     }
 }

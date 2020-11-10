@@ -5,6 +5,7 @@
  */
 package harvestgame.core;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -30,5 +31,17 @@ public class Player {
     
     public void addItem(Plant plant) {
         inventory.add(plant);
+    }
+
+    public void removeItem(Plant plant) {
+        inventory.remove(plant);
+    }
+
+    public ArrayList<Plant> getInventory() {
+        return inventory;
+    }
+
+    public Plant getItem(int id) {
+        return inventory.get(id);
     }
 }

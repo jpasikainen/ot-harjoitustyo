@@ -19,7 +19,8 @@ public class Game {
     private static Store store;
     private static TextUI ui;
     private static Player player;
-    
+    private static Field field;
+
     public static void main(String[] args) {
         gameInit();
         
@@ -30,7 +31,12 @@ public class Game {
         player = new Player(100);
         db = new Database("jdbc:sqlite:database/Database.db");
         store = new Store(db);
-        ui = new TextUI(store, player);
+        field = new Field(10);
+        ui = new TextUI(store, player, field);
         ui.start();
+    }
+
+    public static Player getPlayer() {
+        return player;
     }
 }

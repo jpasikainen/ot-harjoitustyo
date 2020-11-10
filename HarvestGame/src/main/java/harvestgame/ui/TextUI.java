@@ -7,6 +7,7 @@ package harvestgame.ui;
 
 import harvestgame.database.Store;
 import harvestgame.core.Player;
+import harvestgame.core.Field;
 
 import java.util.Scanner;
 import java.util.Map;
@@ -22,33 +23,35 @@ public class TextUI {
     private final Map<String, String> storeCommands;
     private final Store store;
     private final Player player;
+    private final Field field;
 
     // Create new scanner for input
-    public TextUI(Store store, Player player) {
+    public TextUI(Store store, Player player, Field field) {
         this.store = store;
         this.player = player;
+        this.field = field;
         
         scanner = new Scanner(System.in);
         
         mainCommands = new TreeMap<>(); 
         mainCommands.put("0", "0 Quit");
         mainCommands.put("1", "1 Store");
+        mainCommands.put("2", "2 Inventory");
+        mainCommands.put("3", "3 Plant");
+        mainCommands.put("4", "4 View field");
         
         storeCommands = new TreeMap<>();
         storeCommands.put("0", "0 Return");
         storeCommands.put("1", "1 Buy");
-        storeCommands.put("2", "2 Sell");
     }
-    
-    public void start() {
-        clearScreen();
 
+    public void start() {
         while (true) {
             printInstructions(mainCommands);
             System.out.println("Input command:");
             String command = scanner.nextLine();
             System.out.println();
-            
+
             switch (command.toLowerCase()) {
                 case "0":
                     System.out.println("Quit");
@@ -58,17 +61,25 @@ public class TextUI {
                     System.out.println("Entering the store");
                     activateStore();
                     break;
+                case "2":
+                    System.out.println("Inventory:");
+                    // TODO: Print different message if the inventory is empty
+                    player.getInventory().forEach(plant -> System.out.println(plant.toString()));
+                    break;
+                case "3":
+                    player.getInventory().forEach(plant -> System.out.println(plant.toString()));
+                    System.out.println("Type the id of the plant you wish to plant");
+                    int plantID = scanner.nextInt();
+                    field.plant(player.getItem(plantID));
+                    break;
+                case "4":
+                    field.viewField();
+                    break;
                 default:
                     System.out.println("Command not found");
                     break;
             }
-            clearScreen();
         }
-    }
-
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 
     private void printInstructions(Map commandsMap) {
@@ -77,10 +88,8 @@ public class TextUI {
             System.out.println(command);
         });
     }
-    
-    private void activateStore() {
-        clearScreen();
 
+    private void activateStore() {
         while (true) {
             printInstructions(storeCommands);
             System.out.println("Input command:");
@@ -91,7 +100,6 @@ public class TextUI {
                 case "0":
                     return;
                 case "1":
-                    clearScreen();
                     storeListPlants();
                     System.out.println("Type the id of the plant you wish to buy");
 
@@ -103,14 +111,13 @@ public class TextUI {
                     System.out.println("Command not found");
                     break;
             }
-            clearScreen();
         }
     }
-    
+
     private void storeListPlants() {
         int i = 0;
         for (String plant : store.listPlants()) {
-            System.out.println("id: " + i + " " + plant);
+            System.out.println(i + ": " + plant);
             i++;
         }
     }

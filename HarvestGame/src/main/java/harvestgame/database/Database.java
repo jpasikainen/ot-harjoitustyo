@@ -66,6 +66,7 @@ public class Database {
             
             while (rs.next()) {
                 Plant plant = new Plant(
+                        rs.getInt("id"),
                         rs.getString("name"),
                         rs.getInt("price"),
                         rs.getInt("soil_dryness"),
