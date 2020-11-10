@@ -20,6 +20,10 @@ public class Plant {
         this.growingTime = growingTime;
     }
     
+    public int getPrice() {
+        return price;
+    }
+    
     @Override
     public String toString() {
         return String.format(

@@ -15,11 +15,22 @@ import harvestgame.ui.TextUI;
  */
 
 public class Game {
+    private static Database db;
+    private static Store store;
+    private static TextUI ui;
+    private static Player player;
+    
     public static void main(String[] args) {
-        Database db = new Database("jdbc:sqlite:database/Database.db");
-        Store store = new Store(db);
-        TextUI ui = new TextUI(store);
-        ui.start();
+        gameInit();
+        
         db.disconnect();
+    }
+    
+    private static void gameInit() {
+        player = new Player(100);
+        db = new Database("jdbc:sqlite:database/Database.db");
+        store = new Store(db);
+        ui = new TextUI(store, player);
+        ui.start();
     }
 }

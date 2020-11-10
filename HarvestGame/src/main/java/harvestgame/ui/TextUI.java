@@ -6,6 +6,7 @@
 package harvestgame.ui;
 
 import harvestgame.database.Store;
+import harvestgame.core.Player;
 
 import java.util.Scanner;
 import java.util.Map;
@@ -20,10 +21,13 @@ public class TextUI {
     private final Map<String, String> baseCommands;
     private final Map<String, String> storeCommands;
     private final Store store;
+    private final Player player;
     
     // Create new scanner for input
-    public TextUI(Store store) {
+    public TextUI(Store store, Player player) {
         this.store = store;
+        this.player = player;
+        
         scanner = new Scanner(System.in);
         
         baseCommands = new TreeMap<>(); 
@@ -77,6 +81,9 @@ public class TextUI {
                     return;
                 case "b":
                     storeListPlants();
+                    System.out.println("Type the number of the plant you wish to buy");
+                    int plantID = scanner.nextInt();
+                    store.buyPlant(plantID, player);
                     break;
             }
         }

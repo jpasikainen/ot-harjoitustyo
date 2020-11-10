@@ -6,6 +6,7 @@
 package harvestgame.database;
 
 import harvestgame.core.Plant;
+import harvestgame.core.Player;
 
 import java.util.ArrayList;
 
@@ -36,5 +37,15 @@ public class Store {
         });
         
         return plantList;
+    }
+    
+    public void buyPlant(int plantID, Player player) {
+        int price = plants.get(plantID).getPrice();
+        
+        // TODO: Move the check to Player class
+        if (price > player.getBalance())
+            return;
+        player.changeBalance(price);
+        player.addItem(plants.get(plantID));
     }
 }
