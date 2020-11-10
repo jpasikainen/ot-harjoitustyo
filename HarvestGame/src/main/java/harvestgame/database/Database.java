@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package harvestgame;
+package harvestgame.database;
 
+import harvestgame.Plant;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,10 +19,14 @@ import java.util.ArrayList;
  * @author jpasikainen
  */
 public class Database {
-    private static Connection connection;
+    private Connection connection;
+    
+    public Database(String url) {
+        connect(url);
+    }
     
     // Connect to the database
-    public static void connect(String url) {
+    private void connect(String url) {
         connection = null;
         try {
             connection = DriverManager.getConnection(url);
@@ -31,12 +36,12 @@ public class Database {
         }
     }
     
-    public static boolean databaseConnected() {
+    public boolean databaseConnected() {
         return connection != null;
     }
     
     // Disconnect from the database
-    public static void disconnect() {
+    public void disconnect() {
         try {
             if (connection != null) {
                 connection.close();
@@ -48,7 +53,11 @@ public class Database {
         
     }
     
-    public static ArrayList<Plant> getAllPlants() {
+    public ArrayList<Plant> getAllPlants() {
+        // Require an open connection
+        if (!databaseConnected())
+                return null;
+        
         ArrayList<Plant> plants = new ArrayList<>();
         String query = "SELECT * FROM Plants";
         

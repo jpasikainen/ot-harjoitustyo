@@ -5,6 +5,8 @@
  */
 package harvestgame;
 
+import harvestgame.database.Database;
+import harvestgame.database.Store;
 import harvestgame.ui.TextUI;
 
 /**
@@ -14,23 +16,10 @@ import harvestgame.ui.TextUI;
 
 public class Game {
     public static void main(String[] args) {
-        TextUI ui = new TextUI();
+        Database db = new Database("jdbc:sqlite:database/Database.db");
+        Store store = new Store(db);
+        TextUI ui = new TextUI(store);
         ui.start();
+        db.disconnect();
     }
-    
-    public void testDatabase() {
-        String url = "jdbc:sqlite:database/Database.db";
-        Database.connect(url);
-        
-        if (Database.databaseConnected())
-            createPlants();
-        
-        Database.disconnect();
-    }
-    
-    public static void createPlants() {
-        for (Plant plant : Database.getAllPlants()) {
-            System.out.println(plant);
-        }
-    }  
 }

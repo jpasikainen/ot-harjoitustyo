@@ -5,26 +5,32 @@
  */
 package harvestgame.ui;
 
+import harvestgame.database.Store;
+
 import java.util.Scanner;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.ArrayList;
 
 /**
  *
  * @author jpasikainen
  */
 public class TextUI {
+    private Store store;
+    
     private final Scanner scanner;
     private final Map<String, String> commands;
     
     // Create new scanner for input
-    public TextUI() {
+    public TextUI(Store store) {
+        this.store = store;
+        
         scanner = new Scanner(System.in);
         commands = new TreeMap<>();
         
         commands.put("q", "q quit");
-        commands.put("1", "1 Buy a plant");
-        commands.put("2", "2 Plant a plant");
+        commands.put("1", "1 Store");
     }
     
     public void start() {
@@ -40,12 +46,10 @@ public class TextUI {
                     System.exit(0);
                     break;
                 case "1":
-                    System.out.println("Command 1");
+                    System.out.println("Entering the store");
+                    activateStore();
                     break;
-                case "2":
-                    System.out.println("Command 2");
-                    break;
-                //default breaks Netbean's autocomplete
+                //default breaks Netbeans' autocomplete
                 //default:
             }
             
@@ -54,10 +58,16 @@ public class TextUI {
         }
     }
     
-    public void printInstructions() {
+    private void printInstructions() {
         System.out.println("----------------");
         commands.values().forEach(command -> {
             System.out.println(command);
+        });
+    }
+    
+    private void activateStore() {
+        store.listPlants().forEach(plant -> {
+            System.out.println(plant);
         });
     }
 }
