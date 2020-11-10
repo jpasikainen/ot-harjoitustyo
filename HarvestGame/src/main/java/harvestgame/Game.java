@@ -5,6 +5,8 @@
  */
 package harvestgame;
 
+import harvestgame.ui.TextUI;
+
 /**
  *
  * @author jpasikainen
@@ -12,6 +14,11 @@ package harvestgame;
 
 public class Game {
     public static void main(String[] args) {
+        TextUI ui = new TextUI();
+        ui.start();
+    }
+    
+    public void testDatabase() {
         String url = "jdbc:sqlite:database/Database.db";
         Database.connect(url);
         
