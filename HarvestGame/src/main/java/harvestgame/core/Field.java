@@ -11,6 +11,14 @@ public class Field {
         plants = new ArrayList<>();
     }
 
+    public int getFieldSize() {
+        return fieldSize;
+    }
+
+    public ArrayList<Plant> getPlants() {
+        return plants;
+    }
+
     // Plant if free space on the field
     public void plant(Plant plant) {
         if (plants.size() < fieldSize) {
