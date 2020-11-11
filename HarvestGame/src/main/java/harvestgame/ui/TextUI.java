@@ -39,6 +39,8 @@ public class TextUI {
         mainCommands.put("2", "2 Inventory");
         mainCommands.put("3", "3 Plant");
         mainCommands.put("4", "4 View field");
+        mainCommands.put("5", "5 Water a plant");
+        mainCommands.put("6", "6 Harvest ripe plants");
         
         storeCommands = new TreeMap<>();
         storeCommands.put("0", "0 Return");
@@ -74,6 +76,15 @@ public class TextUI {
                     break;
                 case "4":
                     field.viewField();
+                    break;
+                case "5":
+                    field.viewField();
+                    System.out.println("Type the id of the plant you wish to water");
+                    plantID = scanner.nextInt();
+                    field.water(field.getPlant(plantID));
+                    break;
+                case "6":
+                    field.harvest();
                     break;
                 default:
                     System.out.println("Command not found");

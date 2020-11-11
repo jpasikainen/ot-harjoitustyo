@@ -30,7 +30,9 @@ public class Player {
     }
     
     public void addItem(Plant plant) {
-        inventory.add(plant);
+        System.out.println("yeet");
+        if (plant != null)
+            inventory.add(plant);
     }
 
     public void removeItem(Plant plant) {
@@ -42,6 +44,8 @@ public class Player {
     }
 
     public Plant getItem(int id) {
-        return inventory.get(id);
+        if (inventory.size() > id)
+            return inventory.get(id);
+        return null;
     }
 }

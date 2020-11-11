@@ -20,7 +20,7 @@ public class FieldTest {
 
     @Before
     public void setUp() {
-        field = new Field(fieldSize);
+        field = new Field(fieldSize, player);
         player = new Player(money);
     }
 

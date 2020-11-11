@@ -1,12 +1,15 @@
 package harvestgame.core;
 
 import java.util.ArrayList;
+import harvestgame.core.Player;
 
 public class Field {
     private int fieldSize; // How many plants can be planted
     private ArrayList<Plant> plants;
+    private Player player;
 
-    public Field(int fieldSize) {
+    public Field(int fieldSize, Player player) {
+        this.player = player;
         this.fieldSize = fieldSize;
         plants = new ArrayList<>();
     }
@@ -19,10 +22,28 @@ public class Field {
         return plants;
     }
 
+    public void water(Plant plant) {
+        plant.water();
+    }
+
+    public Plant getPlant(int id) {
+        return plants.get(id);
+    }
+
+    public void harvest() {
+        plants.forEach(plant -> {
+            player.addItem(plant.harvest());
+        });
+    }
+
     // Plant if free space on the field
     public void plant(Plant plant) {
+        if (plant == null)
+            return;
+
         if (plants.size() < fieldSize) {
             plants.add(plant);
+            plant.plant();
             Game.getPlayer().removeItem(plant);
             System.out.println("Item planted!");
         }

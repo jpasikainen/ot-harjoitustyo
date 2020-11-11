@@ -17,9 +17,9 @@ import java.util.ArrayList;
 public class Store {
     ArrayList<Plant> plants;
     private Database db;
-    
+
     public Store(Database db) {
-        this.db = db;
+            this.db = db;
         plants = db.getAllPlants();
     }
     
@@ -40,6 +40,9 @@ public class Store {
     }
     
     public void buyPlant(int plantID, Player player) {
+        if (plants.size() < plantID)
+            return;
+
         int price = plants.get(plantID).getPrice();
         
         // TODO: Move the check to Player class
