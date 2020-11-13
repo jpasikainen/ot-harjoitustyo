@@ -2,7 +2,6 @@
 The core gameplay loop of the game is to grow plants and eventually sell the harvest to earn money. With the earned money, the player can buy new plants.
 
 ## Documentation
-[Manual](https://github.com/jpasikainen-ot-harjoitustyo/blob/master/documentation/manual.md)\
 [Software Requirement Specification](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/srs.md)\
 [Working Hours](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/workinghours.md)
 
