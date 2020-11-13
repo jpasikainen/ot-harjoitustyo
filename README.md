@@ -17,8 +17,8 @@ The core gameplay loop of the game is to grow plants and eventually sell the har
 - Seasons -> all plants can't be grown every season
 
 ## Documentation
-[Manual](https://github.com/jpasikainen-ot-harjoitustyo/blob/master/documentation/manual.md)
-[Software Requirement Specification](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/srs.md)
+[Manual](https://github.com/jpasikainen-ot-harjoitustyo/blob/master/documentation/manual.md)\
+[Software Requirement Specification](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/srs.md)\
 [Working Hours](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/workinghours.md)
 
 ## Command line commands
