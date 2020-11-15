@@ -30,19 +30,6 @@ public class FieldTest {
         assertEquals(0, field.getPlants().size());
     }
 
-    @Test
-    public void plantingWorksWhenSpaceInField() {
-        Plant plant = new Plant(0, "a", 0, 0, 0);
-        field.plant(plant);
-        assertEquals(fieldSize, field.getPlants().size());
-    }
-
-    @Test
-    public void plantingWhenNoSpaceLeftInField() {
-        plant(2);
-        assertEquals(fieldSize, field.getPlants().size());
-    }
-
     private void plant(int x) {
         for (int i = 0; i < x; i++) {
             Plant plant = new Plant(i, "a", 0, 0, 0);

@@ -26,7 +26,11 @@ public class Player {
     }
     
     public void changeBalance(int amount) {
-        money -= amount;
+        if (amount > 0)
+            money += amount;
+        else if (getBalance() > Math.abs(amount))
+            money += amount;
+
     }
     
     public void addItem(Plant plant) {
