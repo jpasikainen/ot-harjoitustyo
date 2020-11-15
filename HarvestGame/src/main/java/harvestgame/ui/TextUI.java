@@ -5,9 +5,7 @@
  */
 package harvestgame.ui;
 
-import harvestgame.database.Store;
-import harvestgame.core.Player;
-import harvestgame.core.Field;
+import harvestgame.core.*;
 
 import java.util.Scanner;
 import java.util.Map;
@@ -56,8 +54,7 @@ public class TextUI {
 
             switch (command.toLowerCase()) {
                 case "0":
-                    System.out.println("Quit");
-                    System.exit(0);
+                    GameManager.exitGame();
                     break;
                 case "1":
                     System.out.println("Entering the store");

@@ -47,6 +47,12 @@ public class Player {
         return inventory;
     }
 
+    public ArrayList<String> listInventory() {
+        ArrayList<String> itemList = new ArrayList<>();
+        inventory.forEach(item -> itemList.add(item.toString()));
+        return itemList;
+    }
+
     public Plant getItem(int id) {
         if (inventory.size() > id)
             return inventory.get(id);

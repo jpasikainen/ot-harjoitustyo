@@ -5,12 +5,8 @@
  */
 package harvestgame.core;
 
-import harvestgame.database.Database;
-import harvestgame.database.Store;
-import harvestgame.ui.TextUI;
-
-import java.time.Duration;
-import java.time.Instant;
+import harvestgame.ui.GUI;
+import javafx.application.Application;
 
 /**
  *
@@ -18,30 +14,8 @@ import java.time.Instant;
  */
 
 public class Game {
-    private static Database db;
-    private static Store store;
-    private static TextUI ui;
-    private static Player player;
-    private static Field field;
-
-    private static boolean running = true;
-
     public static void main(String[] args) {
-        gameInit();
-
-        db.disconnect();
-    }
-    
-    private static void gameInit() {
-        player = new Player(100);
-        db = new Database("jdbc:sqlite:database/Database.db");
-        store = new Store(db);
-        field = new Field(10, player);
-        ui = new TextUI(store, player, field);
-        ui.start();
-    }
-    
-    public static Player getPlayer() {
-        return player;
+        GameManager.gameInit();
+        Application.launch(GUI.class);
     }
 }

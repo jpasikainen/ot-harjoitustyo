@@ -44,7 +44,7 @@ public class Field {
         if (plants.size() < fieldSize) {
             plants.add(plant);
             plant.plant();
-            Game.getPlayer().removeItem(plant);
+            player.removeItem(plant);
             System.out.println("Item planted!");
         }
         else {
