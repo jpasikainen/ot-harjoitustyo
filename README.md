@@ -8,6 +8,7 @@ The core gameplay loop of the game is to grow plants and eventually sell the har
 ## Command line commands
 ### Run
 ```
+cd HarvestGame
 mvn compile exec:java -Dexec.mainClass=harvestgame.core.Game
 ```
 ### Testing
