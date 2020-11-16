@@ -50,7 +50,7 @@ public class Store {
         if (price > player.getBalance())
             System.out.println("Not enough money");
         else {
-            player.changeBalance(price);
+            player.changeBalance(-price);
             player.addItem(plants.get(plantID));
             System.out.println("New item bought");
         }

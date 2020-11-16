@@ -28,13 +28,12 @@ public class Player {
     public void changeBalance(int amount) {
         if (amount > 0)
             money += amount;
-        else if (getBalance() > Math.abs(amount))
+        else if (getBalance() >= Math.abs(amount))
             money += amount;
 
     }
     
     public void addItem(Plant plant) {
-        System.out.println("yeet");
         if (plant != null)
             inventory.add(plant);
     }

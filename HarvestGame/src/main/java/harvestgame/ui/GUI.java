@@ -78,14 +78,19 @@ public class GUI extends Application {
         EventHandler<ActionEvent> buttonReturnEvent = actionEvent -> changeScene(createMenu());
         buttonReturn.setOnAction(buttonReturnEvent);
 
+        // Money label
+        Label moneyLabel = new Label(String.format("Money: %d", GameManager.player.getBalance()));
+
         // List all items
         VBox vboxPlants = new VBox();
         GameManager.store.listPlants().forEach(plant -> {
             Label plantLabel = new Label(plant);
 
             Button buyButton = new Button("Buy");
-            EventHandler<ActionEvent> buttonBuyEvent = actionEvent ->
-                    GameManager.store.buyPlant(Integer.parseInt(plant.split(" ")[0]), GameManager.player);
+            EventHandler<ActionEvent> buttonBuyEvent = actionEvent -> {
+                GameManager.store.buyPlant(Integer.parseInt(plant.split(" ")[0]), GameManager.player);
+                moneyLabel.setText(String.format("Money: %d", GameManager.player.getBalance()));
+            };
             buyButton.setOnAction(buttonBuyEvent);
 
             HBox plantBox = new HBox(25);
@@ -93,8 +98,9 @@ public class GUI extends Application {
             vboxPlants.getChildren().add(plantBox);
         });
 
+
         hbox.getChildren().addAll(buttonReturn);
-        vbox.getChildren().addAll(vboxPlants, hbox);
+        vbox.getChildren().addAll(moneyLabel, vboxPlants, hbox);
 
         return vbox;
     }
