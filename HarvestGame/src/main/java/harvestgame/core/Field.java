@@ -38,16 +38,16 @@ public class Field {
 
     // Plant if free space on the field
     public void plant(Plant plant) {
-        if (plant == null)
+        if (plant == null) {
             return;
+        }
 
         if (plants.size() < fieldSize) {
             plants.add(plant);
             plant.plant();
             player.removeItem(plant);
             System.out.println("Item planted!");
-        }
-        else {
+        } else {
             System.out.println("No space on the field");
         }
     }

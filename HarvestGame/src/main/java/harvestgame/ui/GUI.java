@@ -3,17 +3,13 @@ package harvestgame.ui;
 import harvestgame.core.GameManager;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 
 public class GUI extends Application {
     private StackPane root;
@@ -22,10 +18,11 @@ public class GUI extends Application {
     public void start(Stage stage) throws Exception {
         // Create layout
         root = new StackPane();
-        changeScene(createMenu());
+        changeScene(createWorld());
 
         // Create scene and change stage settings
         Scene scene = new Scene(root, 1280, 720);
+        //scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setOnCloseRequest(e -> GameManager.exitGame());
@@ -38,12 +35,23 @@ public class GUI extends Application {
         root.getChildren().add(pane);
     }
 
+    // World view
+    private HBox createWorld() {
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(createMenuPane(), createFieldPane());
+        return hbox;
+    }
+
     // Main menu
-    private VBox createMenu() {
+    private VBox createMenuPane() {
         // Create buttons
         Button buttonExit = new Button("Exit");
         Button buttonStore = new Button("Store");
         Button buttonInventory = new Button("Inventory");
+
+        buttonExit.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
+        buttonStore.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
+        buttonInventory.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
 
         // Add button events
         // Exit
@@ -58,6 +66,8 @@ public class GUI extends Application {
 
         // Create layout
         VBox vbox = new VBox();
+        vbox.setPadding(new Insets(10, 10, 10, 10));
+        vbox.setSpacing(10);
 
         // Add components to the layout
         vbox.getChildren().addAll(buttonStore, buttonInventory, buttonExit);
@@ -65,8 +75,34 @@ public class GUI extends Application {
         return vbox;
     }
 
+    // Field
+    private HBox createFieldPane() {
+        HBox field = new HBox();
+        TilePane grid = new TilePane();
+        grid.setPrefColumns(3);
+        grid.setPrefRows(3);
+        grid.setPadding(new Insets(10));
+        grid.setHgap(10);
+        grid.setVgap(10);
+
+        VBox inventory = createInventoryPane();
+
+        // Create plot slots
+        for (int i = 0; i < 9; i++) {
+            Button button = new Button(String.format("Plot %d", i));
+            EventHandler<ActionEvent> buttonEvent = actionEvent -> {
+                if (!field.getChildren().contains(inventory))
+                    field.getChildren().add(inventory);
+            };
+            button.setOnAction(buttonEvent);
+            grid.getChildren().add(button);
+        }
+        field.getChildren().add(0, grid);
+
+        return field;
+    }
+
     // Store
-    // Layout: VBox with two items, second item is HBox
     private VBox createStorePane() {
         // Create layout
         VBox vbox = new VBox();
@@ -75,7 +111,7 @@ public class GUI extends Application {
         Button buttonReturn = new Button("Return");
 
         // Button events
-        EventHandler<ActionEvent> buttonReturnEvent = actionEvent -> changeScene(createMenu());
+        EventHandler<ActionEvent> buttonReturnEvent = actionEvent -> changeScene(createWorld());
         buttonReturn.setOnAction(buttonReturnEvent);
 
         // Money label
@@ -88,6 +124,7 @@ public class GUI extends Application {
 
             Button buyButton = new Button("Buy");
             EventHandler<ActionEvent> buttonBuyEvent = actionEvent -> {
+                // Split the id from the plant
                 GameManager.store.buyPlant(Integer.parseInt(plant.split(" ")[0]), GameManager.player);
                 moneyLabel.setText(String.format("Money: %d", GameManager.player.getBalance()));
             };
@@ -110,7 +147,7 @@ public class GUI extends Application {
 
         Button buttonReturn = new Button("Return");
         // Button events
-        EventHandler<ActionEvent> buttonReturnEvent = actionEvent -> changeScene(createMenu());
+        EventHandler<ActionEvent> buttonReturnEvent = actionEvent -> changeScene(createWorld());
         buttonReturn.setOnAction(buttonReturnEvent);
 
         VBox itemBox = new VBox();

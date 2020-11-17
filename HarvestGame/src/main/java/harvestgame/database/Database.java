@@ -54,13 +54,12 @@ public class Database {
     }
     
     public ArrayList<Plant> getAllPlants() {
-        // Require an open connection
-        if (!databaseConnected())
-                return null;
-        
+        if (!databaseConnected()) {
+            return null;
+        }
         ArrayList<Plant> plants = new ArrayList<>();
         String query = "SELECT * FROM Plants";
-        
+
         try (Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(query)) {
             
@@ -72,13 +71,13 @@ public class Database {
                         rs.getInt("soil_dryness"),
                         rs.getInt("growing_time")
                 );
-                
+
                 plants.add(plant);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        
+
         return plants;
     }
 }

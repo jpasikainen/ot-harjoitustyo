@@ -29,7 +29,9 @@ public class Store {
         plants.add(plant);
     }
 
-    public void selectPlant(Plant plant) { selectedPlant = plant; }
+    public void selectPlant(Plant plant) {
+        selectedPlant = plant;
+    }
 
     // Generates a String list of plants
     // Good for classes that don't have Plant imported
@@ -41,15 +43,16 @@ public class Store {
     }
     
     public void buyPlant(int plantID, Player player) {
-        if (plants.size() < plantID)
+        if (plants.size() < plantID) {
             return;
+        }
 
         int price = plants.get(plantID).getPrice();
         
         // TODO: Move the check to Player class
-        if (price > player.getBalance())
+        if (price > player.getBalance()) {
             System.out.println("Not enough money");
-        else {
+        } else {
             player.changeBalance(-price);
             player.addItem(plants.get(plantID));
             System.out.println("New item bought");

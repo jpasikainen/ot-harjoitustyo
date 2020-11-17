@@ -26,16 +26,17 @@ public class Player {
     }
     
     public void changeBalance(int amount) {
-        if (amount > 0)
+        if (amount > 0) {
             money += amount;
-        else if (getBalance() >= Math.abs(amount))
+        } else if (getBalance() >= Math.abs(amount)) {
             money += amount;
-
+        }
     }
     
     public void addItem(Plant plant) {
-        if (plant != null)
+        if (plant != null) {
             inventory.add(plant);
+        }
     }
 
     public void removeItem(Plant plant) {
@@ -53,8 +54,9 @@ public class Player {
     }
 
     public Plant getItem(int id) {
-        if (inventory.size() > id)
+        if (inventory.size() > id) {
             return inventory.get(id);
+        }
         return null;
     }
 }

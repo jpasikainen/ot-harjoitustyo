@@ -59,8 +59,9 @@ public class Plant {
     }
 
     public Plant harvest() {
-        if (readyToHarvest)
+        if (readyToHarvest) {
             return this;
+        }
         return null;
     }
 
