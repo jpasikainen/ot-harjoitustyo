@@ -3,6 +3,7 @@ package harvestgame.ui;
 import harvestgame.core.GameManager;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -10,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class GUI extends Application {
     private StackPane root;
@@ -19,10 +22,12 @@ public class GUI extends Application {
         // Create layout
         root = new StackPane();
         changeScene(createWorld());
-
+        File styles = new File("styles.css");
+        System.out.println(styles.getAbsolutePath());
+        styles = new File("/styles.css");
+        System.out.println(styles.getAbsolutePath());
         // Create scene and change stage settings
         Scene scene = new Scene(root, 1280, 720);
-        //scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setOnCloseRequest(e -> GameManager.exitGame());
@@ -153,8 +158,15 @@ public class GUI extends Application {
         VBox itemBox = new VBox();
         GameManager.player.listInventory().forEach(item -> {
             Label itemLabel = new Label(item);
-            itemBox.getChildren().add(itemLabel);
+            Button plantButton = new Button("Plant");
+            EventHandler<ActionEvent> button = actionEvent -> System.out.println();
+
+            HBox itemInfoBox = new HBox();
+            itemInfoBox.getChildren().addAll(itemLabel, plantButton);
+            itemBox.getChildren().add(itemInfoBox);
         });
+        if (itemBox.getChildren().isEmpty())
+            itemBox.getChildren().add(new Label("No items"));
 
         vbox.getChildren().addAll(itemBox, buttonReturn);
 
