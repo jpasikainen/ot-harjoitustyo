@@ -14,10 +14,10 @@ import harvestgame.core.Plant;
 public class PlayerTest {
     Player player = new Player(0);
     ArrayList<Plant> inventory = new ArrayList<>();
+    Plant testPlant = new Plant(0, "", 0, 0, 0);
 
     @Before
     public void setUp() {
-
     }
 
     @Test
@@ -48,4 +48,32 @@ public class PlayerTest {
         player.changeBalance(-5);
         assertEquals(5, player.getBalance());
     }
+
+    @Test
+    public void addPlantToInventory() {
+        player.addItem(testPlant);
+        assertEquals(testPlant, player.getInventory().get(0));
+    }
+
+    @Test
+    public void addInvalidPlantToInventory() {
+        player.addItem(null);
+        assertEquals(new ArrayList<Plant>(), player.getInventory());
+    }
+
+    @Test
+    public void removeItemFromInventoryWhenEmpty() {
+        player.removeItem(testPlant);
+        assertEquals(new ArrayList<Plant>(), player.getInventory());
+    }
+
+    @Test
+    public void removeValidItemFromInventory() {
+        player.addItem(testPlant);
+        player.addItem(testPlant);
+        player.removeItem(testPlant);
+        assertEquals(testPlant, player.getInventory().get(0));
+    }
+
+
 }

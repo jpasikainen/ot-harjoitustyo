@@ -52,7 +52,7 @@
                 <version>0.8.3</version>
                 <configuration>
                     <excludes>
-                         <exclude>harvestgame/ui</exclude>
+                         <exclude>harvestgame/ui/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

@@ -30,6 +30,13 @@ public class FieldTest {
         assertEquals(0, field.getPlants().size());
     }
 
+    @Test
+    public void plantInvalidPlant() {
+        field.plant(null);
+        assertEquals(0, field.getPlants().size());
+    }
+
+    // Create x amount of plants for testing
     private void plant(int x) {
         for (int i = 0; i < x; i++) {
             Plant plant = new Plant(i, "a", 0, 0, 0);
