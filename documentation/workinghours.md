@@ -8,4 +8,6 @@
 | 11/13 | 1 | Edited the repo: added documentation folder, created SRS, and included instructions on how to run and test the project for now. |
 | 11/15 | 5 | Added tests for Field and Player classes. Added jacoco and tested the project on faculty's computer. Created first iteration of GUI and added functionality for exiting the game, buying plants, and viewing inventory. Also refactored Game class and created a new static class GameManager from it. |
 | 11/16 | 3 |  Created a label to display player's balance in the store and fixed transactions. Tried to fix glitchy button backgrounds on mvn compiled builds, without succcess. |
-| Total (h) | 22 |	|
+| 11/17 | 2 | Added checkstyle and fixed given errors |
+| 11/18 | 2 | Added tests and updated documentation |
+| Total (h) | 26 |	|
