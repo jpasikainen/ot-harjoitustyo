@@ -3,6 +3,7 @@ The core gameplay loop of the game is to grow plants and eventually sell the har
 
 ## Documentation
 [Software Requirement Specification](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/srs.md)\
+[Architecture](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/architecture.md)\
 [Working Hours](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/workinghours.md)
 
 ## Command line commands
@@ -20,4 +21,10 @@ Create test coverage report:
 ```
 mvn jacoco:report
 ```
-View report by opening file target/site/jacoco/index.html
+View report by opening file *target/site/jacoco/index.html*
+
+### Checkstyle
+```
+mvn jxr:jxr checkstyle:checkstyle
+```
+View report by opening file *target/site/checkstyle.html*
