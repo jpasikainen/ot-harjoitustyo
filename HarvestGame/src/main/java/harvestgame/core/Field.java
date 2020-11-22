@@ -34,10 +34,17 @@ public class Field {
         plots[plotIndex].water();
     }
 
+    public void waterAll() {
+        for (int i = 0; i < getFieldSize(); i++) {
+            if (!isPlotFree(i)) {
+                water(i);
+            }
+        }
+    }
+
     public void newDay() {
         for (int i = 0; i < getFieldSize(); i++) {
-            Plant plant = plots[i];
-            if (plant != null) {
+            if (!isPlotFree(i)) {
                 if (!plots[i].newDay()) {
                     plots[i] = null; // Remove the plant if not watered
                 }

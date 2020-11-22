@@ -52,6 +52,7 @@ public class GUI extends Application {
         Button buttonStore = new Button("Store");
         Button buttonInventory = new Button("Inventory");
         Button buttonNextDay = new Button("Next day");
+        Button buttonWater = new Button("Water");
 
         // Add button events
         // Exit
@@ -69,6 +70,9 @@ public class GUI extends Application {
             changeScene(createWorld()); // Refresh the view
         };
         buttonNextDay.setOnAction(buttonNextDayEvent);
+        // Water all plants
+        EventHandler<ActionEvent> buttonWaterEvent = actionEvent -> GameManager.field.waterAll();
+        buttonWater.setOnAction(buttonWaterEvent);
 
         // Create layout
         VBox vbox = new VBox();
@@ -77,7 +81,7 @@ public class GUI extends Application {
 
 
         // Add components to the layout
-        vbox.getChildren().addAll(dayLabel, buttonNextDay ,buttonStore, buttonInventory, buttonExit);
+        vbox.getChildren().addAll(dayLabel, buttonNextDay ,buttonStore, buttonInventory, buttonWater, buttonExit);
 
         return vbox;
     }

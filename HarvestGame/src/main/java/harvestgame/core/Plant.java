@@ -33,6 +33,7 @@ public class Plant {
         return readyToHarvest ? this : null;
     }
 
+    // 
     public boolean newDay() {
         if (requiresWatering) {
             return false;
