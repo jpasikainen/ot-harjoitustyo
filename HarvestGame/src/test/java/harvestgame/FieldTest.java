@@ -14,31 +14,32 @@ import harvestgame.core.Plant;
 import harvestgame.core.Player;
 
 public class FieldTest {
-    Field field;
     int fieldSize;
-    Player player;
     int money = 10;
 
     @Before
     public void setUp() {
         GameManager.gameInit(10, 3, 3);
-        field = new Field(3, 3);
-        player = new Player(money);
         fieldSize = 9;
+    }
+
+    @After
+    public void close() {
+        GameManager.db.disconnect();
     }
 
     @Test
     public void fieldInitWorks() {
         for (int i = 0; i < fieldSize; i++) {
-            assertEquals(true, field.isPlotFree(i));
+            assertEquals(true, GameManager.field.isPlotFree(i));
         }
-        assertEquals(fieldSize, field.getFieldSize());
+        assertEquals(fieldSize, GameManager.field.getFieldSize());
     }
 
     @Test
     public void plantInvalidPlant() {
-        field.plant(null, 0);
-        assertEquals(true, field.isPlotFree(0));
+        GameManager.field.plant(null, 0);
+        assertEquals(true, GameManager.field.isPlotFree(0));
     }
 
     // Create x amount of plants for testing
@@ -49,7 +50,7 @@ public class FieldTest {
 
         for (int i = 0; i < x; i++) {
             Plant plant = new Plant(i, Integer.toString(i), 0, 0, 0);
-            field.plant(plant, i);
+            GameManager.field.plant(plant, i);
         }
     }
 }

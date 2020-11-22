@@ -11,7 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
+/**
+ * TODO: Create local variables for
+ */
 public class GUI extends Application {
     private StackPane root;
 
@@ -105,12 +109,24 @@ public class GUI extends Application {
             EventHandler<ActionEvent> buttonEvent = actionEvent -> {
                 if (GameManager.field.isPlotFree(index)) {
                     changeScene(createInventoryPane(index));
+                } else {
+                    GameManager.field.getPlant(index).water();
+                    if (GameManager.field.getPlant(index).canHarvest()) {
+                        GameManager.field.getPlant(index).harvest();
+                    }
                 }
             };
             button.setOnAction(buttonEvent);
 
-            String tip = GameManager.field.isPlotFree(i) ? "Click to plant" : GameManager.field.getPlant(i).getName();
+            String tip = GameManager.field.isPlotFree(i) ? "Click to plant" : "Click to water";
+            if (!GameManager.field.isPlotFree(i)) {
+                if (GameManager.field.getPlant(i).canHarvest()) {
+                    tip = "Click to harvest";
+                }
+            }
+
             Tooltip tooltip = new Tooltip(tip);
+            tooltip.setShowDelay(Duration.seconds(0));
             button.setTooltip(tooltip);
 
             grid.getChildren().add(button);

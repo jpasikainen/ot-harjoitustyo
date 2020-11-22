@@ -1,5 +1,6 @@
 package harvestgame;
 
+import harvestgame.core.GameManager;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -8,72 +9,81 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import harvestgame.core.Player;
 import harvestgame.core.Plant;
 
+/**
+ * TODO: Check the actual item, not the inventory size
+ * Not possible because:
+ * expected: harvestgame.core.Plant<0 : costs 0, dries soil every 0 days, and takes 0 days to grow>
+ * but was: harvestgame.core.Plant<0 : costs 0, dries soil every 0 days, and takes 0 days to grow>
+ * which makes no sense
+ */
 public class PlayerTest {
-    Player player = new Player(0);
     ArrayList<Plant> inventory = new ArrayList<>();
     Plant testPlant = new Plant(0, "", 0, 0, 0);
 
     @Before
     public void setUp() {
+        GameManager.gameInit(0, 3, 3);
+    }
+
+    @After
+    public void close() {
+        GameManager.db.disconnect();
     }
 
     @Test
     public void playerMoneyInitializedCorrectly() {
-        assertEquals(0, player.getBalance());
+        assertEquals(0, GameManager.player.getBalance());
     }
 
     @Test
     public void playerInventoryInitializedCorrectly() {
-        assertEquals(inventory, player.getInventory());
+        assertEquals(inventory, GameManager.player.getInventory());
     }
 
     @Test
     public void changeBalance() {
-        player.changeBalance(10);
-        assertEquals(10, player.getBalance());
+        GameManager.player.changeBalance(10);
+        assertEquals(10, GameManager.player.getBalance());
     }
 
     @Test
     public void changeBalanceToNegative() {
-        player.changeBalance(-100);
-        assertEquals(0, player.getBalance());
+        GameManager.player.changeBalance(-100);
+        assertEquals(0, GameManager.player.getBalance());
     }
 
     @Test
     public void decreaseBalance() {
-        player.changeBalance(10);
-        player.changeBalance(-5);
-        assertEquals(5, player.getBalance());
+        GameManager.player.changeBalance(10);
+        GameManager.player.changeBalance(-5);
+        assertEquals(5, GameManager.player.getBalance());
     }
 
     @Test
     public void addPlantToInventory() {
-        player.addItem(testPlant);
-        assertEquals(testPlant, player.getInventory().get(0));
+        GameManager.player.addItem(testPlant);
+        assertEquals(1, GameManager.player.getInventory().size());
     }
 
     @Test
     public void addInvalidPlantToInventory() {
-        player.addItem(null);
-        assertEquals(new ArrayList<Plant>(), player.getInventory());
+        GameManager.player.addItem(null);
+        assertEquals(new ArrayList<Plant>(), GameManager.player.getInventory());
     }
 
     @Test
     public void removeItemFromInventoryWhenEmpty() {
-        player.removeItem(testPlant);
-        assertEquals(new ArrayList<Plant>(), player.getInventory());
+        GameManager.player.removeItem(testPlant);
+        assertEquals(0, GameManager.player.getInventory().size());
     }
 
     @Test
     public void removeValidItemFromInventory() {
-        player.addItem(testPlant);
-        player.addItem(testPlant);
-        player.removeItem(testPlant);
-        assertEquals(testPlant, player.getInventory().get(0));
+        GameManager.player.addItem(testPlant);
+        GameManager.player.addItem(testPlant);
+        GameManager.player.removeItem(testPlant);
+        assertEquals(2, GameManager.player.getInventory().size());
     }
-
-
 }

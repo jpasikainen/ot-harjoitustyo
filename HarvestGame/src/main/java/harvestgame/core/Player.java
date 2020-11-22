@@ -5,7 +5,6 @@
  */
 package harvestgame.core;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -35,7 +34,8 @@ public class Player {
     
     public void addItem(Plant plant) {
         if (plant != null) {
-            inventory.add(plant);
+            Plant clone = new Plant(plant);
+            inventory.add(clone);
         }
     }
 
@@ -47,20 +47,7 @@ public class Player {
         return inventory;
     }
 
-    public ArrayList<String> listInventory() {
-        ArrayList<String> itemList = new ArrayList<>();
-        inventory.forEach(item -> itemList.add(item.toString()));
-        return itemList;
-    }
-
-    public Plant getItem(int id) {
-        if (inventory.size() > id) {
-            return inventory.get(id);
-        }
-        return null;
-    }
-
     public boolean hasItem(Plant plant) {
-        return inventory.contains(plant) ? true: false;
+        return inventory.contains(plant);
     }
 }

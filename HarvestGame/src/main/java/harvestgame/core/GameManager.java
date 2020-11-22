@@ -2,6 +2,9 @@ package harvestgame.core;
 
 import harvestgame.database.Database;
 
+/**
+ * TODO: Create getters for the static variables
+ */
 public class GameManager {
     public static int day;
     public static Database db;

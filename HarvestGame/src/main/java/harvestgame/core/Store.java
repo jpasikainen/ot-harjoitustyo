@@ -5,8 +5,6 @@
  */
 package harvestgame.core;
 
-import harvestgame.core.Plant;
-import harvestgame.core.Player;
 import harvestgame.database.Database;
 
 import java.util.ArrayList;
@@ -18,7 +16,6 @@ import java.util.ArrayList;
 public class Store {
     ArrayList<Plant> plants;
     private Database db;
-    private Plant selectedPlant;
 
     public Store(Database db) {
         this.db = db;
@@ -29,10 +26,6 @@ public class Store {
         plants.add(plant);
     }
 
-    public void selectPlant(Plant plant) {
-        selectedPlant = plant;
-    }
-
     // Generates a String list of plants
     // Good for classes that don't have Plant imported
     public ArrayList<String> listPlants() {
@@ -41,7 +34,8 @@ public class Store {
         
         return plantList;
     }
-    
+
+    // Clone the plant so the values in store don't get updated
     public void buyPlant(int plantID, Player player) {
         if (plants.size() < plantID) {
             return;
@@ -54,7 +48,8 @@ public class Store {
             System.out.println("Not enough money");
         } else {
             player.changeBalance(-price);
-            player.addItem(plants.get(plantID));
+            Plant plant = plants.get(plantID);
+            player.addItem(plant);
             System.out.println("New item bought");
         }
     }
