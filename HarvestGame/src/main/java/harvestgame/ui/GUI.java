@@ -3,7 +3,7 @@ package harvestgame.ui;
 import harvestgame.core.GameManager;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
+import javafx.scene.control.Tooltip;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -11,8 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-import java.io.File;
 
 public class GUI extends Application {
     private StackPane root;
@@ -22,10 +20,7 @@ public class GUI extends Application {
         // Create layout
         root = new StackPane();
         changeScene(createWorld());
-        File styles = new File("styles.css");
-        System.out.println(styles.getAbsolutePath());
-        styles = new File("/styles.css");
-        System.out.println(styles.getAbsolutePath());
+
         // Create scene and change stage settings
         Scene scene = new Scene(root, 1280, 720);
         stage.setScene(scene);
@@ -49,14 +44,14 @@ public class GUI extends Application {
 
     // Main menu
     private VBox createMenuPane() {
+        // Day counter
+        Label dayLabel = new Label(String.format("Day: %d", GameManager.day));
+
         // Create buttons
         Button buttonExit = new Button("Exit");
         Button buttonStore = new Button("Store");
         Button buttonInventory = new Button("Inventory");
-
-        buttonExit.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
-        buttonStore.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
-        buttonInventory.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
+        Button buttonNextDay = new Button("Next day");
 
         // Add button events
         // Exit
@@ -66,16 +61,23 @@ public class GUI extends Application {
         EventHandler<ActionEvent> buttonStoreEvent = actionEvent -> changeScene(createStorePane());
         buttonStore.setOnAction(buttonStoreEvent);
         // Open inventory
-        EventHandler<ActionEvent> buttonInventoryEvent = actionEvent -> changeScene(createInventoryPane());
+        EventHandler<ActionEvent> buttonInventoryEvent = actionEvent -> changeScene(createInventoryPane(null));
         buttonInventory.setOnAction(buttonInventoryEvent);
+        // Next day
+        EventHandler<ActionEvent> buttonNextDayEvent = actionEvent -> {
+            GameManager.nextDay();
+            changeScene(createWorld()); // Refresh the view
+        };
+        buttonNextDay.setOnAction(buttonNextDayEvent);
 
         // Create layout
         VBox vbox = new VBox();
         vbox.setPadding(new Insets(10, 10, 10, 10));
         vbox.setSpacing(10);
 
+
         // Add components to the layout
-        vbox.getChildren().addAll(buttonStore, buttonInventory, buttonExit);
+        vbox.getChildren().addAll(dayLabel, buttonNextDay ,buttonStore, buttonInventory, buttonExit);
 
         return vbox;
     }
@@ -84,22 +86,29 @@ public class GUI extends Application {
     private HBox createFieldPane() {
         HBox field = new HBox();
         TilePane grid = new TilePane();
-        grid.setPrefColumns(3);
-        grid.setPrefRows(3);
+        grid.setPrefColumns(GameManager.field.getFieldWidth());
+        grid.setPrefRows(GameManager.field.getFieldHeight());
         grid.setPadding(new Insets(10));
         grid.setHgap(10);
         grid.setVgap(10);
 
-        VBox inventory = createInventoryPane();
-
         // Create plot slots
-        for (int i = 0; i < 9; i++) {
-            Button button = new Button(String.format("Plot %d", i));
+        for (int i = 0; i < GameManager.field.getFieldSize(); i++) {
+            String buttonText = GameManager.field.isPlotFree(i) ? "Empty" : GameManager.field.getPlant(i).getName();
+
+            Button button = new Button(buttonText);
+            int index = i; // Required for lambda expression
             EventHandler<ActionEvent> buttonEvent = actionEvent -> {
-                if (!field.getChildren().contains(inventory))
-                    field.getChildren().add(inventory);
+                if (GameManager.field.isPlotFree(index)) {
+                    changeScene(createInventoryPane(index));
+                }
             };
             button.setOnAction(buttonEvent);
+
+            String tip = GameManager.field.isPlotFree(i) ? "Click to plant" : GameManager.field.getPlant(i).getName();
+            Tooltip tooltip = new Tooltip(tip);
+            button.setTooltip(tooltip);
+
             grid.getChildren().add(button);
         }
         field.getChildren().add(0, grid);
@@ -147,7 +156,8 @@ public class GUI extends Application {
         return vbox;
     }
 
-    private VBox createInventoryPane() {
+    // plotIndex is optional
+    private VBox createInventoryPane(int... plotIndex) {
         VBox vbox = new VBox();
 
         Button buttonReturn = new Button("Return");
@@ -156,13 +166,22 @@ public class GUI extends Application {
         buttonReturn.setOnAction(buttonReturnEvent);
 
         VBox itemBox = new VBox();
-        GameManager.player.listInventory().forEach(item -> {
-            Label itemLabel = new Label(item);
-            Button plantButton = new Button("Plant");
-            EventHandler<ActionEvent> button = actionEvent -> System.out.println();
-
+        GameManager.player.getInventory().forEach(item -> {
             HBox itemInfoBox = new HBox();
-            itemInfoBox.getChildren().addAll(itemLabel, plantButton);
+            Label itemLabel = new Label(item.toString());
+
+            if (plotIndex != null) {
+                Button plantButton = new Button("Plant");
+                EventHandler<ActionEvent> buttonAction = actionEvent -> {
+                    GameManager.field.plant(item, plotIndex[0]);
+                    changeScene(createWorld());
+                };
+                plantButton.setOnAction(buttonAction);
+                itemInfoBox.getChildren().addAll(itemLabel, plantButton);
+            } else {
+                itemInfoBox.getChildren().add(itemLabel);
+            }
+
             itemBox.getChildren().add(itemInfoBox);
         });
         if (itemBox.getChildren().isEmpty())
@@ -171,9 +190,5 @@ public class GUI extends Application {
         vbox.getChildren().addAll(itemBox, buttonReturn);
 
         return vbox;
-    }
-
-    private VBox createPlantingPane() {
-        return null;
     }
 }

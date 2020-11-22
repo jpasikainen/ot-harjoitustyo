@@ -15,7 +15,7 @@ import javafx.application.Application;
 
 public class Game {
     public static void main(String[] args) {
-        GameManager.gameInit();
+        GameManager.gameInit(100, 3, 3);
         Application.launch(GUI.class);
     }
 }

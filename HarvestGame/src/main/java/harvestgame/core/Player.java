@@ -59,4 +59,8 @@ public class Player {
         }
         return null;
     }
+
+    public boolean hasItem(Plant plant) {
+        return inventory.contains(plant) ? true: false;
+    }
 }
