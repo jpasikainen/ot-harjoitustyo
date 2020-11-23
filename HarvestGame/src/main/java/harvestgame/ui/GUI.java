@@ -3,6 +3,7 @@ package harvestgame.ui;
 import harvestgame.core.GameManager;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -83,7 +84,7 @@ public class GUI extends Application {
 
 
         // Add components to the layout
-        vbox.getChildren().addAll(dayLabel, buttonNextDay ,buttonStore, buttonInventory, buttonWater, buttonExit);
+        vbox.getChildren().addAll(dayLabel, buttonNextDay, buttonStore, buttonInventory, buttonExit);
 
         return vbox;
     }
@@ -103,6 +104,7 @@ public class GUI extends Application {
             String buttonText = GameManager.field.isPlotFree(i) ? "Empty" : GameManager.field.getPlant(i).getName();
 
             Button button = new Button(buttonText);
+            button.getStyleClass().add("plot");
             int index = i; // Required for lambda expression
             EventHandler<ActionEvent> buttonEvent = actionEvent -> {
                 if (GameManager.field.isPlotFree(index)) {
@@ -205,7 +207,9 @@ public class GUI extends Application {
         if (itemBox.getChildren().isEmpty())
             itemBox.getChildren().add(new Label("Use Store to buy plants"));
 
-        vbox.getChildren().addAll(itemBox, buttonReturn);
+        ScrollPane sp = new ScrollPane();
+        sp.setContent(itemBox);
+        vbox.getChildren().addAll(sp, buttonReturn);
 
         return vbox;
     }
