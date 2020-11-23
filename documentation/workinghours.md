@@ -11,4 +11,5 @@
 | 11/17 | 2 | Added checkstyle and fixed given errors |
 | 11/18 | 2 | Added tests and updated documentation |
 | 11/22 | 4 | Implemented GameManager to the tests and added new features to the game |
-| Total (h) | 30 |	|
+| 11/23 | 2 | Added styling css and updated the game look. Fixed few bugs |
+| Total (h) | 32 |	|
