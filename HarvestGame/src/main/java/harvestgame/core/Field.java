@@ -1,5 +1,9 @@
 package harvestgame.core;
 
+/**
+ * TODO: Create Plot class to include more properties on the plots
+ * such as price, fertilizers, etc.
+ */
 public class Field {
     private Plant[] plots;
     private int fieldWidth, fieldHeight;

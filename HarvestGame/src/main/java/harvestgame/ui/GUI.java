@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -27,6 +28,7 @@ public class GUI extends Application {
 
         // Create scene and change stage settings
         Scene scene = new Scene(root, 1280, 720);
+        scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setOnCloseRequest(e -> GameManager.exitGame());

@@ -1,0 +1,9 @@
+@font-face {
+    font-family: Acme;
+    src: url('/fonts/Acme-Regular.ttf');
+}
+
+* {
+    -fx-font-family: 'Acme';
+    -fx-font-size: 24;
+}
