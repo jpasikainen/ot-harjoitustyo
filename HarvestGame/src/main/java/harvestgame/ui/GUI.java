@@ -118,7 +118,8 @@ public class GUI extends Application {
                 } else {
                     GameManager.field.getPlant(index).water();
                     if (GameManager.field.getPlant(index).canHarvest()) {
-                        GameManager.field.getPlant(index).harvest();
+                        GameManager.field.harvest(index);
+                        changeScene(createWorld());
                     }
                 }
             };
@@ -226,7 +227,7 @@ public class GUI extends Application {
         Label label = new Label("1. Open the Store and buy a plant\n" +
                 "2. Go to the main view and click on Empty plot\n" +
                 "3. Click Plant next to the plant description\n" +
-                "4. Water plants when needed" +
+                "4. Water plants when needed and click Next Day to proceed\n" +
                 "5. After x days you can harvest the plant");
 
         Button button = new Button("Return");
