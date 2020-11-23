@@ -42,8 +42,7 @@ public class Store {
         }
 
         int price = plants.get(plantID).getPrice();
-        
-        // TODO: Move the check to Player class
+
         if (price > player.getBalance()) {
             System.out.println("Not enough money");
         } else {

@@ -17,9 +17,9 @@ public class Plant {
     private int id, price, soilDryness, growingTime;
     private String name;
     private int timeGrown = 0;
+    private int daysSinceWatering = 0;
 
     public boolean readyToHarvest;
-    public boolean requiresWatering;
 
     public Plant(int id, String name, int price, int soilDryness, int growingTime) {
         this.id = id;
@@ -51,10 +51,10 @@ public class Plant {
 
     // Kill plant if not watered every day
     public boolean newDay() {
-        if (requiresWatering) {
+        daysSinceWatering++;
+        if (daysSinceWatering > soilDryness) {
             return false;
         } else {
-            requiresWatering = true;
             timeGrown++;
 
             if (timeGrown == growingTime) {
@@ -65,7 +65,7 @@ public class Plant {
     }
 
     public void water() {
-        requiresWatering = false;
+        daysSinceWatering = 0;
     }
 
     public int getPrice() {
