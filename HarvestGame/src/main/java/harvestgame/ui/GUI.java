@@ -15,6 +15,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.swing.*;
+
 /**
  * TODO: Create local variables for
  */
@@ -59,6 +61,7 @@ public class GUI extends Application {
         Button buttonStore = new Button("Store");
         Button buttonInventory = new Button("Inventory");
         Button buttonNextDay = new Button("Next day");
+        Button buttonHelp = new Button("Help");
 
         // Add button events
         // Exit
@@ -76,6 +79,9 @@ public class GUI extends Application {
             changeScene(createWorld()); // Refresh the view
         };
         buttonNextDay.setOnAction(buttonNextDayEvent);
+        // Help
+        EventHandler<ActionEvent> buttonHelpEvent = actionEvent -> changeScene(createHelpPane());
+        buttonHelp.setOnAction(buttonHelpEvent);
 
         // Create layout
         VBox vbox = new VBox();
@@ -84,7 +90,7 @@ public class GUI extends Application {
 
 
         // Add components to the layout
-        vbox.getChildren().addAll(dayLabel, buttonNextDay, buttonStore, buttonInventory, buttonExit);
+        vbox.getChildren().addAll(dayLabel, buttonNextDay, buttonStore, buttonInventory, buttonHelp, buttonExit);
 
         return vbox;
     }
@@ -210,6 +216,23 @@ public class GUI extends Application {
         ScrollPane sp = new ScrollPane();
         sp.setContent(itemBox);
         vbox.getChildren().addAll(sp, buttonReturn);
+
+        return vbox;
+    }
+
+    private VBox createHelpPane() {
+        VBox vbox = new VBox();
+
+        Label label = new Label("1. Open the Store and buy a plant\n" +
+                "2. Go to the main view and click on Empty plot\n" +
+                "3. Click Plant next to the plant description\n" +
+                "4. Water plants when needed" +
+                "5. After x days you can harvest the plant");
+
+        Button button = new Button("Return");
+        button.setOnAction(ActionEvent -> changeScene(createWorld()));
+
+        vbox.getChildren().addAll(label, button);
 
         return vbox;
     }
