@@ -1,22 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package harvestgame.core;
 
 import harvestgame.database.Database;
-
 import java.util.ArrayList;
 
 /**
- *
- * @author jpasikainen
+ * Store manages the item data from the database
+ * and provides methods to access it
  */
 public class Store {
-    ArrayList<Plant> plants;
+    private ArrayList<Plant> plants;
     private Database db;
 
+    // Constructor
     public Store(Database db) {
         this.db = db;
         plants = db.getAllPlants();

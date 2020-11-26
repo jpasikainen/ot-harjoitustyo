@@ -1,20 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package harvestgame.core;
 
 import java.util.ArrayList;
 
 /**
- *
- * @author jpasikainen
+ * Manages the inventory and money
  */
 public class Player {
     private int money;
     private ArrayList<Plant> inventory;
-    
+
+    // Constructor
     public Player(int money) {
         this.money = money;
         this.inventory = new ArrayList<>();
@@ -23,7 +18,8 @@ public class Player {
     public int getBalance() {
         return money;
     }
-    
+
+    // Changes balance and checks if the amount is meant to add or subtract balance
     public void changeBalance(int amount) {
         if (amount > 0) {
             money += amount;

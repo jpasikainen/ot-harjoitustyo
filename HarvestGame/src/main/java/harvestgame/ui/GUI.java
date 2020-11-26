@@ -11,14 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.swing.*;
 
 /**
  * TODO: Create local variables for
+ * Graphical User Interface, GUI
+ * Excluded from tests and style check
  */
 public class GUI extends Application {
     private StackPane root;
@@ -116,7 +116,7 @@ public class GUI extends Application {
                 if (GameManager.field.isPlotFree(index)) {
                     changeScene(createInventoryPane(index));
                 } else {
-                    GameManager.field.getPlant(index).water();
+                    GameManager.field.water(index);
                     if (GameManager.field.getPlant(index).canHarvest()) {
                         GameManager.field.harvest(index);
                         changeScene(createWorld());

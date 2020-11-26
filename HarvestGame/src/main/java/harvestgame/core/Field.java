@@ -3,11 +3,15 @@ package harvestgame.core;
 /**
  * TODO: Create Plot class to include more properties on the plots
  * such as price, fertilizers, etc.
+ *
+ * Field contains all the plots and plants within.
+ * It also exposes the plants to other classes.
  */
 public class Field {
     private Plant[] plots;
     private int fieldWidth, fieldHeight;
 
+    // Constructor
     public Field(int fieldWidth, int fieldHeight) {
         this.fieldWidth = fieldWidth;
         this.fieldHeight = fieldHeight;
@@ -36,14 +40,6 @@ public class Field {
 
     public void water(int plotIndex) {
         plots[plotIndex].water();
-    }
-
-    public void waterAll() {
-        for (int i = 0; i < getFieldSize(); i++) {
-            if (!isPlotFree(i)) {
-                water(i);
-            }
-        }
     }
 
     public void newDay() {

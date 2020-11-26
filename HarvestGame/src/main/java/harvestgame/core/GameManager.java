@@ -4,6 +4,7 @@ import harvestgame.database.Database;
 
 /**
  * TODO: Create getters for the static variables
+ * GameManager creates and distributes all the objects used globally
  */
 public class GameManager {
     public static int day;
@@ -25,6 +26,7 @@ public class GameManager {
         System.exit(0);
     }
 
+    // Advances to the next day
     public static void nextDay() {
         field.newDay();
         day++;

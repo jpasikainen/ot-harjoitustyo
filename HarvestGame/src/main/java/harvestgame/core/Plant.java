@@ -14,13 +14,14 @@ import java.util.TimerTask;
  */
 
 public class Plant {
-    private int id, price, soilDryness, growingTime;
+    public boolean readyToHarvest;
+
     private String name;
+    private int id, price, soilDryness, growingTime;
     private int timeGrown = 0;
     private int daysSinceWatering = 0;
 
-    public boolean readyToHarvest;
-
+    // Main constructor
     public Plant(int id, String name, int price, int soilDryness, int growingTime) {
         this.id = id;
         this.name = name;
@@ -29,8 +30,7 @@ public class Plant {
         this.growingTime = growingTime;
     }
 
-    // Clone
-    // TODO: Remove cloning eventually
+    // Clone constructor
     public Plant(Plant plant) {
         this.id = plant.id;
         this.name = plant.name;
@@ -49,7 +49,7 @@ public class Plant {
         return readyToHarvest;
     }
 
-    // Kill plant if not watered every day
+    // Kill plant if not watered every day = return false
     public boolean newDay() {
         daysSinceWatering++;
         if (daysSinceWatering > soilDryness) {
