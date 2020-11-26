@@ -14,66 +14,61 @@ import java.util.TimerTask;
  */
 
 public class Plant {
-    public boolean readyToHarvest;
-
     private String name;
     private int id, price, soilDryness, growingTime;
-    private int timeGrown = 0;
-    private int daysSinceWatering = 0;
+    private int daysSinceWatering, daysGrown;
 
-    // Main constructor
+    // Constructor
     public Plant(int id, String name, int price, int soilDryness, int growingTime) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.soilDryness = soilDryness;
         this.growingTime = growingTime;
+        this.daysSinceWatering = 0;
+        this.daysGrown = 0;
     }
 
-    // Clone constructor
+    // Clone
     public Plant(Plant plant) {
         this.id = plant.id;
         this.name = plant.name;
         this.price = plant.price;
         this.soilDryness = plant.soilDryness;
         this.growingTime = plant.growingTime;
-    }
-
-    public void harvest() {
-        if (readyToHarvest) {
-            GameManager.player.addItem(this);
-        }
-    }
-
-    public boolean canHarvest() {
-        return readyToHarvest;
-    }
-
-    // Kill plant if not watered every day = return false
-    public boolean newDay() {
-        daysSinceWatering++;
-        if (daysSinceWatering > soilDryness) {
-            return false;
-        } else {
-            timeGrown++;
-
-            if (timeGrown == growingTime) {
-                readyToHarvest = true;
-            }
-            return true;
-        }
+        this.daysSinceWatering = 0;
+        this.daysGrown = 0;
     }
 
     public void water() {
         daysSinceWatering = 0;
     }
 
-    public int getPrice() {
-        return price;
+    public boolean canHarvest() {
+        return daysGrown == growingTime;
+    }
+
+    // Clone self without modified properties
+    public Plant harvest() {
+        return new Plant(this);
+    }
+
+    public boolean survivesDay() {
+        if (daysSinceWatering == soilDryness) {
+            return false;
+        } else {
+            daysGrown++;
+            daysSinceWatering++;
+            return true;
+        }
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package harvestgame.ui;
 
+import harvestgame.core.Game;
 import harvestgame.core.GameManager;
+import harvestgame.core.Plant;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ScrollPane;
@@ -96,39 +98,47 @@ public class GUI extends Application {
     }
 
     // Field
-    private HBox createFieldPane() {
-        HBox field = new HBox();
-        TilePane grid = new TilePane();
-        grid.setPrefColumns(GameManager.field.getFieldWidth());
-        grid.setPrefRows(GameManager.field.getFieldHeight());
-        grid.setPadding(new Insets(10));
-        grid.setHgap(10);
-        grid.setVgap(10);
+    private TilePane createFieldPane() {
+        TilePane field = new TilePane();
+        field.setPrefColumns(3);
+        field.setPrefRows(3);
+        field.setPadding(new Insets(10));
+        field.setHgap(10);
+        field.setVgap(10);
 
         // Create plot slots
         for (int i = 0; i < GameManager.field.getFieldSize(); i++) {
-            String buttonText = GameManager.field.isPlotFree(i) ? "Empty" : GameManager.field.getPlant(i).getName();
-
+            // Initialize button
+            String buttonText = GameManager.field.getPlant(i) == null ? "Empty" : GameManager.field.getPlant(i).getName();
             Button button = new Button(buttonText);
             button.getStyleClass().add("plot");
+
+            // Add button functionality
             int index = i; // Required for lambda expression
             EventHandler<ActionEvent> buttonEvent = actionEvent -> {
-                if (GameManager.field.isPlotFree(index)) {
+                // If empty -> go to inventory, else -> water / harvest
+                if (GameManager.field.getPlant(index) == null) {
                     changeScene(createInventoryPane(index));
                 } else {
-                    GameManager.field.water(index);
-                    if (GameManager.field.getPlant(index).canHarvest()) {
-                        GameManager.field.harvest(index);
-                        changeScene(createWorld());
+                    if (GameManager.field.canHarvestPlant(index)) {
+                        GameManager.player.addItem(GameManager.field.harvestPlant(index));
+                        changeScene(createWorld()); // Refresh view
+                    } else {
+                        GameManager.field.waterPlant(index);
                     }
                 }
             };
             button.setOnAction(buttonEvent);
 
-            String tip = GameManager.field.isPlotFree(i) ? "Click to plant" : "Click to water";
-            if (!GameManager.field.isPlotFree(i)) {
-                if (GameManager.field.getPlant(i).canHarvest()) {
+            // Set tooltip
+            String tip;
+            if (GameManager.field.getPlant(index) == null) {
+                tip = "Click to plant";
+            } else {
+                if (GameManager.field.getPlant(index).canHarvest()) {
                     tip = "Click to harvest";
+                } else {
+                    tip = "Click to water";
                 }
             }
 
@@ -136,9 +146,8 @@ public class GUI extends Application {
             tooltip.setShowDelay(Duration.seconds(0));
             button.setTooltip(tooltip);
 
-            grid.getChildren().add(button);
+            field.getChildren().add(button);
         }
-        field.getChildren().add(0, grid);
 
         return field;
     }
@@ -193,14 +202,16 @@ public class GUI extends Application {
         buttonReturn.setOnAction(buttonReturnEvent);
 
         VBox itemBox = new VBox();
-        GameManager.player.getInventory().forEach(item -> {
+        for (Plant item : GameManager.player.getItems()) {
             HBox itemInfoBox = new HBox();
             Label itemLabel = new Label(item.toString());
 
+            // Enable planting mechanics
             if (plotIndex != null) {
                 Button plantButton = new Button("Plant");
                 EventHandler<ActionEvent> buttonAction = actionEvent -> {
                     GameManager.field.plant(item, plotIndex[0]);
+                    GameManager.player.removeItem(item);
                     changeScene(createWorld());
                 };
                 plantButton.setOnAction(buttonAction);
@@ -210,7 +221,7 @@ public class GUI extends Application {
             }
 
             itemBox.getChildren().add(itemInfoBox);
-        });
+        }
         if (itemBox.getChildren().isEmpty())
             itemBox.getChildren().add(new Label("Use Store to buy plants"));
 

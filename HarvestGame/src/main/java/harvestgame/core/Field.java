@@ -8,59 +8,67 @@ package harvestgame.core;
  * It also exposes the plants to other classes.
  */
 public class Field {
-    private Plant[] plots;
-    private int fieldWidth, fieldHeight;
+    private Plant[] plants;
+    private int fieldSize = 9;
 
-    // Constructor
-    public Field(int fieldWidth, int fieldHeight) {
-        this.fieldWidth = fieldWidth;
-        this.fieldHeight = fieldHeight;
-        plots = new Plant[getFieldSize()];
+    public Field() {
+        plants = new Plant[fieldSize];
     }
 
-    public boolean isPlotFree(int plotIndex) {
-        return plots[plotIndex] == null;
-    }
-
-    public Plant getPlant(int plotIndex) {
-        return isPlotFree(plotIndex) ? null : plots[plotIndex];
-    }
-
-    public void plant(Plant plant, int plotIndex) {
-        if (GameManager.player.hasItem(plant)) {
-            plots[plotIndex] = plant;
-            GameManager.player.removeItem(plant);
-        }
-    }
-
-    public void harvest(int plotIndex) {
-        GameManager.player.addItem(plots[plotIndex]);
-        plots[plotIndex] = null;
-    }
-
-    public void water(int plotIndex) {
-        plots[plotIndex].water();
-    }
-
-    public void newDay() {
-        for (int i = 0; i < getFieldSize(); i++) {
-            if (!isPlotFree(i)) {
-                if (!plots[i].newDay()) {
-                    plots[i] = null; // Remove the plant if not watered
-                }
-            }
-        }
+    private boolean validIndex(int index) {
+        return (index < fieldSize && index >= 0);
     }
 
     public int getFieldSize() {
-        return fieldWidth * fieldHeight;
+        return fieldSize;
     }
 
-    public int getFieldWidth() {
-        return fieldWidth;
+    public Plant getPlant(int index) {
+        if (validIndex(index)) {
+            return plants[index];
+        }
+        return null;
     }
 
-    public int getFieldHeight() {
-        return fieldHeight;
+    public void plant(Plant plant, int index) {
+        if (validIndex(index)) {
+            plants[index] = plant;
+        }
+    }
+
+    public void waterPlant(int index) {
+        if (validIndex(index)) {
+            plants[index].water();
+        }
+    }
+
+    public boolean canHarvestPlant(int index) {
+        if (validIndex(index)) {
+            return plants[index].canHarvest();
+        }
+        return false;
+    }
+
+    // Return plant or null
+    public Plant harvestPlant(int index) {
+        if (validIndex(index)) {
+            Plant plant = plants[index].harvest();
+            plants[index] = null;
+            return plant;
+        }
+        return null;
+    }
+
+    public void advanceDay() {
+        // Loop through all plants
+        for (int i = 0; i < fieldSize; i++) {
+            // Check if plant exists
+            if (plants[i] != null) {
+                // If plant dies -> destroy it
+                if (!plants[i].survivesDay()) {
+                    plants[i] = null;
+                }
+            }
+        }
     }
 }

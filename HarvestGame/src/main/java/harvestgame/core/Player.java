@@ -7,12 +7,12 @@ import java.util.ArrayList;
  */
 public class Player {
     private int money;
-    private ArrayList<Plant> inventory;
+    private ArrayList<Plant> plants;
 
     // Constructor
     public Player(int money) {
         this.money = money;
-        this.inventory = new ArrayList<>();
+        plants = new ArrayList<>();
     }
     
     public int getBalance() {
@@ -27,23 +27,19 @@ public class Player {
             money += amount;
         }
     }
-    
+
+    // Add plant, make new methods for different item types
     public void addItem(Plant plant) {
         if (plant != null) {
-            Plant clone = new Plant(plant);
-            inventory.add(clone);
+            plants.add(plant);
         }
     }
 
     public void removeItem(Plant plant) {
-        inventory.remove(plant);
+        plants.remove(plant);
     }
 
-    public ArrayList<Plant> getInventory() {
-        return inventory;
-    }
-
-    public boolean hasItem(Plant plant) {
-        return inventory.contains(plant);
+    public ArrayList<Plant> getItems() {
+        return plants;
     }
 }

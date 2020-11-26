@@ -17,7 +17,7 @@ public class GameManager {
         player = new Player(money);
         db = new Database("jdbc:sqlite:database/Database.db");
         store = new Store(db);
-        field = new Field(fieldWidth, fieldHeight);
+        field = new Field();
     }
 
     // Close the database connection and exit the game
@@ -28,7 +28,7 @@ public class GameManager {
 
     // Advances to the next day
     public static void nextDay() {
-        field.newDay();
+        field.advanceDay();
         day++;
     }
 }

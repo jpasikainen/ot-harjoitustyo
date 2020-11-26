@@ -29,17 +29,9 @@ public class FieldTest {
     }
 
     @Test
-    public void fieldInitWorks() {
-        for (int i = 0; i < fieldSize; i++) {
-            assertEquals(true, GameManager.field.isPlotFree(i));
-        }
-        assertEquals(fieldSize, GameManager.field.getFieldSize());
-    }
-
-    @Test
     public void plantInvalidPlant() {
         GameManager.field.plant(null, 0);
-        assertEquals(true, GameManager.field.isPlotFree(0));
+        assertEquals(true, GameManager.field.getPlant(0) == null);
     }
 
     // Create x amount of plants for testing

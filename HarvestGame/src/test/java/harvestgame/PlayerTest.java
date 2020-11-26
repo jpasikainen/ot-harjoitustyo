@@ -39,7 +39,7 @@ public class PlayerTest {
 
     @Test
     public void playerInventoryInitializedCorrectly() {
-        assertEquals(inventory, GameManager.player.getInventory());
+        assertEquals(inventory, GameManager.player.getItems());
     }
 
     @Test
@@ -64,19 +64,19 @@ public class PlayerTest {
     @Test
     public void addPlantToInventory() {
         GameManager.player.addItem(testPlant);
-        assertEquals(1, GameManager.player.getInventory().size());
+        assertEquals(1, GameManager.player.getItems().size());
     }
 
     @Test
     public void addInvalidPlantToInventory() {
         GameManager.player.addItem(null);
-        assertEquals(new ArrayList<Plant>(), GameManager.player.getInventory());
+        assertEquals(new ArrayList<Plant>(), GameManager.player.getItems());
     }
 
     @Test
     public void removeItemFromInventoryWhenEmpty() {
         GameManager.player.removeItem(testPlant);
-        assertEquals(0, GameManager.player.getInventory().size());
+        assertEquals(0, GameManager.player.getItems().size());
     }
 
     @Test
@@ -84,6 +84,6 @@ public class PlayerTest {
         GameManager.player.addItem(testPlant);
         GameManager.player.addItem(testPlant);
         GameManager.player.removeItem(testPlant);
-        assertEquals(2, GameManager.player.getInventory().size());
+        assertEquals(1, GameManager.player.getItems().size());
     }
 }
