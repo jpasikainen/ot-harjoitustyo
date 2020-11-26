@@ -49,14 +49,15 @@ public class Field {
         return false;
     }
 
-    // Return plant or null
-    public Plant harvestPlant(int index) {
+    // Give 2 plants after successful harvest
+    public void harvestPlant(int index) {
         if (validIndex(index)) {
             Plant plant = plants[index].harvest();
             plants[index] = null;
-            return plant;
+
+            GameManager.player.addItem(plant);
+            GameManager.player.addItem(plant);
         }
-        return null;
     }
 
     public void advanceDay() {

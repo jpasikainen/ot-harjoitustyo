@@ -25,17 +25,11 @@ public class Plant {
         this.price = price;
         this.soilDryness = soilDryness;
         this.growingTime = growingTime;
-        this.daysSinceWatering = 0;
-        this.daysGrown = 0;
+        plant();
     }
 
-    // Clone
-    public Plant(Plant plant) {
-        this.id = plant.id;
-        this.name = plant.name;
-        this.price = plant.price;
-        this.soilDryness = plant.soilDryness;
-        this.growingTime = plant.growingTime;
+    // Reset plant's values for reuse
+    public void plant() {
         this.daysSinceWatering = 0;
         this.daysGrown = 0;
     }
@@ -50,7 +44,8 @@ public class Plant {
 
     // Clone self without modified properties
     public Plant harvest() {
-        return new Plant(this);
+        plant();
+        return this;
     }
 
     public boolean survivesDay() {

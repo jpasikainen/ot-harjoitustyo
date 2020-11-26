@@ -12,6 +12,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -121,7 +123,7 @@ public class GUI extends Application {
                     changeScene(createInventoryPane(index));
                 } else {
                     if (GameManager.field.canHarvestPlant(index)) {
-                        GameManager.player.addItem(GameManager.field.harvestPlant(index));
+                        GameManager.field.harvestPlant(index);
                         changeScene(createWorld()); // Refresh view
                     } else {
                         GameManager.field.waterPlant(index);
@@ -180,8 +182,15 @@ public class GUI extends Application {
             };
             buyButton.setOnAction(buttonBuyEvent);
 
+            Button sellButton = new Button("Sell");
+            EventHandler<ActionEvent> buttonSellEvent = actionEvent -> {
+                GameManager.store.sellPlant(Integer.parseInt(plant.split(" ")[0]), GameManager.player);
+                moneyLabel.setText(String.format("Money: %d", GameManager.player.getBalance()));
+            };
+            sellButton.setOnAction(buttonSellEvent);
+
             HBox plantBox = new HBox(25);
-            plantBox.getChildren().addAll(plantLabel, buyButton);
+            plantBox.getChildren().addAll(plantLabel, buyButton, sellButton);
             vboxPlants.getChildren().add(plantBox);
         });
 

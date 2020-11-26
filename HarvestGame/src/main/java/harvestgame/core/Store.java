@@ -47,4 +47,18 @@ public class Store {
             System.out.println("New item bought");
         }
     }
+
+    public void sellPlant(int plantID, Player player) {
+        if (plants.size() < plantID) {
+            return;
+        }
+
+        if (player.hasItem(plants.get(plantID))) {
+            int price = (int) (0.8 * plants.get(plantID).getPrice());
+            player.changeBalance(price);
+            player.removeItem(plants.get(plantID));
+        } else {
+            System.out.println("Item not in inventory");
+        }
+    }
 }

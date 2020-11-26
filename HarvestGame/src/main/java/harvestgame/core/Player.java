@@ -36,7 +36,23 @@ public class Player {
     }
 
     public void removeItem(Plant plant) {
-        plants.remove(plant);
+        String name = plant.getName();
+        for (Plant item : plants) {
+            if (item.getName() == name) {
+                plants.remove(item);
+                return;
+            }
+        }
+    }
+
+    public boolean hasItem(Plant plant) {
+        String name = plant.getName();
+        for (Plant item : plants) {
+            if (item.getName() == name) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<Plant> getItems() {
