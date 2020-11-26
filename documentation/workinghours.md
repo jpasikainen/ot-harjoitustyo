@@ -12,4 +12,5 @@
 | 11/18 | 2 | Added tests and updated documentation |
 | 11/22 | 4 | Implemented GameManager to the tests and added new features to the game |
 | 11/23 | 2 | Added styling css and updated the game look. Fixed few bugs |
-| Total (h) | 32 |	|
+| 11/26 | 5 | Refactored code and implemented selling feature |
+| Total (h) | 37 |	|
