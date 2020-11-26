@@ -8,11 +8,11 @@ The core gameplay loop of the game is to grow plants and eventually sell the har
 - First implementation with text interface ✅
 - Plants can be bought from a predefined database ✅
 - The attributes of the plants are name, price, watering interval and growth time ✅
-- In order to keep the plants alive, the play must water the plants every (watering interval * t)
-- Plants are ready to be harvested after (growth time * t) ✅
+- In order to keep the plants alive, the play must water the plants every (watering interval * days) ✅
+- Plants are ready to be harvested after (growth time * days) ✅
 
 ### Further Development Ideas:
-- GUI with JavaFX
+- GUI with JavaFX ✅
 - Game saving
 - Fertilizers -> speeds the growth, new database
 - Seasons -> all plants can't be grown every season
