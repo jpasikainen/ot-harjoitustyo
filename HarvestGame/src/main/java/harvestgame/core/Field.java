@@ -23,11 +23,21 @@ public class Field {
         return fieldSize;
     }
 
+    public boolean isEmpty(int index) {
+        return plants[index] == null;
+    }
+
     public Plant getPlant(int index) {
         if (validIndex(index)) {
             return plants[index];
         }
         return null;
+    }
+
+    public void removePlant(int index) {
+        if (validIndex(index)) {
+            plants[index] = null;
+        }
     }
 
     public void plant(Plant plant, int index) {
@@ -57,6 +67,13 @@ public class Field {
 
             GameManager.player.addItem(plant);
             GameManager.player.addItem(plant);
+        }
+    }
+
+    public void harvest(int index) {
+        if (validIndex(index)) {
+            GameManager.player.changeBalance(getPlant(index).getPrice() * 2);
+            removePlant(index);
         }
     }
 

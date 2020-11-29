@@ -1,6 +1,6 @@
 package harvestgame.core;
 
-import harvestgame.ui.GUI;
+import harvestgame.ui.GUIv2;
 import javafx.application.Application;
 
 /**
@@ -10,6 +10,6 @@ import javafx.application.Application;
 public class Game {
     public static void main(String[] args) {
         GameManager.gameInit(100, 3, 3);
-        Application.launch(GUI.class);
+        Application.launch(GUIv2.class);
     }
 }

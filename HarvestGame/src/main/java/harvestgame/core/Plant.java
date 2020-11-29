@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package harvestgame.core;
+
+import javafx.application.Platform;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
-/**
- *
- * @author jpasikainen
- */
 
 public class Plant {
     private String name;
@@ -25,6 +17,16 @@ public class Plant {
         this.price = price;
         this.soilDryness = soilDryness;
         this.growingTime = growingTime;
+        plant();
+    }
+
+    // Clone
+    public Plant(Plant plant) {
+        this.id = plant.id;
+        this.name = plant.name;
+        this.price = plant.price;
+        this.soilDryness = plant.soilDryness;
+        this.growingTime = plant.growingTime;
         plant();
     }
 
@@ -64,6 +66,14 @@ public class Plant {
 
     public int getPrice() {
         return price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getGrowingTime() {
+        return growingTime;
     }
 
     @Override

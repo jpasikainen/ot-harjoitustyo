@@ -30,21 +30,26 @@ public class Store {
         return plantList;
     }
 
+    public ArrayList<Plant> getAllPlants() {
+        return plants;
+    }
+
     // Clone the plant so the values in store don't get updated
-    public void buyPlant(int plantID, Player player) {
+    public Plant buyPlant(int plantID, Player player) {
         if (plants.size() < plantID) {
-            return;
+            return null;
         }
 
         int price = plants.get(plantID).getPrice();
 
         if (price > player.getBalance()) {
             System.out.println("Not enough money");
+            return null;
         } else {
             player.changeBalance(-price);
-            Plant plant = plants.get(plantID);
-            player.addItem(plant);
+            //player.addItem(plant);
             System.out.println("New item bought");
+            return new Plant(plants.get(plantID));      // Pass a clone
         }
     }
 

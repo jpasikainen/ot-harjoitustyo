@@ -1,6 +1,7 @@
 package harvestgame.core;
 
 import harvestgame.database.Database;
+import harvestgame.ui.GUIv2;
 
 /**
  * TODO: Create getters for the static variables
@@ -12,6 +13,7 @@ public class GameManager {
     public static Store store;
     public static Player player;
     public static Field field;
+    public static GUIv2 gui;
 
     public static void gameInit(int money, int fieldWidth, int fieldHeight) {
         player = new Player(money);

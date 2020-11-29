@@ -16,16 +16,29 @@
 }
 
 .button {
-    -fx-background-color: grey;
-    -fx-border-color: dimgray;
+    -fx-background-color: gold;
+    -fx-border-color: goldenrod;
     -fx-border-width: 3px;
     -fx-border-radius: 6px;
     -fx-background-radius: 8px;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-padding: 10px;
 }
 
-.plot {
+.button.canBuy {
+    -fx-background-color: green;
+    -fx-border-color: darkgreen;
+    -fx-text-fill: white;
+}
+
+.button.cantBuy {
+    -fx-background-color: grey;
+    -fx-border-color: dimgray;
+    -fx-text-fill: white;
+}
+
+.button.plot {
     -fx-background-color: sienna;
     -fx-border-color: maroon;
+    -fx-text-fill: white;
 }
