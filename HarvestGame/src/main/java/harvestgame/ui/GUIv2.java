@@ -46,10 +46,10 @@ public class GUIv2 extends Application {
                     public void run() {
                         fieldButtons.forEach((k, v) -> {
                             if (!GameManager.field.isEmpty(k)) {
-                                int time = Integer.parseInt(v.getText());
-                                time -= 1;
-                                v.setText(Integer.toString(time));
-                                if (time == 0) {
+                                GameManager.field.getPlant(k).reduceTime();
+                                int timeLeft = GameManager.field.getPlant(k).getTimeLeft();
+                                v.setText(Integer.toString(timeLeft));
+                                if (timeLeft == 0) {
                                     v.setText("Plant");
                                     GameManager.field.harvest(k);
                                     updateMoneyLabel();
@@ -92,7 +92,7 @@ public class GUIv2 extends Application {
         int row = 0;
 
         for (int i = 0; i < GameManager.field.getFieldSize(); i++) {
-            String buttonText = GameManager.field.isEmpty(i) ? "Plant" : Integer.toString(GameManager.field.getPlant(i).getGrowingTime());
+            String buttonText = GameManager.field.isEmpty(i) ? "Plant" : Integer.toString(GameManager.field.getPlant(i).getTimeLeft());
             Button button = new Button(buttonText);
             button.setPrefSize(100, 100);
             button.getStyleClass().add("plot");

@@ -9,6 +9,7 @@ public class Plant {
     private String name;
     private int id, price, soilDryness, growingTime;
     private int daysSinceWatering, daysGrown;
+    private int timeLeft;
 
     // Constructor
     public Plant(int id, String name, int price, int soilDryness, int growingTime) {
@@ -17,6 +18,7 @@ public class Plant {
         this.price = price;
         this.soilDryness = soilDryness;
         this.growingTime = growingTime;
+        this.timeLeft = growingTime;
         plant();
     }
 
@@ -27,6 +29,7 @@ public class Plant {
         this.price = plant.price;
         this.soilDryness = plant.soilDryness;
         this.growingTime = plant.growingTime;
+        this.timeLeft = growingTime;
         plant();
     }
 
@@ -74,6 +77,14 @@ public class Plant {
 
     public int getGrowingTime() {
         return growingTime;
+    }
+
+    public int getTimeLeft() {
+        return timeLeft;
+    }
+
+    public void reduceTime() {
+        timeLeft -= 1;
     }
 
     @Override
