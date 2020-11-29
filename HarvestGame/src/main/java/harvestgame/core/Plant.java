@@ -55,4 +55,17 @@ public class Plant {
             timeLeft -= 1;
         }
     }
+
+    public boolean canHarvest() {
+        return timeLeft == 0;
+    }
+
+    public void reduceTime(double amount) {
+        if (timeLeft > 0) {
+            if ((int) amount < 1) {
+                amount = 1;
+            }
+            timeLeft -= (int) amount;
+        }
+    }
 }

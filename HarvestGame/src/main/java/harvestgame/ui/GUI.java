@@ -26,7 +26,7 @@ public class GUI extends Application {
         GameManager.gui = this;
         createWorldView();
 
-        Scene scene = new Scene(root, 500, 500);
+        Scene scene = new Scene(root, 700, 500);
         scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
@@ -64,11 +64,19 @@ public class GUI extends Application {
     }
 
     private void createWorldView() {
+        root.getChildren().clear();
         moneyLabel = new Label();
         updateMoneyLabel();
         root.setTop(moneyLabel);
         root.setCenter(fieldGrid());
         root.setBottom(exitButton());
+        root.setRight(toolsView());
+    }
+
+    private void createStoreView(int index) {
+        root.getChildren().clear();
+        root.setTop(moneyLabel);
+        root.setCenter(storePane(index));
     }
 
     public void updateMoneyLabel() {
@@ -93,14 +101,14 @@ public class GUI extends Application {
         for (int i = 0; i < GameManager.field.getFieldSize(); i++) {
             String buttonText = GameManager.field.isEmpty(i) ? "Plant" : Integer.toString(GameManager.field.getPlant(i).getTimeLeft()) + "s";
             Button button = new Button(buttonText);
-            button.setPrefSize(100, 100);
+            button.setPrefSize(200, 100);
             button.getStyleClass().add("plot");
 
             // Add button functionality
             int index = i; // Required for lambda expression
             EventHandler<ActionEvent> buttonEvent = actionEvent -> {
                 if (GameManager.field.isEmpty(index)) {
-                    openStore(index);
+                    createStoreView(index);
                 }
                 if (fieldButtons.get(index).getText() == "Harvest") {
                     fieldButtons.get(index).setText("Plant");
@@ -121,11 +129,7 @@ public class GUI extends Application {
         return grid;
     }
 
-    public void updateFieldButton(int index, String text) {
-        fieldButtons.get(index).setText(text);
-    }
-
-    private void openStore(int plotIndex) {
+    private VBox storePane(int plotIndex) {
         VBox storeView = new VBox();
         Label storeLabel = new Label("Store");
         storeView.getChildren().add(storeLabel);
@@ -153,7 +157,7 @@ public class GUI extends Application {
                             plotIndex
                     );
                     updateMoneyLabel();
-                    root.setCenter(fieldGrid());    // Change to field view
+                    createWorldView();
                 }
             };
 
@@ -167,11 +171,33 @@ public class GUI extends Application {
 
         Button returnButton = new Button("Return");
         EventHandler<ActionEvent> returnEvent = actionEvent -> {
-            root.setCenter(fieldGrid());
+            createWorldView();
         };
         returnButton.setOnAction(returnEvent);
 
         storeView.getChildren().addAll(itemListing, returnButton);
-        root.setCenter(storeView);
+
+        return storeView;
+    }
+
+    private VBox toolsView() {
+        VBox vb = new VBox();
+
+        Label warningLabel = new Label("Each tool costs\n$50 to use");
+        Label toolsLabel = new Label("Tools:");
+        Button decreaseTimeButton = new Button("-20% time\nmin -1s");
+        EventHandler<ActionEvent> dtEvent = actionEvent -> {
+            fieldButtons.forEach((k, v) -> {
+                if (!GameManager.field.isEmpty(k) && GameManager.player.getBalance() > 50) {
+                    GameManager.player.changeBalance(-50);
+                    GameManager.field.getPlant(k).reduceTime(GameManager.field.getPlant(k).getTimeLeft() * 0.2);
+                    updateMoneyLabel();
+                }
+            });
+        };
+        decreaseTimeButton.setOnAction(dtEvent);
+
+        vb.getChildren().addAll(warningLabel, toolsLabel, decreaseTimeButton);
+        return vb;
     }
 }
