@@ -7,12 +7,10 @@ import java.util.ArrayList;
  */
 public class Player {
     private int money;
-    private ArrayList<Plant> plants;
 
     // Constructor
     public Player(int money) {
         this.money = money;
-        plants = new ArrayList<>();
     }
     
     public int getBalance() {
@@ -26,36 +24,5 @@ public class Player {
         } else if (getBalance() >= Math.abs(amount)) {
             money += amount;
         }
-    }
-
-    // Add plant, make new methods for different item types
-    public void addItem(Plant plant) {
-        if (plant != null) {
-            plants.add(plant);
-        }
-    }
-
-    public void removeItem(Plant plant) {
-        String name = plant.getName();
-        for (Plant item : plants) {
-            if (item.getName() == name) {
-                plants.remove(item);
-                return;
-            }
-        }
-    }
-
-    public boolean hasItem(Plant plant) {
-        String name = plant.getName();
-        for (Plant item : plants) {
-            if (item.getName() == name) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public ArrayList<Plant> getItems() {
-        return plants;
     }
 }

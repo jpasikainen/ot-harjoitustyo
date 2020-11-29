@@ -6,5 +6,4 @@
 
 <suppressions>
     <suppress files="harvestgame.ui.GUI.java" checks="[a-zA-Z0-9]*"/>
-    <suppress files="harvestgame/ui/TextUI.java" checks="[a-zA-Z0-9]*"/>
 </suppressions>

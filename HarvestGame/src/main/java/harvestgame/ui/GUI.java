@@ -1,260 +1,177 @@
 package harvestgame.ui;
 
-import harvestgame.core.Game;
 import harvestgame.core.GameManager;
-import harvestgame.core.Plant;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tooltip;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
+import java.util.*;
 
-/**
- * TODO: Create local variables for
- * Graphical User Interface, GUI
- * Excluded from tests and style check
- */
 public class GUI extends Application {
-    private StackPane root;
+    private BorderPane root;
+    private Label moneyLabel;
+    private Map<Integer, Button> fieldButtons;
 
     @Override
     public void start(Stage stage) throws Exception {
-        // Create layout
-        root = new StackPane();
-        changeScene(createWorld());
+        root = new BorderPane();
+        fieldButtons = new HashMap<>();
+        GameManager.gui = this;
+        createWorldView();
 
-        // Create scene and change stage settings
-        Scene scene = new Scene(root, 1280, 720);
+        Scene scene = new Scene(root, 500, 500);
         scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setOnCloseRequest(e -> GameManager.exitGame());
         stage.show();
+
+        update();
     }
 
-    // Remove previous scene and add the new one
-    private void changeScene(Pane pane) {
-        root.getChildren().clear();
-        root.getChildren().add(pane);
-    }
-
-    // World view
-    private HBox createWorld() {
-        HBox hbox = new HBox();
-        hbox.getChildren().addAll(createMenuPane(), createFieldPane());
-        return hbox;
-    }
-
-    // Main menu
-    private VBox createMenuPane() {
-        // Day counter
-        Label dayLabel = new Label(String.format("Day: %d", GameManager.day));
-
-        // Create buttons
-        Button buttonExit = new Button("Exit");
-        Button buttonStore = new Button("Store");
-        Button buttonInventory = new Button("Inventory");
-        Button buttonNextDay = new Button("Next day");
-        Button buttonHelp = new Button("Help");
-
-        // Add button events
-        // Exit
-        EventHandler<ActionEvent> buttonExitEvent = actionEvent -> GameManager.exitGame();
-        buttonExit.setOnAction(buttonExitEvent);
-        // Activate Store
-        EventHandler<ActionEvent> buttonStoreEvent = actionEvent -> changeScene(createStorePane());
-        buttonStore.setOnAction(buttonStoreEvent);
-        // Open inventory
-        EventHandler<ActionEvent> buttonInventoryEvent = actionEvent -> changeScene(createInventoryPane(null));
-        buttonInventory.setOnAction(buttonInventoryEvent);
-        // Next day
-        EventHandler<ActionEvent> buttonNextDayEvent = actionEvent -> {
-            GameManager.nextDay();
-            changeScene(createWorld()); // Refresh the view
+    // Ticks every seconds
+    private void update() {
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        fieldButtons.forEach((k, v) -> {
+                            if (!GameManager.field.isEmpty(k)) {
+                                int timeLeft = GameManager.field.getPlant(k).getTimeLeft();
+                                GameManager.field.getPlant(k).reduceTime();
+                                if (timeLeft == 0) {
+                                    v.setText("Harvest");
+                                } else {
+                                    v.setText(timeLeft + "s");
+                                }
+                            }
+                        });
+                    }
+                });
+            }
         };
-        buttonNextDay.setOnAction(buttonNextDayEvent);
-        // Help
-        EventHandler<ActionEvent> buttonHelpEvent = actionEvent -> changeScene(createHelpPane());
-        buttonHelp.setOnAction(buttonHelpEvent);
-
-        // Create layout
-        VBox vbox = new VBox();
-        vbox.setPadding(new Insets(10, 10, 10, 10));
-        vbox.setSpacing(10);
-
-
-        // Add components to the layout
-        vbox.getChildren().addAll(dayLabel, buttonNextDay, buttonStore, buttonInventory, buttonHelp, buttonExit);
-
-        return vbox;
+        Timer timer = new Timer();
+        timer.schedule(task, 0, 1000l);
     }
 
-    // Field
-    private TilePane createFieldPane() {
-        TilePane field = new TilePane();
-        field.setPrefColumns(3);
-        field.setPrefRows(3);
-        field.setPadding(new Insets(10));
-        field.setHgap(10);
-        field.setVgap(10);
+    private void createWorldView() {
+        moneyLabel = new Label();
+        updateMoneyLabel();
+        root.setTop(moneyLabel);
+        root.setCenter(fieldGrid());
+        root.setBottom(exitButton());
+    }
 
-        // Create plot slots
+    public void updateMoneyLabel() {
+        String text = "Money: " + Integer.toString(GameManager.player.getBalance());
+        moneyLabel.setText(text);
+    }
+
+    private Button exitButton() {
+        Button button = new Button("Exit Game");
+        EventHandler<ActionEvent> buttonEvent = actionEvent -> GameManager.exitGame();
+        button.setOnAction(buttonEvent);
+        return button;
+    }
+
+    private GridPane fieldGrid() {
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        int column = 0;
+        int row = 0;
+
         for (int i = 0; i < GameManager.field.getFieldSize(); i++) {
-            // Initialize button
-            String buttonText = GameManager.field.getPlant(i) == null ? "Empty" : GameManager.field.getPlant(i).getName();
+            String buttonText = GameManager.field.isEmpty(i) ? "Plant" : Integer.toString(GameManager.field.getPlant(i).getTimeLeft()) + "s";
             Button button = new Button(buttonText);
+            button.setPrefSize(100, 100);
             button.getStyleClass().add("plot");
 
             // Add button functionality
             int index = i; // Required for lambda expression
             EventHandler<ActionEvent> buttonEvent = actionEvent -> {
-                // If empty -> go to inventory, else -> water / harvest
-                if (GameManager.field.getPlant(index) == null) {
-                    changeScene(createInventoryPane(index));
-                } else {
-                    if (GameManager.field.canHarvestPlant(index)) {
-                        GameManager.field.harvestPlant(index);
-                        changeScene(createWorld()); // Refresh view
-                    } else {
-                        GameManager.field.waterPlant(index);
-                    }
+                if (GameManager.field.isEmpty(index)) {
+                    openStore(index);
+                }
+                if (fieldButtons.get(index).getText() == "Harvest") {
+                    fieldButtons.get(index).setText("Plant");
+                    GameManager.field.harvest(index);
+                    updateMoneyLabel();
                 }
             };
             button.setOnAction(buttonEvent);
+            grid.add(button, column, row);
+            fieldButtons.put(i, button);
 
-            // Set tooltip
-            String tip;
-            if (GameManager.field.getPlant(index) == null) {
-                tip = "Click to plant";
-            } else {
-                if (GameManager.field.getPlant(index).canHarvest()) {
-                    tip = "Click to harvest";
-                } else {
-                    tip = "Click to water";
-                }
+            column++;
+            if (column == 3) {
+                column = 0;
+                row++;
             }
-
-            Tooltip tooltip = new Tooltip(tip);
-            tooltip.setShowDelay(Duration.seconds(0));
-            button.setTooltip(tooltip);
-
-            field.getChildren().add(button);
         }
-
-        return field;
+        return grid;
     }
 
-    // Store
-    private VBox createStorePane() {
-        // Create layout
-        VBox vbox = new VBox();
-        HBox hbox = new HBox();
+    public void updateFieldButton(int index, String text) {
+        fieldButtons.get(index).setText(text);
+    }
 
-        Button buttonReturn = new Button("Return");
+    private void openStore(int plotIndex) {
+        VBox storeView = new VBox();
+        Label storeLabel = new Label("Store");
+        storeView.getChildren().add(storeLabel);
 
-        // Button events
-        EventHandler<ActionEvent> buttonReturnEvent = actionEvent -> changeScene(createWorld());
-        buttonReturn.setOnAction(buttonReturnEvent);
+        VBox allItems = new VBox();
+        GameManager.store.getAllPlants().forEach(plant -> {
+            HBox itemView = new HBox();
+            String text = String.format(
+                    "%s:\tGrowing Time %ds",
+                    plant.getName(), plant.getGrowingTime()
+            );
+            Label plantLabel = new Label(text);
+            Button buyButton = new Button("$" + plant.getPrice());
 
-        // Money label
-        Label moneyLabel = new Label(String.format("Money: %d", GameManager.player.getBalance()));
+            if (GameManager.player.getBalance() >= plant.getPrice()) {
+                buyButton.getStyleClass().add("canBuy");
+            } else {
+                buyButton.getStyleClass().add("cantBuy");
+            }
 
-        // List all items
-        VBox vboxPlants = new VBox();
-        GameManager.store.listPlants().forEach(plant -> {
-            Label plantLabel = new Label(plant);
-
-            Button buyButton = new Button("Buy");
-            EventHandler<ActionEvent> buttonBuyEvent = actionEvent -> {
-                // Split the id from the plant
-                GameManager.store.buyPlant(Integer.parseInt(plant.split(" ")[0]), GameManager.player);
-                moneyLabel.setText(String.format("Money: %d", GameManager.player.getBalance()));
+            EventHandler<ActionEvent> buttonEvent = actionEvent -> {
+                if (GameManager.player.getBalance() >= plant.getPrice()) {
+                    GameManager.field.plant(
+                            GameManager.store.buyPlant(plant.getId(), GameManager.player),
+                            plotIndex
+                    );
+                    updateMoneyLabel();
+                    root.setCenter(fieldGrid());    // Change to field view
+                }
             };
-            buyButton.setOnAction(buttonBuyEvent);
 
-            Button sellButton = new Button("Sell");
-            EventHandler<ActionEvent> buttonSellEvent = actionEvent -> {
-                GameManager.store.sellPlant(Integer.parseInt(plant.split(" ")[0]), GameManager.player);
-                moneyLabel.setText(String.format("Money: %d", GameManager.player.getBalance()));
-            };
-            sellButton.setOnAction(buttonSellEvent);
-
-            HBox plantBox = new HBox(25);
-            plantBox.getChildren().addAll(plantLabel, buyButton, sellButton);
-            vboxPlants.getChildren().add(plantBox);
+            buyButton.setOnAction(buttonEvent);
+            itemView.getChildren().addAll(plantLabel, buyButton);
+            allItems.getChildren().add(itemView);
         });
 
+        ScrollPane itemListing = new ScrollPane();
+        itemListing.setContent(allItems);
 
-        hbox.getChildren().addAll(buttonReturn);
-        vbox.getChildren().addAll(moneyLabel, vboxPlants, hbox);
+        Button returnButton = new Button("Return");
+        EventHandler<ActionEvent> returnEvent = actionEvent -> {
+            root.setCenter(fieldGrid());
+        };
+        returnButton.setOnAction(returnEvent);
 
-        return vbox;
-    }
-
-    // plotIndex is optional
-    private VBox createInventoryPane(int... plotIndex) {
-        VBox vbox = new VBox();
-
-        Button buttonReturn = new Button("Return");
-        // Button events
-        EventHandler<ActionEvent> buttonReturnEvent = actionEvent -> changeScene(createWorld());
-        buttonReturn.setOnAction(buttonReturnEvent);
-
-        VBox itemBox = new VBox();
-        for (Plant item : GameManager.player.getItems()) {
-            HBox itemInfoBox = new HBox();
-            Label itemLabel = new Label(item.toString());
-
-            // Enable planting mechanics
-            if (plotIndex != null) {
-                Button plantButton = new Button("Plant");
-                EventHandler<ActionEvent> buttonAction = actionEvent -> {
-                    GameManager.field.plant(item, plotIndex[0]);
-                    GameManager.player.removeItem(item);
-                    changeScene(createWorld());
-                };
-                plantButton.setOnAction(buttonAction);
-                itemInfoBox.getChildren().addAll(itemLabel, plantButton);
-            } else {
-                itemInfoBox.getChildren().add(itemLabel);
-            }
-
-            itemBox.getChildren().add(itemInfoBox);
-        }
-        if (itemBox.getChildren().isEmpty())
-            itemBox.getChildren().add(new Label("Use Store to buy plants"));
-
-        ScrollPane sp = new ScrollPane();
-        sp.setContent(itemBox);
-        vbox.getChildren().addAll(sp, buttonReturn);
-
-        return vbox;
-    }
-
-    private VBox createHelpPane() {
-        VBox vbox = new VBox();
-
-        Label label = new Label("1. Open the Store and buy a plant\n" +
-                "2. Go to the main view and click on Empty plot\n" +
-                "3. Click Plant next to the plant description\n" +
-                "4. Water plants when needed and click Next Day to proceed\n" +
-                "5. After x days you can harvest the plant");
-
-        Button button = new Button("Return");
-        button.setOnAction(ActionEvent -> changeScene(createWorld()));
-
-        vbox.getChildren().addAll(label, button);
-
-        return vbox;
+        storeView.getChildren().addAll(itemListing, returnButton);
+        root.setCenter(storeView);
     }
 }

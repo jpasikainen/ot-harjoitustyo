@@ -46,47 +46,10 @@ public class Field {
         }
     }
 
-    public void waterPlant(int index) {
-        if (validIndex(index)) {
-            plants[index].water();
-        }
-    }
-
-    public boolean canHarvestPlant(int index) {
-        if (validIndex(index)) {
-            return plants[index].canHarvest();
-        }
-        return false;
-    }
-
-    // Give 2 plants after successful harvest
-    public void harvestPlant(int index) {
-        if (validIndex(index)) {
-            Plant plant = plants[index].harvest();
-            plants[index] = null;
-
-            GameManager.player.addItem(plant);
-            GameManager.player.addItem(plant);
-        }
-    }
-
     public void harvest(int index) {
         if (validIndex(index)) {
             GameManager.player.changeBalance(getPlant(index).getPrice() * 2);
             removePlant(index);
-        }
-    }
-
-    public void advanceDay() {
-        // Loop through all plants
-        for (int i = 0; i < fieldSize; i++) {
-            // Check if plant exists
-            if (plants[i] != null) {
-                // If plant dies -> destroy it
-                if (!plants[i].survivesDay()) {
-                    plants[i] = null;
-                }
-            }
         }
     }
 }

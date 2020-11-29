@@ -1,19 +1,18 @@
 package harvestgame.core;
 
 import harvestgame.database.Database;
-import harvestgame.ui.GUIv2;
+import harvestgame.ui.GUI;
 
 /**
  * TODO: Create getters for the static variables
  * GameManager creates and distributes all the objects used globally
  */
 public class GameManager {
-    public static int day;
     public static Database db;
     public static Store store;
     public static Player player;
     public static Field field;
-    public static GUIv2 gui;
+    public static GUI gui;
 
     public static void gameInit(int money, int fieldWidth, int fieldHeight) {
         player = new Player(money);
@@ -26,11 +25,5 @@ public class GameManager {
     public static void exitGame() {
         db.disconnect();
         System.exit(0);
-    }
-
-    // Advances to the next day
-    public static void nextDay() {
-        field.advanceDay();
-        day++;
     }
 }
