@@ -13,4 +13,6 @@
 | 11/22 | 4 | Implemented GameManager to the tests and added new features to the game |
 | 11/23 | 2 | Added styling css and updated the game look. Fixed few bugs |
 | 11/26 | 5 | Refactored code and implemented selling feature |
-| Total (h) | 37 |	|
+| 11/28 | 4 | Created new GUI and redesigned game mechanics |
+| 11/29 | 4 | Implemented new game mechanics and removed deprecated classes and methods |	
+| Total (h) | 45 |	|
