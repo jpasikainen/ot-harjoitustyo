@@ -69,7 +69,7 @@ public class GUI extends Application {
         updateMoneyLabel();
         root.setTop(moneyLabel);
         root.setCenter(fieldGrid());
-        root.setBottom(exitButton());
+        root.setBottom(bottomView());
         root.setRight(toolsView());
     }
 
@@ -91,6 +91,13 @@ public class GUI extends Application {
         return button;
     }
 
+    private HBox bottomView() {
+        HBox hb = new HBox();
+        Label label = new Label("Harvesting gives 2x buying price");
+        hb.getChildren().addAll(exitButton(), label);
+        return hb;
+    }
+
     private GridPane fieldGrid() {
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -99,7 +106,14 @@ public class GUI extends Application {
         int row = 0;
 
         for (int i = 0; i < GameManager.field.getFieldSize(); i++) {
-            String buttonText = GameManager.field.isEmpty(i) ? "Plant" : Integer.toString(GameManager.field.getPlant(i).getTimeLeft()) + "s";
+            String buttonText;
+            if (GameManager.field.isEmpty(i)) {
+                buttonText = "Plant";
+            } else {
+                int timeLeft = GameManager.field.getPlant(i).getTimeLeft();
+                buttonText = timeLeft > 0 ? Integer.toString(timeLeft) + "s" : "Harvest";
+            }
+
             Button button = new Button(buttonText);
             button.setPrefSize(200, 100);
             button.getStyleClass().add("plot");
