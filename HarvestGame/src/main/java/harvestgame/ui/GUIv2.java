@@ -26,7 +26,7 @@ public class GUIv2 extends Application {
         GameManager.gui = this;
         createWorldView();
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 500, 500);
         scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
@@ -48,7 +48,7 @@ public class GUIv2 extends Application {
                             if (!GameManager.field.isEmpty(k)) {
                                 GameManager.field.getPlant(k).reduceTime();
                                 int timeLeft = GameManager.field.getPlant(k).getTimeLeft();
-                                v.setText(Integer.toString(timeLeft));
+                                v.setText(timeLeft + "s");
                                 if (timeLeft == 0) {
                                     v.setText("Plant");
                                     GameManager.field.harvest(k);
@@ -129,17 +129,21 @@ public class GUIv2 extends Application {
         VBox allItems = new VBox();
         GameManager.store.getAllPlants().forEach(plant -> {
             HBox itemView = new HBox();
-            Label plantLabel = new Label(plant.getName());
-            Button buyButton = new Button("Buy");
+            String text = String.format(
+                    "%s:\tGrowing Time %ds",
+                    plant.getName(), plant.getGrowingTime()
+            );
+            Label plantLabel = new Label(text);
+            Button buyButton = new Button("$" + plant.getPrice());
 
             if (GameManager.player.getBalance() >= plant.getPrice()) {
                 buyButton.getStyleClass().add("canBuy");
+            } else {
+                buyButton.getStyleClass().add("cantBuy");
             }
 
             EventHandler<ActionEvent> buttonEvent = actionEvent -> {
-                if (GameManager.player.getBalance() <= plant.getPrice()) {
-                    buyButton.getStyleClass().add("cantBuy");
-                } else {
+                if (GameManager.player.getBalance() >= plant.getPrice()) {
                     GameManager.field.plant(
                             GameManager.store.buyPlant(plant.getId(), GameManager.player),
                             plotIndex

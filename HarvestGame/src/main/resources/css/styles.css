@@ -42,3 +42,7 @@
     -fx-border-color: maroon;
     -fx-text-fill: white;
 }
+
+.scroll-bar {
+    -fx-pref-width: 24px;
+}
