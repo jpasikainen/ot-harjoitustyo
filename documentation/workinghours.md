@@ -15,4 +15,5 @@
 | 11/26 | 5 | Refactored code and implemented selling feature |
 | 11/28 | 4 | Created new GUI and redesigned game mechanics |
 | 11/29 | 4 | Implemented new game mechanics and removed deprecated classes and methods |	
-| Total (h) | 45 |	|
+| 11/30 | 3 | Rewrote deprecated tests and fixed arisen problems, wrote a startup sequence diagram, created a realease, updated instructions |
+| Total (h) | 48 |	|
