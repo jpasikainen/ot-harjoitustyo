@@ -1,19 +1,19 @@
 # Software Requirement Specification
 
 ## Harvest Game
-The core gameplay loop of the game is to grow plants and eventually sell the harvest to earn money. With the earned money, the player can buy new plants.
+The core gameplay loop of the game is to grow plants and eventually sell the harvest to earn money. With the earned money, the player can buy new plants or tools.
 
 ### Basic functions:
-✅ = implemented
-- First implementation with text interface ✅
-- Plants can be bought from a predefined database ✅
-- The attributes of the plants are name, price, watering interval and growth time ✅
-- In order to keep the plants alive, the play must water the plants every (watering interval * days) ✅
-- Plants are ready to be harvested after (growth time * days) ✅
+- [x] First implementation with text interface
+- [x] Plants can be bought from a predefined database
+- [x] The attributes of the plants are name, price, watering interval and growth time
+- [x] Plants are ready to be harvested after growth time (seconds)
 
 ### Further Development Ideas:
-- GUI with JavaFX ✅
-- Game saving
-- Fertilizers -> speeds the growth, new database
-- Seasons -> all plants can't be grown every season
+- [x] GUI with JavaFX
+- [x] Tools to speed up money flow
+- [ ] Task automation
+- [ ] Game saving
+- [ ] Fertilizers -> speeds the growth, new database
+- [ ] Seasons -> all plants can't be grown every season
 
