@@ -6,10 +6,17 @@ The core gameplay loop of the game is to grow plants and eventually sell the har
 [Architecture](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/architecture.md)\
 [Working Hours](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/workinghours.md)
 
+## Download & Play
+Go to [Releases](https://github.com/jpasikainen/ot-harjoitustyo/releases) and download the latest *HarvestGame.zip* file and extract it. To play the game run
+```
+java -jar HarvestGame.jar
+```
+in the extracted directory. Game has been tested on Java version 11.0.9.1. 
+
 ## Command line commands
+Run commands in *HarvestGame* directory.
 ### Run
 ```
-cd HarvestGame
 mvn compile exec:java -Dexec.mainClass=harvestgame.core.Game
 ```
 ### Testing
