@@ -48,8 +48,10 @@ public class Field {
 
     public void harvest(int index) {
         if (validIndex(index)) {
-            GameManager.player.changeBalance(getPlant(index).getPrice() * 2);
-            removePlant(index);
+            if (getPlant(index).canHarvest()) {
+                GameManager.player.changeBalance(getPlant(index).getPrice() * 2);
+                removePlant(index);
+            }
         }
     }
 }

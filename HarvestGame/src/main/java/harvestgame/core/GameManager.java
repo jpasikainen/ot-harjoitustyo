@@ -14,7 +14,7 @@ public class GameManager {
     public static Field field;
     public static GUI gui;
 
-    public static void gameInit(int money, int fieldWidth, int fieldHeight) {
+    public static void gameInit(int money) {
         player = new Player(money);
         db = new Database("jdbc:sqlite:database/Database.db");
         store = new Store(db);

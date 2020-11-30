@@ -23,6 +23,9 @@ public class Player {
             money += amount;
         } else if (getBalance() >= Math.abs(amount)) {
             money += amount;
+            if (money < 0) {
+                money = 0;
+            }
         }
     }
 }

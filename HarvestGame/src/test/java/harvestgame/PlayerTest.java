@@ -19,12 +19,11 @@ import harvestgame.core.Plant;
  * which makes no sense
  */
 public class PlayerTest {
-    ArrayList<Plant> inventory = new ArrayList<>();
     Plant testPlant = new Plant(0, "", 0, 0, 0);
 
     @Before
     public void setUp() {
-        GameManager.gameInit(0, 3, 3);
+        GameManager.gameInit(0);
     }
 
     @After
@@ -33,57 +32,19 @@ public class PlayerTest {
     }
 
     @Test
-    public void playerMoneyInitializedCorrectly() {
+    public void initCorrectly() {
         assertEquals(0, GameManager.player.getBalance());
     }
 
     @Test
-    public void playerInventoryInitializedCorrectly() {
-        assertEquals(inventory, GameManager.player.getItems());
-    }
-
-    @Test
-    public void changeBalance() {
+    public void increaseBalance() {
         GameManager.player.changeBalance(10);
         assertEquals(10, GameManager.player.getBalance());
     }
 
     @Test
-    public void changeBalanceToNegative() {
+    public void reduceBalanceBelowZero() {
         GameManager.player.changeBalance(-100);
         assertEquals(0, GameManager.player.getBalance());
-    }
-
-    @Test
-    public void decreaseBalance() {
-        GameManager.player.changeBalance(10);
-        GameManager.player.changeBalance(-5);
-        assertEquals(5, GameManager.player.getBalance());
-    }
-
-    @Test
-    public void addPlantToInventory() {
-        GameManager.player.addItem(testPlant);
-        assertEquals(1, GameManager.player.getItems().size());
-    }
-
-    @Test
-    public void addInvalidPlantToInventory() {
-        GameManager.player.addItem(null);
-        assertEquals(new ArrayList<Plant>(), GameManager.player.getItems());
-    }
-
-    @Test
-    public void removeItemFromInventoryWhenEmpty() {
-        GameManager.player.removeItem(testPlant);
-        assertEquals(0, GameManager.player.getItems().size());
-    }
-
-    @Test
-    public void removeValidItemFromInventory() {
-        GameManager.player.addItem(testPlant);
-        GameManager.player.addItem(testPlant);
-        GameManager.player.removeItem(testPlant);
-        assertEquals(1, GameManager.player.getItems().size());
     }
 }

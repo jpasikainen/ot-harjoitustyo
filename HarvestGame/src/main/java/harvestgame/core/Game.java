@@ -9,7 +9,7 @@ import javafx.application.Application;
  */
 public class Game {
     public static void main(String[] args) {
-        GameManager.gameInit(100, 3, 3);
+        GameManager.gameInit(100);
         Application.launch(GUI.class);
     }
 }

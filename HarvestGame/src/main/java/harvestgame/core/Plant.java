@@ -66,6 +66,9 @@ public class Plant {
                 amount = 1;
             }
             timeLeft -= (int) amount;
+            if (timeLeft < 0) {
+                timeLeft = 0;
+            }
         }
     }
 }
