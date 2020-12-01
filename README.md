@@ -15,6 +15,16 @@ in the extracted directory. Game has been tested on Java version 11.0.9.1.
 
 ## Command line commands
 Run commands in *HarvestGame* directory.
+
+### Generate .jar
+```
+mvn package
+```
+If you encounter warnings / errors try
+```
+mvn clean package
+```
+
 ### Run
 ```
 mvn compile exec:java -Dexec.mainClass=harvestgame.core.Game
