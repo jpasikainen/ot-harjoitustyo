@@ -46,12 +46,18 @@ public class GUI extends Application {
                     public void run() {
                         fieldButtons.forEach((k, v) -> {
                             if (!GameManager.field.isEmpty(k)) {
-                                int timeLeft = GameManager.field.getPlant(k).getTimeLeft();
-                                GameManager.field.getPlant(k).reduceTime();
-                                if (timeLeft == 0) {
-                                    v.setText("Harvest");
+                                if (!GameManager.field.getPlant(k).requiresWatering()) {
+                                    int timeLeft = GameManager.field.getPlant(k).getTimeLeft();
+                                    GameManager.field.getPlant(k).reduceTime();
+                                    if (timeLeft == 0) {
+                                        v.setText("Harvest");
+                                        v.setStyle("-fx-background-color: green;");
+                                    } else {
+                                        v.setText(timeLeft + "s");
+                                    }
                                 } else {
-                                    v.setText(timeLeft + "s");
+                                    v.setText("Water");
+                                    v.setStyle("-fx-background-color: lightblue");
                                 }
                             }
                         });
@@ -70,7 +76,6 @@ public class GUI extends Application {
         root.setTop(moneyLabel);
         root.setCenter(fieldGrid());
         root.setBottom(bottomView());
-        root.setRight(toolsView());
     }
 
     private void createStoreView(int index) {
@@ -106,15 +111,7 @@ public class GUI extends Application {
         int row = 0;
 
         for (int i = 0; i < GameManager.field.getFieldSize(); i++) {
-            String buttonText;
-            if (GameManager.field.isEmpty(i)) {
-                buttonText = "Plant";
-            } else {
-                int timeLeft = GameManager.field.getPlant(i).getTimeLeft();
-                buttonText = timeLeft > 0 ? Integer.toString(timeLeft) + "s" : "Harvest";
-            }
-
-            Button button = new Button(buttonText);
+            Button button = new Button("Plant");
             button.setPrefSize(200, 100);
             button.getStyleClass().add("plot");
 
@@ -125,9 +122,13 @@ public class GUI extends Application {
                     createStoreView(index);
                 }
                 if (fieldButtons.get(index).getText() == "Harvest") {
+                    fieldButtons.get(index).setStyle("-fx-background-color: sienna");
                     fieldButtons.get(index).setText("Plant");
                     GameManager.field.harvest(index);
                     updateMoneyLabel();
+                } else if (fieldButtons.get(index).getText() == "Water") {
+                    fieldButtons.get(index).setStyle("-fx-background-color: sienna");
+                    GameManager.field.getPlant(index).water();
                 }
             };
             button.setOnAction(buttonEvent);
@@ -192,26 +193,5 @@ public class GUI extends Application {
         storeView.getChildren().addAll(itemListing, returnButton);
 
         return storeView;
-    }
-
-    private VBox toolsView() {
-        VBox vb = new VBox();
-
-        Label warningLabel = new Label("Each tool costs\n$50 to use");
-        Label toolsLabel = new Label("Tools:");
-        Button decreaseTimeButton = new Button("-20% time\nmin -1s");
-        EventHandler<ActionEvent> dtEvent = actionEvent -> {
-            fieldButtons.forEach((k, v) -> {
-                if (!GameManager.field.isEmpty(k) && GameManager.player.getBalance() > 50) {
-                    GameManager.player.changeBalance(-50);
-                    GameManager.field.getPlant(k).reduceTime(GameManager.field.getPlant(k).getTimeLeft() * 0.2);
-                    updateMoneyLabel();
-                }
-            });
-        };
-        decreaseTimeButton.setOnAction(dtEvent);
-
-        vb.getChildren().addAll(warningLabel, toolsLabel, decreaseTimeButton);
-        return vb;
     }
 }

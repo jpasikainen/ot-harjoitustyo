@@ -2,6 +2,7 @@ package harvestgame.core;
 
 import javafx.application.Platform;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -9,6 +10,7 @@ public class Plant {
     private String name;
     private int id, price, soilDryness, growingTime;
     private int timeLeft;
+    private boolean hasWater = true;
 
     // Constructor
     public Plant(int id, String name, int price, int soilDryness, int growingTime) {
@@ -53,22 +55,23 @@ public class Plant {
     public void reduceTime() {
         if (timeLeft > 0) {
             timeLeft -= 1;
+
+            Random rn = new Random();
+            if (rn.nextInt(10 + 1) <= soilDryness) {
+                hasWater = false;
+            }
         }
+    }
+
+    public boolean requiresWatering() {
+        return !hasWater;
+    }
+
+    public void water() {
+        hasWater = true;
     }
 
     public boolean canHarvest() {
         return timeLeft == 0;
-    }
-
-    public void reduceTime(double amount) {
-        if (timeLeft > 0) {
-            if ((int) amount < 1) {
-                amount = 1;
-            }
-            timeLeft -= (int) amount;
-            if (timeLeft < 0) {
-                timeLeft = 0;
-            }
-        }
     }
 }

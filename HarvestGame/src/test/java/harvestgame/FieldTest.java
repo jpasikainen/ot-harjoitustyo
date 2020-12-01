@@ -67,7 +67,6 @@ public class FieldTest {
     @Test
     public void harvestingWorks() {
         GameManager.field.plant(testPlant, 0);
-        GameManager.field.getPlant(0).reduceTime(100);
         GameManager.field.harvest(0);
         // Starting money 10 + plant gives price * 2 = 20, = 30
         assertEquals(30, GameManager.player.getBalance());
