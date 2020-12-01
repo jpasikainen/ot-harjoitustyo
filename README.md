@@ -17,6 +17,7 @@ in the extracted directory. Game has been tested on Java version 11.0.9.1.
 Run commands in *HarvestGame* directory.
 
 ### Generate .jar
+For .jar to work, *database* folder must be in the same directory as the executable.
 ```
 mvn package
 ```
