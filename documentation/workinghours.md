@@ -16,4 +16,5 @@
 | 11/28 | 4 | Created new GUI and redesigned game mechanics |
 | 11/29 | 4 | Implemented new game mechanics and removed deprecated classes and methods |	
 | 11/30 | 3 | Rewrote deprecated tests and fixed arisen problems, wrote a startup sequence diagram, created a realease, updated instructions |
-| Total (h) | 48 |	|
+| 12/01 | 3 | Added new gameplay features and updated GUI and fixed a test |
+| Total (h) | 51 |	|
