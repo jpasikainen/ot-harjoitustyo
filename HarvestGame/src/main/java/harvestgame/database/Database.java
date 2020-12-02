@@ -12,13 +12,22 @@ import java.util.ArrayList;
  * Connects to the database and fetches data
  */
 public class Database {
+    /**
+     * Constructor
+     *
+     * @param url location of the datqabase file
+     */
     public Database(String url) {
         connect(url);
     }
 
     private Connection connection;
 
-    // Connect to the database
+    /**
+     * Connect to the database
+     *
+     * @param url location of the database file
+     */
     private void connect(String url) {
         connection = null;
         try {
@@ -32,8 +41,10 @@ public class Database {
     public boolean databaseConnected() {
         return connection != null;
     }
-    
-    // Disconnect from the database
+
+    /**
+     * Disconnect from the database
+     */
     public void disconnect() {
         try {
             if (connection != null) {
@@ -43,7 +54,6 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        
     }
     
     public ArrayList<Plant> getAllPlants() {

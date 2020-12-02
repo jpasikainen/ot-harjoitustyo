@@ -1,6 +1,10 @@
 package harvestgame.ui;
 
+import harvestgame.core.Field;
 import harvestgame.core.GameManager;
+import harvestgame.core.Player;
+import harvestgame.core.Store;
+import harvestgame.database.Database;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -19,11 +23,17 @@ public class GUI extends Application {
     private Label moneyLabel;
     private Map<Integer, Button> fieldButtons;
 
+    private static Database db;
+    private static Store store;
+    private static Player player;
+    private static Field field;
+
     @Override
     public void start(Stage stage) throws Exception {
+        initialize();
+
         root = new BorderPane();
         fieldButtons = new HashMap<>();
-        GameManager.gui = this;
         createWorldView();
 
         Scene scene = new Scene(root, 700, 500);
@@ -36,6 +46,13 @@ public class GUI extends Application {
         update();
     }
 
+    private void initialize() {
+        db = GameManager.getDb();
+        store = GameManager.getStore();
+        player = GameManager.getPlayer();
+        field = GameManager.getField();
+    }
+
     // Ticks every seconds
     private void update() {
         TimerTask task = new TimerTask() {
@@ -45,10 +62,10 @@ public class GUI extends Application {
                     @Override
                     public void run() {
                         fieldButtons.forEach((k, v) -> {
-                            if (!GameManager.field.isEmpty(k)) {
-                                if (!GameManager.field.getPlant(k).requiresWatering()) {
-                                    int timeLeft = GameManager.field.getPlant(k).getTimeLeft();
-                                    GameManager.field.getPlant(k).reduceTime();
+                            if (!field.isEmpty(k)) {
+                                if (!field.getPlant(k).requiresWatering()) {
+                                    int timeLeft = field.getPlant(k).getTimeLeft();
+                                    field.getPlant(k).reduceTime();
                                     if (timeLeft == 0) {
                                         v.setText("Harvest");
                                         v.setStyle("-fx-background-color: green;");
@@ -85,7 +102,7 @@ public class GUI extends Application {
     }
 
     public void updateMoneyLabel() {
-        String text = "Money: " + Integer.toString(GameManager.player.getBalance());
+        String text = "Money: " + Integer.toString(player.getBalance());
         moneyLabel.setText(text);
     }
 
@@ -110,7 +127,7 @@ public class GUI extends Application {
         int column = 0;
         int row = 0;
 
-        for (int i = 0; i < GameManager.field.getFieldSize(); i++) {
+        for (int i = 0; i < field.getFieldSize(); i++) {
             Button button = new Button("Plant");
             button.setPrefSize(200, 100);
             button.getStyleClass().add("plot");
@@ -118,17 +135,17 @@ public class GUI extends Application {
             // Add button functionality
             int index = i; // Required for lambda expression
             EventHandler<ActionEvent> buttonEvent = actionEvent -> {
-                if (GameManager.field.isEmpty(index)) {
+                if (field.isEmpty(index)) {
                     createStoreView(index);
                 }
                 if (fieldButtons.get(index).getText() == "Harvest") {
                     fieldButtons.get(index).setStyle("-fx-background-color: sienna");
                     fieldButtons.get(index).setText("Plant");
-                    GameManager.field.harvest(index);
+                    field.harvest(index);
                     updateMoneyLabel();
                 } else if (fieldButtons.get(index).getText() == "Water") {
                     fieldButtons.get(index).setStyle("-fx-background-color: sienna");
-                    GameManager.field.getPlant(index).water();
+                    field.getPlant(index).water();
                 }
             };
             button.setOnAction(buttonEvent);
@@ -150,7 +167,7 @@ public class GUI extends Application {
         storeView.getChildren().add(storeLabel);
 
         VBox allItems = new VBox();
-        GameManager.store.getAllPlants().forEach(plant -> {
+        store.getAllPlants().forEach(plant -> {
             HBox itemView = new HBox();
             String text = String.format(
                     "%s:\tGrowing Time %ds",
@@ -159,16 +176,16 @@ public class GUI extends Application {
             Label plantLabel = new Label(text);
             Button buyButton = new Button("$" + plant.getPrice());
 
-            if (GameManager.player.getBalance() >= plant.getPrice()) {
+            if (player.getBalance() >= plant.getPrice()) {
                 buyButton.getStyleClass().add("canBuy");
             } else {
                 buyButton.getStyleClass().add("cantBuy");
             }
 
             EventHandler<ActionEvent> buttonEvent = actionEvent -> {
-                if (GameManager.player.getBalance() >= plant.getPrice()) {
-                    GameManager.field.plant(
-                            GameManager.store.buyPlant(plant.getId(), GameManager.player),
+                if (player.getBalance() >= plant.getPrice()) {
+                    field.plant(
+                            store.buyPlant(plant.getId()),
                             plotIndex
                     );
                     updateMoneyLabel();

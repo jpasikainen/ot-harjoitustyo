@@ -11,31 +11,29 @@ public class Store {
     private ArrayList<Plant> plants;
     private Database db;
 
-    // Constructor
+    /**
+     * Constructor
+     *
+     * @param db {@link Database} where the store gets data from
+     */
     public Store(Database db) {
         this.db = db;
         plants = db.getAllPlants();
-    }
-
-    public void addPlant(Plant plant) {
-        plants.add(plant);
-    }
-
-    // Generates a String list of plants
-    // Good for classes that don't have Plant imported
-    public ArrayList<String> listPlants() {
-        ArrayList<String> plantList = new ArrayList<>();
-        plants.forEach(plant -> plantList.add(plant.toString()));
-
-        return plantList;
     }
 
     public ArrayList<Plant> getAllPlants() {
         return plants;
     }
 
-    // Clone the plant so the values in store don't get updated
-    public Plant buyPlant(int plantID, Player player) {
+    /**
+     * Buy plant and change balance
+     * Clones the plant so the values in store don't get updated.
+     *
+     * @param plantID id of the plant to buy
+     * @return If enough money, returns the {@link Plant} with given id
+     */
+    public Plant buyPlant(int plantID) {
+        Player player = GameManager.getPlayer();
         if (plants.size() < plantID) {
             return null;
         }
@@ -46,7 +44,7 @@ public class Store {
             return null;
         } else {
             player.changeBalance(-price);
-            return new Plant(plants.get(plantID));      // Pass a clone
+            return new Plant(plants.get(plantID));      // Pass a clone, use secondary constructor
         }
     }
 }

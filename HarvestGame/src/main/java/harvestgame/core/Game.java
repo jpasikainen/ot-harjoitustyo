@@ -4,10 +4,14 @@ import harvestgame.ui.GUI;
 import javafx.application.Application;
 
 /**
- * Game is the starting point of the application.
- * It initializes the GameManager and launches the GUI
+ * Contains Main method of the application
  */
 public class Game {
+    /**
+     * Starting point of the application
+     * Initializes GameManager class and launches GUI
+     * @param args
+     */
     public static void main(String[] args) {
         GameManager.gameInit(100);
         Application.launch(GUI.class);

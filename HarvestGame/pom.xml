@@ -18,6 +18,7 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.32.3.2</version>
         </dependency>
+
         <!-- GUI -->
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -35,6 +36,16 @@
     </dependencies>
     <build>
         <plugins>
+            <!-- JavaDoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+                </configuration>
+                <version>2.10.3</version>
+            </plugin>
+
             <!-- JavaFX plugin -->
             <plugin>
                 <groupId>org.openjfx</groupId>
@@ -65,6 +76,7 @@
                 </executions>
             </plugin>
 
+            <!-- Checkstyle -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -79,6 +91,7 @@
                 <version>2.5</version>
             </plugin>
 
+            <!-- Generate jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

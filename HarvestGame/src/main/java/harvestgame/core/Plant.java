@@ -1,18 +1,25 @@
 package harvestgame.core;
 
-import javafx.application.Platform;
-
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
+/**
+ * Object which is created from the data of the database
+ */
 public class Plant {
     private String name;
     private int id, price, soilDryness, growingTime;
     private int timeLeft;
     private boolean hasWater = true;
 
-    // Constructor
+    /**
+     * Constructor
+     *
+     * @param id plant id
+     * @param name plant name
+     * @param price plant price
+     * @param soilDryness chance of requiring watering every second
+     * @param growingTime growing time in seconds
+     */
     public Plant(int id, String name, int price, int soilDryness, int growingTime) {
         this.id = id;
         this.name = name;
@@ -22,7 +29,11 @@ public class Plant {
         this.timeLeft = growingTime;
     }
 
-    // Clone
+    /**
+     * Alternative constructor for cloning
+     *
+     * @param plant {@link Plant} to create clone of
+     */
     public Plant(Plant plant) {
         this.id = plant.id;
         this.name = plant.name;
@@ -52,6 +63,10 @@ public class Plant {
         return timeLeft;
     }
 
+    /**
+     * Reduces the time plant has left by 1 second.
+     * Also chooses if watering is required
+     */
     public void reduceTime() {
         if (timeLeft > 0) {
             timeLeft -= 1;
