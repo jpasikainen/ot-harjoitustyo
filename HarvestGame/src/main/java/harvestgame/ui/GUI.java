@@ -128,29 +128,33 @@ public class GUI extends Application {
         int row = 0;
 
         for (int i = 0; i < field.getFieldSize(); i++) {
-            Button button = new Button("Plant");
-            button.setPrefSize(200, 100);
-            button.getStyleClass().add("plot");
+            if (fieldButtons.containsKey(i)) {
+                grid.add(fieldButtons.get(i), column, row);
+            } else {
+                Button button = new Button("Plant");
+                button.setPrefSize(200, 100);
+                button.getStyleClass().add("plot");
 
-            // Add button functionality
-            int index = i; // Required for lambda expression
-            EventHandler<ActionEvent> buttonEvent = actionEvent -> {
-                if (field.isEmpty(index)) {
-                    createStoreView(index);
-                }
-                if (fieldButtons.get(index).getText() == "Harvest") {
-                    fieldButtons.get(index).setStyle("-fx-background-color: sienna");
-                    fieldButtons.get(index).setText("Plant");
-                    field.harvest(index);
-                    updateMoneyLabel();
-                } else if (fieldButtons.get(index).getText() == "Water") {
-                    fieldButtons.get(index).setStyle("-fx-background-color: sienna");
-                    field.getPlant(index).water();
-                }
-            };
-            button.setOnAction(buttonEvent);
-            grid.add(button, column, row);
-            fieldButtons.put(i, button);
+                // Add button functionality
+                int index = i; // Required for lambda expression
+                EventHandler<ActionEvent> buttonEvent = actionEvent -> {
+                    if (field.isEmpty(index)) {
+                        createStoreView(index);
+                    }
+                    if (fieldButtons.get(index).getText() == "Harvest") {
+                        fieldButtons.get(index).setStyle("-fx-background-color: sienna");
+                        fieldButtons.get(index).setText("Plant");
+                        field.harvest(index);
+                        updateMoneyLabel();
+                    } else if (fieldButtons.get(index).getText() == "Water") {
+                        fieldButtons.get(index).setStyle("-fx-background-color: sienna");
+                        field.getPlant(index).water();
+                    }
+                };
+                button.setOnAction(buttonEvent);
+                grid.add(button, column, row);
+                fieldButtons.put(i, button);
+            }
 
             column++;
             if (column == 3) {
