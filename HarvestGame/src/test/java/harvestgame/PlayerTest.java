@@ -1,6 +1,7 @@
 package harvestgame;
 
-import harvestgame.core.GameManager;
+import harvestgame.core.*;
+import harvestgame.database.Database;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -9,7 +10,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import harvestgame.core.Plant;
 
 /**
  * TODO: Check the actual item, not the inventory size
@@ -19,32 +19,45 @@ import harvestgame.core.Plant;
  * which makes no sense
  */
 public class PlayerTest {
-    Plant testPlant = new Plant(0, "", 0, 0, 0);
+    private Plant testPlant = new Plant(0, "", 0, 0, 0);
+
+    private static Database db;
+    private static Store store;
+    private static Player player;
+    private static Field field;
+
+    private void initialize() {
+        db = GameManager.getDb();
+        store = GameManager.getStore();
+        player = GameManager.getPlayer();
+        field = GameManager.getField();
+    }
 
     @Before
     public void setUp() {
         GameManager.gameInit(0);
+        initialize();
     }
 
     @After
     public void close() {
-        GameManager.db.disconnect();
+        db.disconnect();
     }
 
     @Test
     public void initCorrectly() {
-        assertEquals(0, GameManager.player.getBalance());
+        assertEquals(0, player.getBalance());
     }
 
     @Test
     public void increaseBalance() {
-        GameManager.player.changeBalance(10);
-        assertEquals(10, GameManager.player.getBalance());
+        player.changeBalance(10);
+        assertEquals(10, player.getBalance());
     }
 
     @Test
     public void reduceBalanceBelowZero() {
-        GameManager.player.changeBalance(-100);
-        assertEquals(0, GameManager.player.getBalance());
+        player.changeBalance(-100);
+        assertEquals(0, player.getBalance());
     }
 }
