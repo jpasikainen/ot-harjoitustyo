@@ -7,11 +7,11 @@ The core gameplay loop of the game is to grow plants and eventually sell the har
 [Working Hours](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/workinghours.md)
 
 ## Download & Play
-Go to [Releases](https://github.com/jpasikainen/ot-harjoitustyo/releases) and download the latest *HarvestGame.zip* file and extract it. To play the game run
+Go to [Releases](https://github.com/jpasikainen/ot-harjoitustyo/releases) and download the release you wish or click [HERE](https://github.com/jpasikainen/ot-harjoitustyo/releases/download/viikko5/HarvestGame.zip) to download the latest release. Save the *HarvestGame.zip* file and extract it. To play the game, use command
 ```
 java -jar HarvestGame.jar
 ```
-in the extracted directory. Game has been tested on Java version 11.0.9.1. 
+in the extracted directory. Game has been tested on Java version 11.0.9.1 on various Ubuntu derivated Linux distributions.
 
 ## Command line commands
 Run commands in *HarvestGame* directory.
