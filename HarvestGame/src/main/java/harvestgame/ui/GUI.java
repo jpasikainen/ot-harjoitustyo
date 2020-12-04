@@ -3,8 +3,7 @@ package harvestgame.ui;
 import harvestgame.core.Field;
 import harvestgame.core.GameManager;
 import harvestgame.core.Player;
-import harvestgame.core.Store;
-import harvestgame.database.Database;
+import harvestgame.database.StoreDao;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -23,8 +22,7 @@ public class GUI extends Application {
     private Label moneyLabel;
     private Map<Integer, Button> fieldButtons;
 
-    private static Database db;
-    private static Store store;
+    private static StoreDao store;
     private static Player player;
     private static Field field;
 
@@ -47,7 +45,6 @@ public class GUI extends Application {
     }
 
     private void initialize() {
-        db = GameManager.getDb();
         store = GameManager.getStore();
         player = GameManager.getPlayer();
         field = GameManager.getField();
@@ -171,7 +168,7 @@ public class GUI extends Application {
         storeView.getChildren().add(storeLabel);
 
         VBox allItems = new VBox();
-        store.getAllPlants().forEach(plant -> {
+        store.getPlants().forEach(plant -> {
             HBox itemView = new HBox();
             String text = String.format(
                     "%s:\tGrowing Time %ds",
@@ -189,7 +186,7 @@ public class GUI extends Application {
             EventHandler<ActionEvent> buttonEvent = actionEvent -> {
                 if (player.getBalance() >= plant.getPrice()) {
                     field.plant(
-                            store.buyPlant(plant.getId()),
+                            store.buyPlant(plant.getId(), player),
                             plotIndex
                     );
                     updateMoneyLabel();

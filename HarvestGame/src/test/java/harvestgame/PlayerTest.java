@@ -1,15 +1,10 @@
 package harvestgame;
 
 import harvestgame.core.*;
-import harvestgame.database.Database;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import java.util.ArrayList;
 
 /**
  * TODO: Check the actual item, not the inventory size
