@@ -1,4 +1,4 @@
-package harvestgame.database;
+package harvestgame.dao;
 
 import harvestgame.core.Plant;
 import harvestgame.core.Player;

@@ -3,7 +3,7 @@ package harvestgame.ui;
 import harvestgame.core.Field;
 import harvestgame.core.GameManager;
 import harvestgame.core.Player;
-import harvestgame.database.StoreDao;
+import harvestgame.dao.StoreDao;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

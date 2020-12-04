@@ -1,6 +1,6 @@
 package harvestgame.core;
 
-import harvestgame.database.StoreDao;
+import harvestgame.dao.StoreDao;
 
 /**
  * TODO: Create getters for the static variables
