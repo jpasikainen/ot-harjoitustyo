@@ -22,9 +22,9 @@ public class GUI extends Application {
     private Label moneyLabel;
     private Map<Integer, Button> fieldButtons;
 
-    private static StoreDao store;
-    private static Player player;
-    private static Field field;
+    private StoreDao store;
+    private Player player;
+    private Field field;
 
     @Override
     public void start(Stage stage) throws Exception {
