@@ -17,4 +17,7 @@
 | 11/29 | 4 | Implemented new game mechanics and removed deprecated classes and methods |	
 | 11/30 | 3 | Rewrote deprecated tests and fixed arisen problems, wrote a startup sequence diagram, created a realease, updated instructions |
 | 12/01 | 3 | Added new gameplay features and updated GUI and fixed a test |
-| Total (h) | 51 |	|
+| 12/02 | 2 | Fixed graphical glitch and test. Implemented javadocs and wrote documentation |
+| 12/04 | 1 | Introduced DAO pattern to the database, refactored Store class |
+| 12/05 | 1 | Game now loads Player's money on load and saves it on exit |
+| Total (h) | 55 |	|
