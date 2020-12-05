@@ -13,7 +13,7 @@ The core gameplay loop of the game is to grow plants and eventually sell the har
 - [x] GUI with JavaFX
 - [x] Tools to speed up money flow
 - [ ] Task automation
-- [ ] Game saving
+- [x] Game saving
 - [ ] Fertilizers -> speeds the growth, new database
 - [ ] Seasons -> all plants can't be grown every season
 
