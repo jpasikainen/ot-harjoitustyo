@@ -1,6 +1,8 @@
 package harvestgame;
 
 import harvestgame.core.*;
+import harvestgame.dao.PlayerDao;
+import harvestgame.dao.StoreDao;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,13 +18,11 @@ import static org.junit.Assert.*;
 public class PlayerTest {
     private Plant testPlant = new Plant(0, "", 0, 0, 0);
 
-    private static Database db;
-    private static Store store;
-    private static Player player;
+    private static StoreDao store;
+    private static PlayerDao player;
     private static Field field;
 
     private void initialize() {
-        db = GameManager.getDb();
         store = GameManager.getStore();
         player = GameManager.getPlayer();
         field = GameManager.getField();
@@ -30,13 +30,8 @@ public class PlayerTest {
 
     @Before
     public void setUp() {
-        GameManager.gameInit(0);
+        GameManager.gameInit();
         initialize();
-    }
-
-    @After
-    public void close() {
-        db.disconnect();
     }
 
     @Test

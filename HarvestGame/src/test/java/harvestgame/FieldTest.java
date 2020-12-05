@@ -1,22 +1,22 @@
 package harvestgame;
 
 import harvestgame.core.*;
+import harvestgame.dao.PlayerDao;
+import harvestgame.dao.StoreDao;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class FieldTest {
-    private static Database db;
-    private static Store store;
-    private static Player player;
+    private static StoreDao store;
+    private static PlayerDao player;
     private static Field field;
 
     private int money = 10;
     private Plant testPlant = new Plant(0, "", 10, 0, 0);
 
     private void initialize() {
-        db = GameManager.getDb();
         store = GameManager.getStore();
         player = GameManager.getPlayer();
         field = GameManager.getField();
@@ -24,13 +24,8 @@ public class FieldTest {
 
     @Before
     public void setUp() {
-        GameManager.gameInit(money);
+        GameManager.gameInit();
         initialize();
-    }
-
-    @After
-    public void close() {
-        db.disconnect();
     }
 
     @Test

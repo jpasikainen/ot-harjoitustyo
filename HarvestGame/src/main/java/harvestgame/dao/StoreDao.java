@@ -1,7 +1,7 @@
 package harvestgame.dao;
 
 import harvestgame.core.Plant;
-import harvestgame.core.Player;
+
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -53,7 +53,7 @@ public class StoreDao implements StoreDaoImpl {
     }
 
     @Override
-    public Plant buyPlant(int plantId, Player player) {
+    public Plant buyPlant(int plantId, PlayerDao player) {
         Plant plant = getPlant(plantId);
 
         if (plant != null) {

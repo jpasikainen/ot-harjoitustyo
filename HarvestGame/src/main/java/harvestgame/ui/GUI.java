@@ -2,7 +2,7 @@ package harvestgame.ui;
 
 import harvestgame.core.Field;
 import harvestgame.core.GameManager;
-import harvestgame.core.Player;
+import harvestgame.dao.PlayerDao;
 import harvestgame.dao.StoreDao;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -23,7 +23,7 @@ public class GUI extends Application {
     private Map<Integer, Button> fieldButtons;
 
     private StoreDao store;
-    private Player player;
+    private PlayerDao player;
     private Field field;
 
     @Override

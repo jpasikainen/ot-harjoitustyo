@@ -1,5 +1,6 @@
 package harvestgame.core;
 
+import harvestgame.dao.PlayerDao;
 import harvestgame.dao.StoreDao;
 
 /**
@@ -8,7 +9,7 @@ import harvestgame.dao.StoreDao;
  */
 public class GameManager {
     private static StoreDao store;
-    private static Player player;
+    private static PlayerDao player;
     private static Field field;
 
     /**
@@ -19,9 +20,9 @@ public class GameManager {
     }
 
     /**
-     * @return {@link Player}
+     * @return {@link PlayerDao}
      */
-    public static Player getPlayer() {
+    public static PlayerDao getPlayer() {
         return player;
     }
 
@@ -34,12 +35,10 @@ public class GameManager {
 
     /**
      * Initializes the game by creating
-     *{@link Player}, {@link StoreDao}, {@link StoreDao}, and {@link Field}.
-     *
-     * @param money set Player's balance
+     *{@link PlayerDao}, {@link StoreDao}, {@link StoreDao}, and {@link Field}.
      */
-    public static void gameInit(int money) {
-        player = new Player(money);
+    public static void gameInit() {
+        player = new PlayerDao("jdbc:sqlite:database/Database.db");
         store = new StoreDao("jdbc:sqlite:database/Database.db");
         field = new Field();
     }
@@ -49,6 +48,7 @@ public class GameManager {
      * Call this to exit game cleanly.
      */
     public static void exitGame() {
+        player.writeBalance();
         System.exit(0);
     }
 }

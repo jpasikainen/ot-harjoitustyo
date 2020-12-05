@@ -13,7 +13,7 @@ public class Game {
      * @param args
      */
     public static void main(String[] args) {
-        GameManager.gameInit(100);
+        GameManager.gameInit();
         Application.launch(GUI.class);
     }
 }
