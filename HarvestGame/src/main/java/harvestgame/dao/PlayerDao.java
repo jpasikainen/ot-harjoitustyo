@@ -1,5 +1,7 @@
 package harvestgame.dao;
 
+import harvestgame.ui.GUI;
+
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class PlayerDao implements PlayerDaoImpl {
+    private final int startingMoney = 100;
     private int money;
     private String url;
 
@@ -37,15 +40,7 @@ public class PlayerDao implements PlayerDaoImpl {
 
     @Override
     public void writeBalance() {
-        try {
-            Connection connection = DriverManager.getConnection(url);
-            Statement stmt = connection.createStatement();
-            String query = "UPDATE Player SET money = " + money ;
-            stmt.executeUpdate(query);
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        setValue("UPDATE Player SET money = " + money);
     }
 
     @Override
@@ -58,6 +53,24 @@ public class PlayerDao implements PlayerDaoImpl {
         money += amount;
         if (money < 0) {
             money = 0;
+        }
+    }
+
+    @Override
+    public void resetData() {
+        setValue("UPDATE Player SET money = " + startingMoney);
+        money = startingMoney;
+        GUI.updateMoneyLabel();
+    }
+
+    private void setValue(String query) {
+        try {
+            Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

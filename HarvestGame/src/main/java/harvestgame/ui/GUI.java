@@ -19,11 +19,11 @@ import java.util.*;
 
 public class GUI extends Application {
     private BorderPane root;
-    private Label moneyLabel;
+    private static Label moneyLabel;
     private Map<Integer, Button> fieldButtons;
 
     private StoreDao store;
-    private PlayerDao player;
+    private static PlayerDao player;
     private Field field;
 
     @Override
@@ -98,7 +98,7 @@ public class GUI extends Application {
         root.setCenter(storePane(index));
     }
 
-    public void updateMoneyLabel() {
+    public static void updateMoneyLabel() {
         String text = "Money: " + Integer.toString(player.getBalance());
         moneyLabel.setText(text);
     }
@@ -113,7 +113,9 @@ public class GUI extends Application {
     private HBox bottomView() {
         HBox hb = new HBox();
         Label label = new Label("Harvesting gives 2x buying price");
-        hb.getChildren().addAll(exitButton(), label);
+        Button resetButton = new Button("Reset");
+        resetButton.setOnAction(e -> player.resetData());
+        hb.getChildren().addAll(exitButton(), label, resetButton);
         return hb;
     }
 

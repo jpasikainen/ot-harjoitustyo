@@ -1,6 +1,7 @@
 package harvestgame.core;
 
 import harvestgame.ui.GUI;
+import harvestgame.ui.GUI2;
 import javafx.application.Application;
 
 /**
