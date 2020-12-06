@@ -114,7 +114,10 @@ public class GUI extends Application {
         HBox hb = new HBox();
         Label label = new Label("Harvesting gives 2x buying price");
         Button resetButton = new Button("Reset");
-        resetButton.setOnAction(e -> player.resetData());
+        resetButton.setOnAction(e -> {
+            player.resetData();
+            updateMoneyLabel();
+        });
         hb.getChildren().addAll(exitButton(), label, resetButton);
         return hb;
     }

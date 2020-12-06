@@ -19,6 +19,7 @@ public class FieldTest {
     private void initialize() {
         store = GameManager.getStore();
         player = GameManager.getPlayer();
+        player.resetData();
         field = GameManager.getField();
     }
 
@@ -69,7 +70,7 @@ public class FieldTest {
     public void harvestingWorks() {
         field.plant(testPlant, 0);
         field.harvest(0);
-        // Starting money 10 + plant gives price * 2 = 20, = 30
-        assertEquals(30, player.getBalance());
+        // Starting money 100 + plant gives price * 2 = 20, = 120
+        assertEquals(120, player.getBalance());
     }
 }

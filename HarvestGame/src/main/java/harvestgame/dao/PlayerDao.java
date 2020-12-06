@@ -60,7 +60,6 @@ public class PlayerDao implements PlayerDaoImpl {
     public void resetData() {
         setValue("UPDATE Player SET money = " + startingMoney);
         money = startingMoney;
-        GUI.updateMoneyLabel();
     }
 
     private void setValue(String query) {
