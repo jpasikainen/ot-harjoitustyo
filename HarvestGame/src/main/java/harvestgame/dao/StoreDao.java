@@ -12,6 +12,10 @@ import java.util.ArrayList;
 public class StoreDao implements StoreDaoImpl {
     private ArrayList<Plant> plants;
 
+    /**
+     * Constructor.
+     * @param url address of the database file
+     */
     public StoreDao(String url) {
         try {
             Connection connection = DriverManager.getConnection(url);
@@ -32,11 +36,8 @@ public class StoreDao implements StoreDaoImpl {
 
                 while (rs.next()) {
                     Plant plant = new Plant(
-                            rs.getInt("id"),
-                            rs.getString("name"),
-                            rs.getInt("price"),
-                            rs.getInt("soil_dryness"),
-                            rs.getInt("growing_time")
+                            rs.getInt("id"), rs.getString("name"), rs.getInt("price"),
+                            rs.getInt("soil_dryness"), rs.getInt("growing_time")
                     );
 
                     plants.add(plant);
@@ -54,14 +55,15 @@ public class StoreDao implements StoreDaoImpl {
 
     @Override
     public Plant buyPlant(int plantId, PlayerDao player) {
-        Plant plant = new Plant(getPlant(plantId));
+        if (plantId > plants.size() || plantId < 0) {
+            return null;
+        }
 
-        if (plant != null) {
-            int price = plant.getPrice();
-            if (player.getBalance() >= price) {
-                player.changeBalance(-price);
-                return plant;
-            }
+        Plant plant = new Plant(getPlant(plantId));
+        int price = plant.getPrice();
+        if (player.getBalance() >= price) {
+            player.changeBalance(-price);
+            return plant;
         }
         return null;
     }

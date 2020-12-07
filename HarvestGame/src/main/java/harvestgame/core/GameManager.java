@@ -2,39 +2,33 @@ package harvestgame.core;
 
 import harvestgame.dao.PlayerDao;
 import harvestgame.dao.StoreDao;
+import harvestgame.ui.GuiManager;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
- * TODO: Create getters for the static variables
- * GameManager creates and distributes all the objects used globally
+ * GameManager creates and distributes all the objects used globally.
  */
 public class GameManager {
     private static StoreDao store;
     private static PlayerDao player;
     private static Field field;
 
-    /**
-     * @return {@link StoreDao}
-     */
     public static StoreDao getStore() {
         return store;
     }
 
-    /**
-     * @return {@link PlayerDao}
-     */
     public static PlayerDao getPlayer() {
         return player;
     }
 
-    /**
-     * @return {@link Field}
-     */
     public static Field getField() {
         return field;
     }
 
     /**
-     * Initializes the game by creating
+     * Initializes the game by creating.
      *{@link PlayerDao}, {@link StoreDao}, {@link StoreDao}, and {@link Field}.
      */
     public static void gameInit() {
@@ -43,6 +37,19 @@ public class GameManager {
         field = new Field();
     }
 
+    /**
+     * Starts the update timer which ticks once every second.
+     */
+    public static void start() {
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                GuiManager.update();
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(task, 0, 1000l);
+    }
 
     /**
      * Call this to exit game cleanly.

@@ -40,7 +40,7 @@
             </GridPane>
             <Button layoutX="524.0" layoutY="11.0" mnemonicParsing="false" onAction="#exitButton" text="Exit" />
             <Button disable="true" layoutX="524.0" layoutY="46.0" mnemonicParsing="false" text="Help" />
-            <Button layoutX="495.0" layoutY="360.0" mnemonicParsing="false" onAction="#resetButton" text="Reset Data" />
+            <Button layoutX="450.0" layoutY="360.0" mnemonicParsing="false" onAction="#resetButton" text="Get Farming Fund" />
             <Button disable="true" layoutX="18.0" layoutY="360.0" mnemonicParsing="false" text="Achievements" />
          </children>
       </Pane>

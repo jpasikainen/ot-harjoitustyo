@@ -23,40 +23,26 @@ public class GuiManager extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
-        update();
+        GameManager.start();
     }
 
-    @Override
-    public void init() {
-
-    }
-
-    private void update() {
-        TimerTask task = new TimerTask() {
+    public static void update() {
+        Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        activePlots.forEach((index, plot) -> {
-                            Plant plant = GameManager.getField().getPlant(index);
-                            if (plant == null) return;
-                            if (plant.canHarvest()) {
-                                plot.setText("Harvest");
-                            } else if(plant.requiresWatering()) {
-                                plot.setText("Water");
-                            } else {
-                                GameManager.getField().getPlant(index).reduceTime();
-                                plot.setText(Integer.toString(GameManager.getField().getPlant(index).getTimeLeft()));
-                            }
-
-                        });
+                activePlots.forEach((index, plot) -> {
+                    Plant plant = GameManager.getField().getPlant(index);
+                    if (plant == null) return;
+                    if (plant.canHarvest()) {
+                        plot.setText("Harvest");
+                    } else if(plant.requiresWatering()) {
+                        plot.setText("Water");
+                    } else {
+                        GameManager.getField().getPlant(index).reduceTime();
+                        plot.setText(Integer.toString(GameManager.getField().getPlant(index).getTimeLeft()));
                     }
                 });
             }
-        };
-        Timer timer = new Timer();
-        timer.schedule(task, 0, 1000l);
+        });
     }
 }

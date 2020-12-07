@@ -7,7 +7,7 @@
     <property name="localeLanguage" value="en"/>
 
     <module name='TreeWalker'>
-        <!--<module name="JavadocMethod">
+        <module name="JavadocMethod">
             <property name="scope" value="public"/>
             <property name="allowMissingParamTags" value="false"/>
             <property name="allowMissingPropertyJavadoc" value="true"/>
@@ -19,7 +19,7 @@
         <module name="JavadocStyle">
             <property name="scope" value="public"/>
             <property name="checkEmptyJavadoc" value="true"/>
-        </module>-->
+        </module>
 
         <property name='tabWidth' value='4' />
 

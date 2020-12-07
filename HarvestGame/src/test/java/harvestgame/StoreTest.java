@@ -42,11 +42,11 @@ public class StoreTest {
 
     @Test
     public void buyingReturnsCorrectPlant() {
-        assertEquals(store.getPlant(0), store.buyPlant(0, player));
+        assertEquals(store.getPlant(0).getId(), store.buyPlant(0, player).getId());
     }
 
     @Test
     public void buyInvalidPlant() {
-        assertEquals(null, store.buyPlant(100, player));
+        assertNull(store.buyPlant(100, player));
     }
 }

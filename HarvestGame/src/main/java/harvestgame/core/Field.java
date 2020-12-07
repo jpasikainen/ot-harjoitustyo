@@ -12,7 +12,7 @@ public class Field {
     private int fieldSize = 9;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public Field() {
         plants = new Plant[fieldSize];
@@ -23,7 +23,7 @@ public class Field {
     }
 
     /**
-     * Get field size
+     * Get field size.
      *
      * @return the size of the field
      */
@@ -32,7 +32,7 @@ public class Field {
     }
 
     /**
-     * Check if the plot is empty
+     * Check if the plot is empty.
      *
      * @param index number of the plot
      * @return is plot at index empty or not
@@ -42,7 +42,7 @@ public class Field {
     }
 
     /**
-     * Get the plant at the given index
+     * Get the plant at the given index.
      *
      * @param index number of the plot
      * @return {@link Plant} at the given index
@@ -55,7 +55,7 @@ public class Field {
     }
 
     /**
-     * Remove plant from the plot at the given index
+     * Remove plant from the plot at the given index.
      *
      * @param index index of the {@link Plant} to be removed
      */
@@ -66,7 +66,7 @@ public class Field {
     }
 
     /**
-     * Plant {@link Plant} at the given plot index
+     * Plant {@link Plant} at the given plot index.
      *
      * @param plant {@link Plant} to plant
      * @param index position of the plot
@@ -78,7 +78,7 @@ public class Field {
     }
 
     /**
-     * Removes the plant from the plot and rewards the player
+     * Removes the plant from the plot and rewards the player.
      *
      * @param index position of the plot
      */

@@ -1,7 +1,5 @@
 package harvestgame.dao;
 
-import harvestgame.ui.GUI;
-
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,6 +11,10 @@ public class PlayerDao implements PlayerDaoImpl {
     private int money;
     private String url;
 
+    /**
+     * Constructor.
+     * @param url The location of the database.
+     */
     public PlayerDao(String url) {
         this.url = url;
         try {

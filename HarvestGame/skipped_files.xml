@@ -5,5 +5,6 @@
         "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
-    <suppress files="harvestgame.ui.GUI.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="harvestgame.ui.GuiManager.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="harvestgame.ui.ActionManager.java" checks="[a-zA-Z0-9]*"/>
 </suppressions>
