@@ -54,7 +54,7 @@ public class StoreDao implements StoreDaoImpl {
 
     @Override
     public Plant buyPlant(int plantId, PlayerDao player) {
-        Plant plant = getPlant(plantId);
+        Plant plant = new Plant(getPlant(plantId));
 
         if (plant != null) {
             int price = plant.getPrice();
