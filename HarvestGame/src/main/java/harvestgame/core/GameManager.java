@@ -1,5 +1,6 @@
 package harvestgame.core;
 
+import harvestgame.dao.HighScoreDao;
 import harvestgame.dao.PlayerDao;
 import harvestgame.dao.StoreDao;
 import harvestgame.ui.GuiManager;
@@ -11,9 +12,11 @@ import java.util.TimerTask;
  * GameManager creates and distributes all the objects used globally.
  */
 public class GameManager {
+    private static String databaseUrl = "jdbc:sqlite:database/Database.db";
     private static StoreDao store;
     private static PlayerDao player;
     private static Field field;
+    private static HighScoreDao scores;
 
     public static StoreDao getStore() {
         return store;
@@ -27,14 +30,19 @@ public class GameManager {
         return field;
     }
 
+    public static HighScoreDao getScores() {
+        return scores;
+    }
+
     /**
      * Initializes the game by creating.
      *{@link PlayerDao}, {@link StoreDao}, {@link StoreDao}, and {@link Field}.
      */
     public static void gameInit() {
-        player = new PlayerDao("jdbc:sqlite:database/Database.db");
-        store = new StoreDao("jdbc:sqlite:database/Database.db");
+        player = new PlayerDao(databaseUrl);
+        store = new StoreDao(databaseUrl);
         field = new Field();
+        scores = new HighScoreDao(databaseUrl);
     }
 
     /**
@@ -55,7 +63,6 @@ public class GameManager {
      * Call this to exit game cleanly.
      */
     public static void exitGame() {
-        player.writeBalance();
         System.exit(0);
     }
 }

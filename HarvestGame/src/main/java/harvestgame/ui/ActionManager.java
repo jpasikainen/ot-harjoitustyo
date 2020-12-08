@@ -3,11 +3,10 @@ package harvestgame.ui;
 import harvestgame.core.GameManager;
 import harvestgame.core.Plant;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 
@@ -17,6 +16,18 @@ public class ActionManager {
 
     @FXML
     private Pane store;
+
+    @FXML
+    private Pane idle;
+
+    @FXML
+    private Pane scores;
+
+    @FXML
+    private VBox scorePane;
+
+    @FXML
+    private TextField nameField;
 
     @FXML
     private VBox itemContainer;
@@ -29,6 +40,7 @@ public class ActionManager {
 
     @FXML
     private void initialize() {
+        GuiManager.setMoneyLabel(moneyLabel);
         updateMoneyLabel();
 
         plots.getChildren().forEach(button -> {
@@ -37,7 +49,7 @@ public class ActionManager {
         });
     }
 
-    public void updateMoneyLabel() {
+    private void updateMoneyLabel() {
         moneyLabel.setText("$" + GameManager.getPlayer().getBalance());
     }
 
@@ -56,6 +68,12 @@ public class ActionManager {
             b.setText("Buy for $10");
         });
         GuiManager.activePlots.clear();
+        GuiManager.idleIncome.clear();
+        idle.getChildren().forEach(node -> {
+            if (node instanceof Button) {
+                node.setDisable(false);
+            }
+        });
     }
 
     @FXML
@@ -126,5 +144,76 @@ public class ActionManager {
         updateMoneyLabel();
 
         returnButton();
+    }
+
+    @FXML
+    protected void changeIdleMain() {
+        idle.setVisible(!idle.isVisible());
+        main.setVisible(!main.isVisible());
+    }
+
+    @FXML
+    protected void buyBeeHive(ActionEvent event) {
+        if (GameManager.getPlayer().getBalance() >= 100) {
+            GameManager.getPlayer().changeBalance(-100);
+            GuiManager.idleIncome.add(1);
+            Button self = (Button)event.getSource();
+            self.setDisable(true);
+        }
+    }
+
+    @FXML
+    protected void openScores() {
+        main.setVisible(false);
+        scores.setVisible(true);
+
+        createScoreListing();
+    }
+
+    private void createScoreListing() {
+        scorePane.getChildren().clear();
+        if (GameManager.getScores().getHighScores().isEmpty()) {
+            scorePane.getChildren().add(new Label("No scores"));
+        } else {
+            GameManager.getScores().getHighScores().forEach((name, score) -> {
+                scorePane.getChildren().add(new HBox(
+                        new Label(name + ": "),
+                        new Label("$" + score)
+                ));
+            });
+        }
+    }
+
+    @FXML
+    protected void returnFromScores() {
+        scores.setVisible(false);
+        main.setVisible(true);
+    }
+
+    @FXML
+    protected void onKeyTyped(Event event) {
+        int maxLength = 12;
+        if (nameField.getText().length() > maxLength) {
+            nameField.setText(nameField.getText().substring(0, maxLength));
+            GuiManager.displayMessage("Name too long!");
+        }
+        if (nameField.getText().contains("\"")) {
+            nameField.setText(nameField.getText().substring(0, nameField.getText().length()-1));
+            GuiManager.displayMessage("Invalid character!");
+        }
+    }
+
+    @FXML
+    protected void submitScore() {
+        if (nameField.getText().length() > 0) {
+            if (GameManager.getScores().getHighScores().containsKey(nameField.getText())) {
+                GuiManager.displayMessage("Choose another name!");
+            } else {
+                GameManager.getScores().writeHighScore(nameField.getText(), GameManager.getPlayer().getBalance());
+                createScoreListing();
+            }
+        } else {
+            GuiManager.displayMessage("Name not valid!");
+        }
     }
 }

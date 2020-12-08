@@ -2,11 +2,6 @@ package harvestgame.dao;
 
 public interface PlayerDaoImpl {
     /**
-     * Write balance on the database.
-     */
-    void writeBalance();
-
-    /**
      * Return player's balance.
      * @return money
      */

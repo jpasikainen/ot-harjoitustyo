@@ -72,7 +72,7 @@ public class Plant {
             timeLeft -= 1;
 
             Random rn = new Random();
-            if (rn.nextInt(10 + 1) <= soilDryness) {
+            if (rn.nextInt(10 + 1) <= soilDryness && timeLeft > 1) {
                 hasWater = false;
             }
         }

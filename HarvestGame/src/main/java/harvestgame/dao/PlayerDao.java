@@ -16,33 +16,7 @@ public class PlayerDao implements PlayerDaoImpl {
      * @param url The location of the database.
      */
     public PlayerDao(String url) {
-        this.url = url;
-        try {
-            Connection connection = DriverManager.getConnection(url);
-            readBalance(connection);
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void readBalance(Connection connection) {
-        if (connection != null) {
-            String query = "SELECT money FROM Player";
-
-            try (Statement stmt = connection.createStatement();
-                 ResultSet rs = stmt.executeQuery(query)) {
-
-                money = rs.getInt("money");
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    @Override
-    public void writeBalance() {
-        setValue("UPDATE Player SET money = " + money);
+        money = startingMoney;
     }
 
     @Override
@@ -60,18 +34,6 @@ public class PlayerDao implements PlayerDaoImpl {
 
     @Override
     public void resetData() {
-        setValue("UPDATE Player SET money = " + startingMoney);
         money = startingMoney;
-    }
-
-    private void setValue(String query) {
-        try {
-            Connection connection = DriverManager.getConnection(url);
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate(query);
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
     }
 }

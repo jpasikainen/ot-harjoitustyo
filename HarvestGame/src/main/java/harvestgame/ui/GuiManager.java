@@ -18,12 +18,24 @@ import java.util.*;
 public class GuiManager extends Application {
     public static Button currentPlot;
     public static Map<Integer, Button> activePlots = new HashMap<>();
+    public static ArrayList<Integer> idleIncome = new ArrayList<>();
     private static Stage stage;
+    private static Label moneyLabel;
+
+    public static void setMoneyLabel(Label lb) {
+        moneyLabel = lb;
+    }
+
+    private static void updateMoneyLabel() {
+        moneyLabel.setText("$" + GameManager.getPlayer().getBalance());
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/view.fxml"));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+        stage.setOnCloseRequest(e -> GameManager.exitGame());
         stage.setScene(scene);
         stage.show();
         this.stage = stage;
@@ -43,6 +55,7 @@ public class GuiManager extends Application {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                // Update field labels
                 activePlots.forEach((index, plot) -> {
                     Plant plant = GameManager.getField().getPlant(index);
                     if (plant == null) return;
@@ -55,6 +68,11 @@ public class GuiManager extends Application {
                         plot.setText(Integer.toString(GameManager.getField().getPlant(index).getTimeLeft()));
                     }
                 });
+
+                // Idle income
+                idleIncome.forEach(i -> GameManager.getPlayer().changeBalance(i));
+                updateMoneyLabel();
+
             }
         });
     }
