@@ -21,5 +21,6 @@
 | 12/04 | 1 | Introduced DAO pattern to the database, refactored Store class |
 | 12/05 | 1 | Game now loads Player's money on load and saves it on exit |
 | 12/06 | 2 | Updated documentation and tests |
-| 12/07 | 5 | Rewrote GUI and updated tests. Fixed all checkstyle errors. |
-| Total (h) | 62 |	|
+| 12/07 | 5 | Rewrote GUI and updated tests. Fixed all checkstyle errors |
+| 12/08 | 5 | Updated GUI and tests. Added Plot class and high scores view and database entry |
+| Total (h) | 67 |	|
