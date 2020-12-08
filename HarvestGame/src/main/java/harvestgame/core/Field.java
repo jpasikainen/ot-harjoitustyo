@@ -2,20 +2,20 @@ package harvestgame.core;
 
 /**
  * Field contains all the plots and plants within.
- * It also exposes the plants to other classes.
- *
- * TODO: Create Plot class to include more properties on the plots
- * such as price, fertilizers, etc.
+ * It also exposes the plots and their respective plants to other classes.
  */
 public class Field {
-    private Plant[] plants;
+    private Plot[] plots;
     private int fieldSize = 9;
 
     /**
      * Constructor.
      */
     public Field() {
-        plants = new Plant[fieldSize];
+        plots = new Plot[fieldSize];
+        for (int i = 0; i < fieldSize; i++) {
+            plots[i] = new Plot();
+        }
     }
 
     private boolean validIndex(int index) {
@@ -38,7 +38,7 @@ public class Field {
      * @return is plot at index empty or not
      */
     public boolean isEmpty(int index) {
-        return plants[index] == null;
+        return plots[index].getPlant() == null;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Field {
      */
     public Plant getPlant(int index) {
         if (validIndex(index)) {
-            return plants[index];
+            return plots[index].getPlant();
         }
         return null;
     }
@@ -61,7 +61,7 @@ public class Field {
      */
     public void removePlant(int index) {
         if (validIndex(index)) {
-            plants[index] = null;
+            plots[index].setPlant(null);
         }
     }
 
@@ -73,7 +73,7 @@ public class Field {
      */
     public void plant(Plant plant, int index) {
         if (validIndex(index)) {
-            plants[index] = plant;
+            plots[index].setPlant(plant);
         }
     }
 
@@ -83,11 +83,43 @@ public class Field {
      * @param index position of the plot
      */
     public void harvest(int index) {
-        if (validIndex(index)) {
+        if (validIndex(index) && getPlant(index) != null) {
             if (getPlant(index).canHarvest()) {
                 GameManager.getPlayer().changeBalance(getPlant(index).getPrice() * 2);
                 removePlant(index);
             }
+        }
+    }
+
+    /**
+     * Remove all the plants from the field.
+     */
+    public void clearField() {
+        for (int i = 0; i < fieldSize; i++) {
+            removePlant(i);
+            plots[i].resetPlot();
+        }
+    }
+
+    /**
+     * Check if plot has been bought.
+     * @param index index of the plot
+     * @return the status of the plot
+     */
+    public boolean isBought(int index) {
+        if (validIndex(index)) {
+            return plots[index].isBought();
+        }
+        return false;
+    }
+
+    /**
+     * Buy plot.
+     * @param index index of the plot
+     */
+    public void buyPlot(int index) {
+        if (validIndex(index)) {
+            plots[index].buyPlot(GameManager.getPlayer());
         }
     }
 }

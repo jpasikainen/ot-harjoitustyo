@@ -4,6 +4,7 @@ import harvestgame.core.GameManager;
 import harvestgame.core.Plant;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
@@ -24,8 +25,16 @@ public class ActionManager {
     private Label moneyLabel;
 
     @FXML
+    private GridPane plots;
+
+    @FXML
     private void initialize() {
         updateMoneyLabel();
+
+        plots.getChildren().forEach(button -> {
+            Button b = (Button)button;
+            b.setText("Buy for $10");
+        });
     }
 
     public void updateMoneyLabel() {
@@ -41,6 +50,12 @@ public class ActionManager {
     protected void resetButton() {
         updateMoneyLabel();
         GameManager.getPlayer().resetData();
+        GameManager.getField().clearField();
+        plots.getChildren().forEach(button -> {
+            Button b = (Button)button;
+            b.setText("Buy for $10");
+        });
+        GuiManager.activePlots.clear();
     }
 
     @FXML
@@ -57,11 +72,19 @@ public class ActionManager {
         } else if(self.getText() == "Water") {
             GameManager.getField().getPlant(id).water();
         } else if (GameManager.getField().isEmpty(id)){
-            main.setVisible(false);
-            store.setVisible(true);
+            if (GameManager.getField().isBought(id)) {
+                main.setVisible(false);
+                store.setVisible(true);
 
-            itemContainer.getChildren().clear();
-            createStoreItems();
+                itemContainer.getChildren().clear();
+                createStoreItems();
+            } else {
+                GameManager.getField().buyPlot(id);
+                if (GameManager.getField().isBought(id)) {
+                    updateMoneyLabel();
+                    self.setText("Plant");
+                }
+            }
         }
     }
 
@@ -74,7 +97,6 @@ public class ActionManager {
     private void createStoreItems() {
         int i = 0;
         for (Plant plant : GameManager.getStore().getPlants()) {
-            Label label = new Label(plant.getName() + ": Grows: " + plant.getGrowingTime() + "s");
             Button button = new Button("$" + plant.getPrice());
             if (GameManager.getPlayer().getBalance() < plant.getPrice()) {
                 button.setDisable(true);
@@ -83,8 +105,10 @@ public class ActionManager {
             final int finalI = i;
             button.setOnAction(e -> buyButton(finalI));
             BorderPane container = new BorderPane();
-            container.setCenter(label);
+            container.setLeft(new Label(plant.getName()));
+            container.setCenter(new Label("Grows " + plant.getGrowingTime() + "s"));
             container.setRight(button);
+            container.setPadding(new Insets(10));
             itemContainer.getChildren().add(container);
             i++;
         }

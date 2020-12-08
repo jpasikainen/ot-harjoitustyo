@@ -13,7 +13,6 @@ public class FieldTest {
     private static PlayerDao player;
     private static Field field;
 
-    private int money = 10;
     private Plant testPlant = new Plant(0, "", 10, 0, 0);
 
     private void initialize() {
@@ -27,6 +26,10 @@ public class FieldTest {
     public void setUp() {
         GameManager.gameInit();
         initialize();
+
+        // Buy the plots used in the tests
+        field.buyPlot(0);
+        field.buyPlot(1);
     }
 
     @Test
@@ -70,7 +73,7 @@ public class FieldTest {
     public void harvestingWorks() {
         field.plant(testPlant, 0);
         field.harvest(0);
-        // Starting money 100 + plant gives price * 2 = 20, = 120
-        assertEquals(120, player.getBalance());
+        // Starting money 100 - 20 + plant gives price * 2 = 20, = 120
+        assertEquals(100, player.getBalance());
     }
 }
