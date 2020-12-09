@@ -3,6 +3,8 @@ Harvest Game is a video game where the player tries to acquire as much money as 
 
 Project was made for class [TKT20002](https://studies.helsinki.fi/opintotarjonta/cur/hy-opt-cur-2021-31e1be8a-da83-4a6b-b59d-1920ad62f5f6).
 
+![screenshot](documentation/images/promo_screenshot.png)
+
 ## Documentation
 [Instructions](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/instructions.md)\
 [Software Requirement Specification](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/srs.md)\
