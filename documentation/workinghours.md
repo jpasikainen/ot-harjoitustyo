@@ -23,4 +23,5 @@
 | 12/06 | 2 | Updated documentation and tests |
 | 12/07 | 5 | Rewrote GUI and updated tests. Fixed all checkstyle errors |
 | 12/08 | 5 | Updated GUI and tests. Added Plot class and high scores view and database entry |
-| Total (h) | 67 |	|
+| 12/09 | 3 | Added finishing touches |
+| Total (h) | 70 |	|
