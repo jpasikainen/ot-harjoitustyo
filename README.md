@@ -1,5 +1,7 @@
-# Farming game | Harvest Game
-The core gameplay loop of the game is to grow plants and eventually sell the harvest to earn money. With the earned money, the player can buy new plants.
+# Harvest Game
+Harvest Game is a video game where the player tries to acquire as much money as possible. In the game player can grow plants and invest in idle income. The core gameplay loop of the game is to sell the harvest and buy new plants. The game could be described as farming tycoon.
+
+Project was made for class [TKT20002](https://studies.helsinki.fi/opintotarjonta/cur/hy-opt-cur-2021-31e1be8a-da83-4a6b-b59d-1920ad62f5f6).
 
 ## Documentation
 [Instructions](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/instructions.md)\
