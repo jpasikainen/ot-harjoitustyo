@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
-import java.net.URL;
 import java.util.*;
 
 public class GuiManager extends Application {
