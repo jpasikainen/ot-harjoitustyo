@@ -3,7 +3,7 @@
 ## Harvest Game
 The core gameplay loop of the game is to grow plants and eventually sell the harvest to earn money. With the earned money, the player can buy new plants or tools.
 
-## GUI functionality
+### GUI functionality
 ![Gui graph](./gui.png)
 
 ### Basic functionality:
