@@ -4,6 +4,8 @@ Either generate jar or download a release and start the game. For more info, rea
 
 Make sure the running directory contains *database/Database.db*.
 
+![screenshot](images/main_view.png)
+
 ## How to play
 1. Buy a plot by clicking one of the nine squares in the middle of the screen with text "Buy for $10"
 2. Notice how your balance decreases to $90 and the plot's text changes to "Plant"
