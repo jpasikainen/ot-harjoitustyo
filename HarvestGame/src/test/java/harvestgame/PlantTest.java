@@ -1,16 +1,15 @@
 package harvestgame;
 
 import harvestgame.core.*;
-import harvestgame.dao.PlayerDao;
+import harvestgame.core.Player;
 import harvestgame.dao.StoreDao;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class PlantTest {
     private static StoreDao store;
-    private static PlayerDao player;
+    private static Player player;
     private static Field field;
 
     private void initialize() {

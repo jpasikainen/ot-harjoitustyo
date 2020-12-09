@@ -1,7 +1,5 @@
 package harvestgame.core;
 
-import harvestgame.dao.PlayerDao;
-
 public class Plot {
     private boolean bought;
     private Plant plant;
@@ -29,7 +27,7 @@ public class Plot {
      * Buy the plot.
      * @param player player which is paying
      */
-    public void buyPlot(PlayerDao player) {
+    public void buyPlot(Player player) {
         if (player.getBalance() >= price) {
             player.changeBalance(-price);
             bought = true;

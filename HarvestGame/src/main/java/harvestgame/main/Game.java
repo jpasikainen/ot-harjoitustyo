@@ -1,5 +1,6 @@
-package harvestgame.core;
+package harvestgame.main;
 
+import harvestgame.core.GameManager;
 import harvestgame.ui.GuiManager;
 import javafx.application.Application;
 

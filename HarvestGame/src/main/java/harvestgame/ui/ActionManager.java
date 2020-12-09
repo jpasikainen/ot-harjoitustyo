@@ -113,6 +113,11 @@ public class ActionManager {
     }
 
     private void createStoreItems() {
+        if (GameManager.getStore().getPlants().isEmpty()) {
+            GuiManager.displayMessage("Database not found!");
+            return;
+        }
+
         int i = 0;
         for (Plant plant : GameManager.getStore().getPlants()) {
             Button button = new Button("$" + plant.getPrice());
@@ -171,6 +176,11 @@ public class ActionManager {
     }
 
     private void createScoreListing() {
+        if (GameManager.getScores().getHighScores().isEmpty()) {
+            GuiManager.displayMessage("Database not found!");
+            return;
+        }
+
         scorePane.getChildren().clear();
         if (GameManager.getScores().getHighScores().isEmpty()) {
             scorePane.getChildren().add(new Label("No scores"));

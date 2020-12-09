@@ -1,6 +1,7 @@
 package harvestgame.dao;
 
 import harvestgame.core.Plant;
+import harvestgame.core.Player;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public interface StoreDaoImpl {
      * @param player location of the wallet
      * @return clone of the plant from database with the same id
      */
-    Plant buyPlant(int plantId, PlayerDao player);
+    Plant buyPlant(int plantId, Player player);
 
     /**
      * Get values of a plant from the database.

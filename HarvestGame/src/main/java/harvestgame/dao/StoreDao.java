@@ -1,6 +1,7 @@
 package harvestgame.dao;
 
 import harvestgame.core.Plant;
+import harvestgame.core.Player;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -11,23 +12,25 @@ import java.util.ArrayList;
 
 public class StoreDao implements StoreDaoImpl {
     private ArrayList<Plant> plants;
+    private boolean databaseExists = true;
 
     /**
      * Constructor.
      * @param url address of the database file
      */
     public StoreDao(String url) {
+        plants = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection(url);
             writePlantsArray(connection);
             connection.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            databaseExists = false;
         }
     }
 
     private void writePlantsArray(Connection connection) {
-        if (connection != null) {
+        if (connection != null && databaseExists) {
             plants = new ArrayList<>();
             String query = "SELECT * FROM Plants";
 
@@ -43,7 +46,6 @@ public class StoreDao implements StoreDaoImpl {
                     plants.add(plant);
                 }
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
             }
         }
     }
@@ -54,7 +56,7 @@ public class StoreDao implements StoreDaoImpl {
     }
 
     @Override
-    public Plant buyPlant(int plantId, PlayerDao player) {
+    public Plant buyPlant(int plantId, Player player) {
         if (plantId > plants.size() || plantId < 0) {
             return null;
         }

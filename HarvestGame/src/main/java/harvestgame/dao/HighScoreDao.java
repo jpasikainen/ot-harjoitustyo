@@ -7,7 +7,12 @@ import java.util.Map;
 public class HighScoreDao implements HighScoreDaoImpl {
     private Map<String, Integer> scores;
     private String url;
+    private boolean databaseExists = true;
 
+    /**
+     * Constructor.
+     * @param url location of the database
+     */
     public HighScoreDao(String url) {
         this.url = url;
         try {
@@ -15,12 +20,12 @@ public class HighScoreDao implements HighScoreDaoImpl {
             writeScoresMap(connection);
             connection.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            databaseExists = false;
         }
     }
 
     private void writeScoresMap(Connection connection) {
-        if (connection != null) {
+        if (connection != null && databaseExists) {
             scores = new HashMap<>();
             // Get top 10 scores on highest first order
             String query = "SELECT * FROM HighScores ORDER BY score DESC LIMIT 10";
@@ -35,25 +40,31 @@ public class HighScoreDao implements HighScoreDaoImpl {
                     );
                 }
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
             }
         }
     }
 
     @Override
     public Map<String, Integer> getHighScores() {
+        if (!databaseExists) {
+            return new HashMap<>();
+        }
+
         try {
             Connection connection = DriverManager.getConnection(url);
             writeScoresMap(connection);
             connection.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
         return scores;
     }
 
     @Override
     public void writeHighScore(String name, int score) {
+        if (!databaseExists) {
+            return;
+        }
+
         try {
             Connection connection = DriverManager.getConnection(url);
             Statement stmt = connection.createStatement();
@@ -61,7 +72,6 @@ public class HighScoreDao implements HighScoreDaoImpl {
             stmt.executeUpdate(query);
             connection.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
     }
 }

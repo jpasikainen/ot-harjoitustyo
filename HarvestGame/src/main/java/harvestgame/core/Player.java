@@ -1,4 +1,4 @@
-package harvestgame.dao;
+package harvestgame.core;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -6,25 +6,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class PlayerDao implements PlayerDaoImpl {
+public class Player {
     private final int startingMoney = 100;
     private int money;
-    private String url;
 
     /**
      * Constructor.
-     * @param url The location of the database.
      */
-    public PlayerDao(String url) {
+    public Player() {
         money = startingMoney;
     }
 
-    @Override
+    /**
+     * Return player's balance.
+     * @return money
+     */
     public int getBalance() {
         return money;
     }
 
-    @Override
+    /**
+     * Change the amount of money player has.
+     * @param amount negative or positive value that gets added or reduced from the balance
+     */
     public void changeBalance(int amount) {
         money += amount;
         if (money < 0) {
@@ -32,7 +36,9 @@ public class PlayerDao implements PlayerDaoImpl {
         }
     }
 
-    @Override
+    /**
+     * Reset money on the database to the default value.
+     */
     public void resetData() {
         money = startingMoney;
     }
