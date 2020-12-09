@@ -1,6 +1,8 @@
 # Instructions
 ## Startup
-Either generate jar or download a release and start the game.
+Either generate jar or download a release and start the game. For more info, read [README.md](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/README.md)
+
+Make sure the running directory contains *database/Database.db*.
 
 ## How to play
 1. Buy a plot by clicking one of the nine squares in the middle of the screen with text "Buy for $10"
@@ -12,6 +14,6 @@ Either generate jar or download a release and start the game.
 7. Repeat step 6 until the text has changed to "Harvest"
 8. Click on the button and you receive money!
 9. Now you can check out "Idle Income" screen by clicking a button with the exact text
-10. If you have money, purchase "Bee hive". It generates you money passively!
+10. If you have money, purchase "Bee hive". It generates money passively!
 11. Repeat steps 1-8 until bored and click "High Scores" button
-12. Write on the field your name and press submit
+12. Write your name on the filed at the bottom and press submit
