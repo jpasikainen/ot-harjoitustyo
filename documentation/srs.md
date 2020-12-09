@@ -3,17 +3,19 @@
 ## Harvest Game
 The core gameplay loop of the game is to grow plants and eventually sell the harvest to earn money. With the earned money, the player can buy new plants or tools.
 
-### Basic functions:
-- [x] First implementation with text interface
-- [x] Plants can be bought from a predefined database
-- [x] The attributes of the plants are name, price, watering interval and growth time
-- [x] Plants are ready to be harvested after growth time (seconds)
+### Basic functionality:
+- Plants can be bought from a predefined database
+- The attributes of the plants are name, price, watering interval and growth time
+- Plants require watering at some point
+- Plants are ready to be harvested after growth time (seconds)
+- Harvesting gives money to the player
+- Player can buy source of idle income
+- Local leaderboard where player can submit their score and name
 
 ### Further Development Ideas:
-- [x] GUI with JavaFX
-- [x] Tools to speed up money flow
-- [ ] Task automation
-- [x] Game saving
-- [ ] Fertilizers -> speeds the growth, new database
-- [ ] Seasons -> all plants can't be grown every season
+- Tools to speed up money flow
+- Task automation
+- Game saving
+- Fertilizers -> speeds the growth, new database
+- Seasons -> all plants can't be grown every season
 
