@@ -4,7 +4,7 @@
 The core gameplay loop of the game is to grow plants and eventually sell the harvest to earn money. With the earned money, the player can buy new plants or tools.
 
 ### GUI functionality
-![Gui graph](./gui.png)
+![Gui graph](images/gui.png)
 
 ### Basic functionality:
 - Plants can be bought from a predefined database
