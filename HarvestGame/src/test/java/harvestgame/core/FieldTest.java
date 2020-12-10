@@ -1,4 +1,4 @@
-package harvestgame;
+package harvestgame.core;
 
 import harvestgame.core.*;
 import harvestgame.core.Player;
@@ -74,5 +74,20 @@ public class FieldTest {
         field.harvest(0);
         // Starting money 100 - 20 + plant gives price * 2 = 20, = 120
         assertEquals(100, player.getBalance());
+    }
+
+    @Test
+    public void fieldClearsCompletely() {
+        field.plant(testPlant, 0);
+        field.plant(testPlant, 1);
+        field.clearField();
+        assertTrue(field.isEmpty(0));
+        assertTrue(field.isEmpty(1));
+    }
+
+    @Test
+    public void buyPlot() {
+        field.buyPlot(0);
+        assertTrue(field.isBought(0));
     }
 }

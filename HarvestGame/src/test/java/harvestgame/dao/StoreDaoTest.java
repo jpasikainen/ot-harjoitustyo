@@ -1,4 +1,4 @@
-package harvestgame;
+package harvestgame.dao;
 
 import harvestgame.core.*;
 import harvestgame.core.Player;
@@ -7,14 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- * TODO: Check the actual item, not the inventory size
- * Not possible because:
- * expected: harvestgame.core.Plant<0 : costs 0, dries soil every 0 days, and takes 0 days to grow>
- * but was: harvestgame.core.Plant<0 : costs 0, dries soil every 0 days, and takes 0 days to grow>
- * which makes no sense
- */
-public class StoreTest {
+public class StoreDaoTest {
     private Plant testPlant = new Plant(0, "", 0, 0, 0);
 
     private static StoreDao store;
@@ -36,7 +29,12 @@ public class StoreTest {
 
     @Test
     public void initCorrectly() {
-        assertEquals(3, store.getPlants().size());
+        assertEquals(4, store.getPlants().size());
+    }
+
+    @Test
+    public void tryGettingInvalidPlant() {
+        assertNull(store.getPlant(1000));
     }
 
     @Test
@@ -47,5 +45,11 @@ public class StoreTest {
     @Test
     public void buyInvalidPlant() {
         assertNull(store.buyPlant(100, player));
+    }
+
+    @Test
+    public void tryBuyingWithInsufficientFunds() {
+        player.changeBalance(-100);
+        assertNull(store.buyPlant(0, player));
     }
 }

@@ -1,4 +1,4 @@
-package harvestgame;
+package harvestgame.core;
 
 import harvestgame.core.*;
 import harvestgame.core.Player;
@@ -55,5 +55,17 @@ public class PlantTest {
         Plant testPlant = new Plant(0, "", 10, 0, 0);
         testPlant.reduceTime();
         assertEquals(0, testPlant.getTimeLeft());
+    }
+
+    @Test
+    public void plantDoesNotRequireWateringWhenPlanted() {
+        Plant testPlant = new Plant(0, "test", 0, 10, 0);
+        assertFalse(testPlant.requiresWatering());
+    }
+
+    @Test
+    public void growingTimeInitializedCorrectly() {
+        Plant testPlant = new Plant(0, "test", 10, 0, 10);
+        assertEquals(10, testPlant.getGrowingTime());
     }
 }

@@ -1,4 +1,4 @@
-package harvestgame;
+package harvestgame.core;
 
 import harvestgame.core.*;
 import harvestgame.core.Player;
@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class PlayerDaoTest {
+public class PlayerTest {
     private Plant testPlant = new Plant(0, "", 0, 0, 0);
 
     private static StoreDao store;
@@ -41,6 +41,7 @@ public class PlayerDaoTest {
     @Test
     public void reduceBalanceBelowZero() {
         player.changeBalance(-100);
+        player.changeBalance(-100);             // No other way to activate money < 0 branch
         assertEquals(0, player.getBalance());
     }
 }
