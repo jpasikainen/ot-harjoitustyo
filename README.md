@@ -9,7 +9,8 @@ Project was made for class [TKT20002](https://studies.helsinki.fi/opintotarjonta
 [Instructions](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/instructions.md)\
 [Software Requirement Specification](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/srs.md)\
 [Architecture](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/architecture.md)\
-[Working Hours](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/workinghours.md)
+[Working Hours](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/workinghours.md)\
+[Testing](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/testing.md)
 
 ## Download & Play
 Go to [Releases](https://github.com/jpasikainen/ot-harjoitustyo/releases) and download the release you wish or click [HERE](https://github.com/jpasikainen/ot-harjoitustyo/releases/download/viikko5/HarvestGame.zip) to download the latest release. Save the *HarvestGame.zip* file and extract it. To play the game, use command
@@ -35,19 +36,3 @@ mvn clean package
 ```
 mvn compile exec:java -Dexec.mainClass=harvestgame.core.Game
 ```
-### Testing
-Run tests:
-```
-mvn test
-```
-Create test coverage report:
-```
-mvn jacoco:report
-```
-View report by opening file *target/site/jacoco/index.html*
-
-### Checkstyle
-```
-mvn jxr:jxr checkstyle:checkstyle
-```
-View report by opening file *target/site/checkstyle.html*
