@@ -13,7 +13,7 @@ Project was made for class [TKT20002](https://studies.helsinki.fi/opintotarjonta
 [Testing](https://github.com/jpasikainen/ot-harjoitustyo/blob/master/documentation/testing.md)
 
 ## Download & Play
-Go to [Releases](https://github.com/jpasikainen/ot-harjoitustyo/releases) and download the release you wish or click [HERE](https://github.com/jpasikainen/ot-harjoitustyo/releases/download/viikko5/HarvestGame.zip) to download the latest release. Save the *HarvestGame.zip* file and extract it. To play the game, use command
+Go to [Releases](https://github.com/jpasikainen/ot-harjoitustyo/releases) and download the release you wish. Save the *HarvestGame.zip* file and extract it. Make sure to keep the database in the same directory as the .jar. To play the game, use command
 ```
 java -jar HarvestGame.jar
 ```
