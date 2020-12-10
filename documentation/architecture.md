@@ -13,8 +13,10 @@ Field contains plots and plots contain plants. Plants can be planted by first bu
 After planting, plant's growing time is decreased every second. GameManager takes care of the timer. Plant cannot be removed before its growing time reaches zero. After that it can be harvested. On harvest, plant is removed and player receives money. Now new plant can be planted.
 
 ### Leaderboard
+When player presses "High Scores" button, leaderboard view is shown. Scores get fetched from the database and ActionController creates new GUI elements. Every time a new score is submitted, the database is updated and the view redrawn.
 
-### Idle income 
+### Idle income
+Pressing "Idle Income" button leads player to a new view. There the player can get passive income. This feature is quite incomplete and all the values are hardcoded to the ActionManager.
 
 ### GUI Startup
 ![Startup Diagram](images/startup.png)\
