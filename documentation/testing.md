@@ -4,6 +4,10 @@ Testing is done with JUnit
 * Tests are divided on packages that are equivalent to the application pacakges
 * DAO testing is pretty poor. No testing database is used
 
+## Coverage
+![testing coverage report](images/test_coverage.png)
+Function test coverage is 82% and branching coverage is 66%.
+
 ## Testing commands
 Run tests:
 ```
